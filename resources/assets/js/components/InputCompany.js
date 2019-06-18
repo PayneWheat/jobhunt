@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
+import InputLocation from './InputLocation';
 
 let companies = [];
 const getSuggestions = value => {
@@ -11,20 +12,6 @@ const getSuggestions = value => {
     return inputLength === 0 ? [] : companies.filter(comp =>
         comp.name.toLowerCase().slice(0, inputLength) === inputValue
     );
-    
-   /*
-    let results = inputLength === 0 ? [] : companies.filter(comp =>
-        comp.name.toLowerCase().slice(0, inputLength) === inputValue
-    );
-    console.log(results);
-    if(results[0].name === inputValue) {
-        // change hq_location, phone, and website to reflect chosen company
-        document.getElementById('hq_location').value = results[0].hq_location;
-        document.getElementById('phone').value = results[0].phone;
-        document.getElementById('website').value = results[0].website;
-    }
-    return results;
-    */
 };
 
 const getSuggestionValue = suggestion => suggestion.name;
@@ -41,10 +28,12 @@ class InputCompany extends React.Component {
         this.state = {
             value: '',
             suggestions: [],
-            selected: ''
+            selected: '',
+            city: '',
+            state: '',
+            location_id: ''
         }
         // do something about enter key? it's posting instead of selecting
-        // may need popper.js
         this.onChange = this.onChange.bind(this);
         this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
         this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
@@ -84,7 +73,9 @@ class InputCompany extends React.Component {
         this.setState({
             selected: suggestion
         });
-        document.getElementById('hq_location').value = suggestion.hq_location;
+        //document.getElementById('hq_location').value = suggestion.hq_location;
+        document.getElementById('hq_location').value = "AYAYA";
+        console.log(document.getElementById('hq_location'));
         document.getElementById('phone').value = suggestion.phone;
         document.getElementById('website').value = suggestion.website;
     }
@@ -116,13 +107,31 @@ class InputCompany extends React.Component {
                     <div className='col-md-6'>
                         <div className='form-group'>
                             <label htmlFor='hq_location'>Headquarters Location</label>
-                            <input 
-                                type='text'
-                                className='form-control'
-                                id='hq_location'
-                                name='hq_location'
-                                placeholder='City, State'
-                            />
+                                <InputLocation
+                                    stateFieldId = 'com_state'
+                                    cityFieldId = 'com_city'
+                                    locationFieldId= 'com_location_id'
+                                    id='hq_location'
+                                    name='hq_location'
+                                />
+                                <input
+                                    id='com_state'
+                                    type='hidden'
+                                    name='com_state'
+                                    value={this.state.state}
+                                />
+                                <input
+                                    id='com_city'
+                                    type='hidden'
+                                    name='com_city'
+                                    value={this.state.city}
+                                />
+                                <input
+                                    id='com_location_id'
+                                    type='hidden'
+                                    name='com_location_id'
+                                    value={this.state.location_id}
+                                />
                         </div>
                     </div>
                     <div className='col-md-5'>

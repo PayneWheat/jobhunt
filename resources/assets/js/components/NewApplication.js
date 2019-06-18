@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 //import Select from 'react-select';
 //import Autosuggest from 'react-autosuggest';
 import InputCompany from './InputCompany';
+import InputLocation from './InputLocation';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class NewApplication extends Component {
@@ -18,7 +19,9 @@ class NewApplication extends Component {
             companies: [],
             company_suggestions: [],
             locations: [],
-            location_options: []
+            location_options: [],
+            app_state: '',
+            app_city: ''
         }
         this.handleFieldChange = this.handleFieldChange.bind(this);
         this.handleCreateNewApplication = this.handleCreateNewApplication.bind(this);
@@ -108,7 +111,8 @@ class NewApplication extends Component {
                                         </div>
                                         <div className='col-md-6'>
                                             <div className='form-group'>
-                                                {/* Choose location/create new */}
+                                                {
+                                                    /* Choose location/create new 
                                                 <label htmlFor='location_name'>Job Location</label>
                                                 <input
                                                     id='location_name'
@@ -119,8 +123,29 @@ class NewApplication extends Component {
                                                     value={this.state.location_name}
                                                     onChange={this.handleLocationFieldChange}
                                                 />
+                                                */}
+                                                <label htmlFor='app_location'>Job Location</label>
+                                                <InputLocation
+                                                    stateFieldId = 'app_state'
+                                                    cityFieldId = 'app_city'
+                                                    locationFieldId= 'app_location_id'
+                                                    id='app_location'
+                                                    name='app_state'
+                                                />
                                                 <input
-                                                    id='location_id'
+                                                    id='app_state'
+                                                    type='hidden'
+                                                    name='app_state'
+                                                    value={this.state.app_state}
+                                                />
+                                                <input
+                                                    id='app_city'
+                                                    type='hidden'
+                                                    name='app_city'
+                                                    value={this.state.app_city}
+                                                />
+                                                <input
+                                                    id='app_location_id'
                                                     type='hidden'
                                                     name='location_id'
                                                     value={this.state.location_id}

@@ -20,6 +20,9 @@ class CreateApplicationsTable extends Migration
             $table->unsignedInteger('company_id');
             $table->unsignedInteger('location_id')->nullable();
             $table->unsignedInteger('application_status_id');
+            $table->unsignedInteger('posted_salary_min');
+            $table->unsignedInteger('posted_salary_max');
+            $table->unsignedInteger('requested_salary');
             $table->timestamps();
         });
     }
