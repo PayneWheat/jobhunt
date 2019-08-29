@@ -1,3 +1,5 @@
+// Icons
+@import "~font-awesome/scss/font-awesome";
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
@@ -8,7 +10,18 @@
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
+
 // Custom
+i {
+  font-family: 'FontAwesome';
+}
+
+.hidden {
+  display: hidden;
+}
+.rel-pos {
+  position: relative;
+}
 .react-autosuggest__container {
     position: relative;
 }
@@ -66,3 +79,12 @@
   .no-gutters-label {
       padding: 0 15px 0 15px;
   }
+
+.floater {
+  position: absolute;
+  top: 30px;
+  right: 14px;
+}
+i.floater {
+  margin: 3px 10px;
+}

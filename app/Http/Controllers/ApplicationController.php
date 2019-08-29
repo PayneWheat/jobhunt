@@ -18,6 +18,9 @@ class ApplicationController extends Controller
             'position' => 'required',
             'company_id' => 'required',
             'location_id' => 'required',
+            'job_description' => 'nullable',
+            'resume_text' => 'nullable',
+            'coverletter_text' => 'nullable'
         ]);
 
         // add file uploading for resume pdfs
@@ -25,6 +28,9 @@ class ApplicationController extends Controller
             'position' => $validatedData['position'],
             'company_id' => $validatedData['company_id'],
             'location_id' => $validatedData['location_id'],
+            'job_description' => $validatedData['job_description'],
+            'resume_text' => $validatedData['resume_text'],
+            'coverletter_text' => $validatedData['coverletter_text'],
             'application_status_id' => 1
         ]);
         return response()->json('Application created');
@@ -42,12 +48,18 @@ class ApplicationController extends Controller
             'position' => 'required',
             'company_id' => 'required',
             'location_id' => 'required',
+            'job_description' => 'nullable',
+            'resume_text' => 'nullable',
+            'coverletter_text' => 'nullable'
         ]);
 
         // add file uploading for resume pdfs
         $application->position = $validatedData['position'];
         $application->application_status_id = $validatedData['status'];
         $application->location_id = $validatedData['location_id'];
+        $application->job_description = $validatedData['job_description'];
+        $application->resume_text = $validatedData['resume_text'];
+        $application->coverletter_text = $validatedData['coverletter_text'];
         $application->update();
         
         return response()->json('Application updated');

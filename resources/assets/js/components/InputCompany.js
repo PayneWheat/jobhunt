@@ -31,13 +31,16 @@ class InputCompany extends React.Component {
             selected: '',
             city: '',
             state: '',
-            location_id: ''
+            website: '',
+            phone: '',
+            show_add_button: false
         }
         // do something about enter key? it's posting instead of selecting
         this.onChange = this.onChange.bind(this);
         this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
         this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
         this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
+        this.handleFieldChange = this.handleFieldChange.bind(this);
         axios.get('/api/companies').then(response => {
             companies = response.data;
         });
@@ -48,10 +51,33 @@ class InputCompany extends React.Component {
             value: newValue.newValue
         });
         if(this.state.selected != null && this.state.selected != newValue.newValue) {
-            document.getElementById('hq_location').value = '';
+            /*
             document.getElementById('phone').value = '';
             document.getElementById('website').value = '';
+            */
+           this.setState({
+               phone: '',
+               website: ''
+           })
         }
+
+    }
+    handleFieldChange(event) {
+        this.setState({
+            [event.target.name]: event.target.value
+        }, ()=>{
+            if(this.state.value != '' && this.state.phone != '' && this.state.website != '') {
+                console.log("truthy");
+                this.setState({
+                    show_add_button: true
+                }, ()=>{console.log(this.state);});
+            } else {
+                console.log("falsey");
+                this.setState({
+                    show_add_button: false
+                });
+            }
+        });
     }
     // Autosuggest will call this function every time you need to update suggestions.
     // You already implemented this logic above, so just use it.
@@ -71,13 +97,18 @@ class InputCompany extends React.Component {
     onSuggestionSelected(event, { suggestion }) {
         console.log('suggestion selected!', suggestion);
         this.setState({
-            selected: suggestion
+            selected: suggestion,
+            show_add_button: false,
+            website: suggestion.website,
+            phone: suggestion.phone
         });
-        //document.getElementById('hq_location').value = suggestion.hq_location;
-        document.getElementById('hq_location').value = "AYAYA";
-        console.log(document.getElementById('hq_location'));
+        /*
         document.getElementById('phone').value = suggestion.phone;
         document.getElementById('website').value = suggestion.website;
+        document.getElementById('company_id').value = suggestion.id;
+        console.log(document.getElementById('company_id'), suggestion.id);
+        */
+        this.props.action(suggestion.id);
     }
 
     render() {
@@ -91,7 +122,7 @@ class InputCompany extends React.Component {
 
         return (
             <div className='company-input'>
-                <div className='form-group'>
+                <div className='form-group rel-pos'>
                     <label htmlFor='company'>Company</label>
                     <Autosuggest
                         suggestions={suggestions}
@@ -102,38 +133,15 @@ class InputCompany extends React.Component {
                         renderSuggestion={renderSuggestion}
                         inputProps={inputProps}
                     />
+                    <button 
+                        id='add_company'
+                        className={this.state.show_add_button ? 'btn btn-secondary btn-sm floater' : 'btn btn-secondary btn-sm hidden floater'}
+                        onClick={this.addCompany}
+                    >
+                        Add
+                    </button>
                 </div>
                 <div className='row'>
-                    <div className='col-md-6'>
-                        <div className='form-group'>
-                            <label htmlFor='hq_location'>Headquarters Location</label>
-                                <InputLocation
-                                    stateFieldId = 'com_state'
-                                    cityFieldId = 'com_city'
-                                    locationFieldId= 'com_location_id'
-                                    id='hq_location'
-                                    name='hq_location'
-                                />
-                                <input
-                                    id='com_state'
-                                    type='hidden'
-                                    name='com_state'
-                                    value={this.state.state}
-                                />
-                                <input
-                                    id='com_city'
-                                    type='hidden'
-                                    name='com_city'
-                                    value={this.state.city}
-                                />
-                                <input
-                                    id='com_location_id'
-                                    type='hidden'
-                                    name='com_location_id'
-                                    value={this.state.location_id}
-                                />
-                        </div>
-                    </div>
                     <div className='col-md-5'>
                         <div className='form-group'>
                             <label htmlFor='website'>Website</label>
@@ -143,11 +151,11 @@ class InputCompany extends React.Component {
                                 id='website'
                                 name='website'
                                 placeholder='company.co'
+                                value={this.state.website}
+                                onChange={this.handleFieldChange}
                             />
                         </div>
                     </div>
-                </div>
-                <div className='row'>
                     <div className='col-md-3'>
                         <div className='form-group'>
                             <label htmlFor='phone'>Phone Number</label>
@@ -157,7 +165,10 @@ class InputCompany extends React.Component {
                                 id='phone'
                                 name='phone'
                                 placeholder='123-456-7890'
+                                value={this.state.phone}
+                                onChange={this.handleFieldChange}
                             />
+
                         </div>
                     </div>
                 </div>

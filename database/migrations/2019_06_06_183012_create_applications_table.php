@@ -15,14 +15,17 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('resume');
+            //$table->string('resume');
             $table->string('position');
             $table->unsignedInteger('company_id');
-            $table->unsignedInteger('location_id')->nullable();
+            $table->string('location');
             $table->unsignedInteger('application_status_id');
-            $table->unsignedInteger('posted_salary_min');
-            $table->unsignedInteger('posted_salary_max');
-            $table->unsignedInteger('requested_salary');
+            $table->unsignedInteger('posted_salary_min')->nullable();
+            $table->unsignedInteger('posted_salary_max')->nullable();
+            $table->unsignedInteger('requested_salary')->nullable();
+            $table->text('job_description')->nullable();
+            $table->text('resume_text')->nullable();
+            $table->text('coverletter_text')->nullable();
             $table->timestamps();
         });
     }

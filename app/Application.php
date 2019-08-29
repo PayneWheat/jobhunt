@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
-    protected $fillable = ['resume', 'position', 'status'];
+    protected $fillable = ['resume', 'position', 'status', 'job_description', 'resume_text', 'coverletter_text'];
     // location relationship defined in location
     // company relationship in company
     public function notes()

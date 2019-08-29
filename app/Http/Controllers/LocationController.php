@@ -11,7 +11,7 @@ class LocationController extends Controller
         $locations = Location::all();
         return $locations->toJson();
     }
-    public function store($response)
+    public function store(Request $request)
     {
         $validatedData = $request->validate([
             'city' => 'required',
@@ -21,7 +21,7 @@ class LocationController extends Controller
             'city' => $validatedData['city'],
             'state' => $validatedData['state']
         ]);
-        return response()->json('Created location');
+        return response()->json($location);
     }
     public function show($id)
     {
