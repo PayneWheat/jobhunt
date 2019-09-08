@@ -33,7 +33,8 @@ class InputCompany extends React.Component {
             state: '',
             website: '',
             phone: '',
-            show_add_button: false
+            show_add_button: false,
+            show_check: false
         }
         // do something about enter key? it's posting instead of selecting
         this.onChange = this.onChange.bind(this);
@@ -41,6 +42,7 @@ class InputCompany extends React.Component {
         this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
         this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
         this.handleFieldChange = this.handleFieldChange.bind(this);
+        this.addCompany = this.addCompany.bind(this);
         axios.get('/api/companies').then(response => {
             companies = response.data;
         });
@@ -51,10 +53,6 @@ class InputCompany extends React.Component {
             value: newValue.newValue
         });
         if(this.state.selected != null && this.state.selected != newValue.newValue) {
-            /*
-            document.getElementById('phone').value = '';
-            document.getElementById('website').value = '';
-            */
            this.setState({
                phone: '',
                website: ''
@@ -66,7 +64,7 @@ class InputCompany extends React.Component {
         this.setState({
             [event.target.name]: event.target.value
         }, ()=>{
-            if(this.state.value != '' && this.state.phone != '' && this.state.website != '') {
+            if(this.state.value != '' && this.state.website != '') {
                 console.log("truthy");
                 this.setState({
                     show_add_button: true
@@ -74,7 +72,8 @@ class InputCompany extends React.Component {
             } else {
                 console.log("falsey");
                 this.setState({
-                    show_add_button: false
+                    show_add_button: false,
+                    show_check: false
                 });
             }
         });
@@ -100,15 +99,30 @@ class InputCompany extends React.Component {
             selected: suggestion,
             show_add_button: false,
             website: suggestion.website,
-            phone: suggestion.phone
+            phone: suggestion.phone,
+            show_check: true
+        }, ()=>{this.props.action(suggestion.id);});
+
+    }
+
+    addCompany(event) {
+        event.preventDefault();
+        this.setState({
+            show_add_button: false
         });
-        /*
-        document.getElementById('phone').value = suggestion.phone;
-        document.getElementById('website').value = suggestion.website;
-        document.getElementById('company_id').value = suggestion.id;
-        console.log(document.getElementById('company_id'), suggestion.id);
-        */
-        this.props.action(suggestion.id);
+        axios.post('/api/companies', {
+            name: this.state.value,
+            phone: this.state.phone,
+            website: this.state.website
+        }).then(function(response) {
+            console.log("Response.id: " + response.data.id);
+            this.props.action(response.data.id);
+            this.setState({
+                show_check: true
+            });
+        }.bind(this)).catch(function(error) {
+            console.log(error);
+        });
     }
 
     render() {
@@ -140,6 +154,7 @@ class InputCompany extends React.Component {
                     >
                         Add
                     </button>
+                    <i id='company_check' className={this.state.show_check ? 'fas fa-check floater' : 'fas fa-check floater hidden'}></i>
                 </div>
                 <div className='row'>
                     <div className='col-md-5'>

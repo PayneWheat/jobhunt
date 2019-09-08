@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
-    protected $fillable = ['resume', 'position', 'status', 'job_description', 'resume_text', 'coverletter_text'];
+    protected $fillable = ['resume', 'position', 'status_id', 'job_description', 'resume_text', 'coverletter_text', 'post_age', 'company_id', 'location_id'];
     // location relationship defined in location
     // company relationship in company
     public function notes()
@@ -15,10 +15,14 @@ class Application extends Model
     }
     public function location()
     {
-        return $this->hasOne(Location::class);
+        return $this->belongsTo('App\Location');
     }
     public function status()
     {
-        return $this->hasOne(ApplicationStatus::class);
+        return $this->belongsTo('App\ApplicationStatus');
+    }
+    public function company()
+    {
+        return $this->belongsTo('App\Company');
     }
 }

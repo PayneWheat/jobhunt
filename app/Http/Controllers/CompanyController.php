@@ -10,23 +10,21 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::all();
-        return $companies->toJson();
+        return $companies->toArray();
     }
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'hq_location' => 'nullable',
             'phone' => 'nullable',
             'website' => 'required'
         ]);
         $company = Company::create([
             'name' => $validatedData['name'],
-            'hq_location' => $validatedData['hq_location'],
             'phone' => $validatedData['phone'],
             'website' => $validatedData['website']
         ]);
-        return response()->json('Company created!');
+        return response()->json($company);
     }
     public function show($id)
     {

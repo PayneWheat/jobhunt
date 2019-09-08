@@ -11,4 +11,8 @@ class Contact extends Model
     {
         return $this->morphOne('App\Note', 'notable');
     }
+    public function company()
+    {
+        return $this->hasOne('App\Company');
+    }
 }

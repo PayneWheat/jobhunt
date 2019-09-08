@@ -40,7 +40,6 @@ class InputLocation extends React.Component {
         var that = this;
         axios.get('/api/locations').then(response => {
             locations = response.data;
-            console.log(locations);
         });
     }
     onChange(event, newValue) {
@@ -86,7 +85,6 @@ class InputLocation extends React.Component {
 
     onSuggestionSelected(event, { suggestion }) {
         console.log("Suggestion selected.");
-        document.getElementById(this.props.locationFieldId).value = suggestion.id;
         this.setState({
             selected: suggestion,
             value: suggestion.city + ", " + suggestion.state,
@@ -99,10 +97,7 @@ class InputLocation extends React.Component {
 
     addLocation(event) {
         event.preventDefault();
-        console.log("Now add to db: " + this.state.value);
         let splitValue = this.state.value.split(",").map((item) => item.trim());
-        console.log(splitValue[0]);
-        console.log(splitValue[1]);
         this.setState({
             show_location_button: false
         });
@@ -110,17 +105,11 @@ class InputLocation extends React.Component {
             city: splitValue[0],
             state: splitValue[1]
         }).then(function(response) {
-            console.log("success, response", response);
-            /*
+            //console.log("success, response", response);
+            this.props.action(response.data.id);
             this.setState({
                 show_location_check: true
             });
-            */
-           // add response id to action
-           this.props.action(response.data.id);
-           this.setState({
-               show_location_check: true
-           });
            //document.getElementById("location_check").classList.remove('hidden');
         }.bind(this)).catch(function(error){
             // error adding location

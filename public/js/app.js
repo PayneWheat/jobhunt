@@ -13101,7 +13101,6 @@ var InputLocation = function (_React$Component) {
         var that = _this;
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/locations').then(function (response) {
             locations = response.data;
-            console.log(locations);
         });
         return _this;
     }
@@ -13161,7 +13160,6 @@ var InputLocation = function (_React$Component) {
             var suggestion = _ref.suggestion;
 
             console.log("Suggestion selected.");
-            document.getElementById(this.props.locationFieldId).value = suggestion.id;
             this.setState({
                 selected: suggestion,
                 value: suggestion.city + ", " + suggestion.state,
@@ -13176,12 +13174,9 @@ var InputLocation = function (_React$Component) {
         key: 'addLocation',
         value: function addLocation(event) {
             event.preventDefault();
-            console.log("Now add to db: " + this.state.value);
             var splitValue = this.state.value.split(",").map(function (item) {
                 return item.trim();
             });
-            console.log(splitValue[0]);
-            console.log(splitValue[1]);
             this.setState({
                 show_location_button: false
             });
@@ -13189,13 +13184,7 @@ var InputLocation = function (_React$Component) {
                 city: splitValue[0],
                 state: splitValue[1]
             }).then(function (response) {
-                console.log("success, response", response);
-                /*
-                this.setState({
-                    show_location_check: true
-                });
-                */
-                // add response id to action
+                //console.log("success, response", response);
                 this.props.action(response.data.id);
                 this.setState({
                     show_location_check: true
@@ -57701,8 +57690,7 @@ var Header = function Header() {
                 { className: 'dropdown navbar-nav' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'a',
-                    { href: '#', className: 'dropdown-toggle', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' },
-                    'Dropdown ',
+                    { href: '#', className: 'dropdown-toggle btn btn-light', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'caret' })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -57802,6 +57790,7 @@ var ApplicationsList = function (_Component) {
             var _this2 = this;
 
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/applications').then(function (response) {
+                console.log(response.data);
                 _this2.setState({
                     applications: response.data
                 });
@@ -57845,10 +57834,16 @@ var ApplicationsList = function (_Component) {
                                             __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["b" /* Link */],
                                             {
                                                 className: 'list-group-item list-group-item-action d-flex justify-content-between align-items-center',
-                                                to: '/' + application.id,
+                                                to: '/applications/' + application.id,
                                                 key: application.id
                                             },
-                                            application.company
+                                            application.created_at,
+                                            ': ',
+                                            application.position,
+                                            ', ',
+                                            application.company_id,
+                                            ', ',
+                                            application.application_status_id
                                         );
                                     })
                                 )
@@ -57907,7 +57902,7 @@ var NewApplication = function (_Component) {
 
         _this.state = {
             position: '',
-            company_id: -1,
+            company_id: '',
             company_name: '',
             location_id: '',
             location_name: '',
@@ -57923,7 +57918,8 @@ var NewApplication = function (_Component) {
             coverletter_text: '',
             posted_salary_min: '',
             posted_salary_max: '',
-            requested_salary: ''
+            requested_salary: '',
+            post_age: ''
         };
         _this.handleFieldChange = _this.handleFieldChange.bind(_this);
         _this.handleCreateNewApplication = _this.handleCreateNewApplication.bind(_this);
@@ -57931,13 +57927,6 @@ var NewApplication = function (_Component) {
         _this.renderErrorFor = _this.renderErrorFor.bind(_this);
         _this.setCompanyId = _this.setCompanyId.bind(_this);
         _this.setLocationId = _this.setLocationId.bind(_this);
-        /*
-        axios.get('/api/companies').then(response => {
-            this.setState({
-                companies: response.data
-            });
-        });
-        */
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/locations').then(function (response) {
             var locationCities = [];
             response.data.map(function (city) {
@@ -57961,6 +57950,8 @@ var NewApplication = function (_Component) {
     }, {
         key: 'handleCreateNewApplication',
         value: function handleCreateNewApplication(event) {
+            var _this2 = this;
+
             event.preventDefault();
             var history = this.props.history;
 
@@ -57974,19 +57965,19 @@ var NewApplication = function (_Component) {
                 coverletter_text: this.state.coverletter_text,
                 posted_salary_min: this.state.posted_salary_min,
                 posted_salary_max: this.state.posted_salary_max,
-                requested_salary: this.state.requested_salary
+                requested_salary: this.state.requested_salary,
+                post_age: this.state.post_age
             };
             console.log(application);
-            /*
-            axios.post('/api/applications', application).then(response => {
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/api/applications', application).then(function (response) {
                 history.push('/');
-            })
-            .catch(error => {
-                this.setState({
+            }).catch(function (error) {
+                console.log(error);
+                _this2.setState({
                     errors: error.response.data.errors
                 });
-            })
-            */
+            });
         }
     }, {
         key: 'hasErrorFor',
@@ -58011,6 +58002,7 @@ var NewApplication = function (_Component) {
     }, {
         key: 'setCompanyId',
         value: function setCompanyId(id) {
+            //console.log("Setting company id: " + id);
             this.setState({
                 company_id: id
             });
@@ -58018,7 +58010,7 @@ var NewApplication = function (_Component) {
     }, {
         key: 'setLocationId',
         value: function setLocationId(id) {
-            console.log(id);
+            //console.log(id);
             this.setState({
                 location_id: id
             });
@@ -58067,13 +58059,13 @@ var NewApplication = function (_Component) {
                                                 ),
                                                 __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('input', {
                                                     id: 'position',
-                                                    type: 'text',
-                                                    className: 'form-control ' + (this.hasErrorFor('position') ? 'is-invalid' : ''),
+                                                    type: 'text'
+                                                    /*className={`form-control ${this.hasErrorFor('position') ? 'is-invalid' : ''}`}*/
+                                                    , className: 'form-control',
                                                     name: 'position',
                                                     value: this.state.position,
                                                     onChange: this.handleFieldChange
-                                                }),
-                                                this.renderErrorFor('position')
+                                                })
                                             )
                                         ),
                                         __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
@@ -58092,27 +58084,15 @@ var NewApplication = function (_Component) {
                                                     cityFieldId: 'app_city',
                                                     locationFieldId: 'app_location_id',
                                                     id: 'app_location',
-                                                    name: 'app_state',
+                                                    name: 'app_state'
+                                                    /*className={`form-control ${this.hasErrorFor('app_location') ? 'is-invalid' : ''}`}*/
+                                                    , className: 'form-control',
                                                     action: this.setLocationId
-                                                }),
-                                                __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('input', {
-                                                    id: 'app_location_id',
-                                                    type: 'hidden',
-                                                    name: 'location_id',
-                                                    value: this.state.location_id,
-                                                    onChange: this.handleFieldChange
                                                 })
                                             )
                                         )
                                     ),
                                     __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__InputCompany__["a" /* default */], { action: this.setCompanyId }),
-                                    __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('input', {
-                                        id: 'company_id',
-                                        type: 'hidden',
-                                        name: 'company_id',
-                                        onChange: this.handleFieldChange,
-                                        value: this.state.company_id
-                                    }),
                                     __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                                         'div',
                                         { className: 'form-group' },
@@ -58128,6 +58108,52 @@ var NewApplication = function (_Component) {
                                             onChange: this.handleFieldChange,
                                             value: this.state.job_description
                                         })
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                                        'div',
+                                        { className: 'row' },
+                                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                                            'div',
+                                            { className: 'col-md-6' },
+                                            __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                                                'label',
+                                                { htmlFor: 'post_age' },
+                                                'Age of Job Posting (days)'
+                                            ),
+                                            __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                                                'div',
+                                                { className: 'form-group no-gutters col-md-6' },
+                                                __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('input', {
+                                                    id: 'post_age',
+                                                    type: 'number',
+                                                    name: 'post_age',
+                                                    className: 'form-control',
+                                                    onChange: this.handleFieldChange,
+                                                    value: this.state.post_age
+                                                })
+                                            )
+                                        ),
+                                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                                            'div',
+                                            { className: 'col-md-6' },
+                                            __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                                                'label',
+                                                { htmlFor: 'requested_salary' },
+                                                'Requested Salary (optional)'
+                                            ),
+                                            __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                                                'div',
+                                                { className: 'form-group no-gutters col-md-8' },
+                                                __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('input', {
+                                                    id: 'requested_salary',
+                                                    type: 'number',
+                                                    name: 'requested_salary',
+                                                    className: 'form-control',
+                                                    onChange: this.handleFieldChange,
+                                                    value: this.state.requested_salary
+                                                })
+                                            )
+                                        )
                                     ),
                                     __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                                         'div',
@@ -58175,27 +58201,7 @@ var NewApplication = function (_Component) {
                                                 )
                                             )
                                         ),
-                                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-                                            'div',
-                                            { className: 'col-md-4' },
-                                            __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-                                                'div',
-                                                { className: 'form-group' },
-                                                __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-                                                    'label',
-                                                    { htmlFor: 'requested_salary' },
-                                                    'Requested Salary'
-                                                ),
-                                                __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('input', {
-                                                    id: 'requested_salary',
-                                                    type: 'number',
-                                                    name: 'requested_salary',
-                                                    className: 'form-control',
-                                                    onChange: this.handleFieldChange,
-                                                    value: this.state.requested_salary
-                                                })
-                                            )
-                                        )
+                                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('div', { className: 'col-md-4' })
                                     ),
                                     __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                                         'div',
@@ -58231,9 +58237,7 @@ var NewApplication = function (_Component) {
                                     ),
                                     __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                                         'button',
-                                        {
-                                            className: 'btn btn-primary'
-                                        },
+                                        { className: 'btn btn-primary' },
                                         'Create Application'
                                     )
                                 )
@@ -58316,13 +58320,15 @@ var InputCompany = function (_React$Component) {
             state: '',
             website: '',
             phone: '',
-            show_add_button: false
+            show_add_button: false,
+            show_check: false
             // do something about enter key? it's posting instead of selecting
         };_this.onChange = _this.onChange.bind(_this);
         _this.onSuggestionsFetchRequested = _this.onSuggestionsFetchRequested.bind(_this);
         _this.onSuggestionsClearRequested = _this.onSuggestionsClearRequested.bind(_this);
         _this.onSuggestionSelected = _this.onSuggestionSelected.bind(_this);
         _this.handleFieldChange = _this.handleFieldChange.bind(_this);
+        _this.addCompany = _this.addCompany.bind(_this);
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/companies').then(function (response) {
             companies = response.data;
         });
@@ -58337,10 +58343,6 @@ var InputCompany = function (_React$Component) {
                 value: newValue.newValue
             });
             if (this.state.selected != null && this.state.selected != newValue.newValue) {
-                /*
-                document.getElementById('phone').value = '';
-                document.getElementById('website').value = '';
-                */
                 this.setState({
                     phone: '',
                     website: ''
@@ -58353,7 +58355,7 @@ var InputCompany = function (_React$Component) {
             var _this2 = this;
 
             this.setState(_defineProperty({}, event.target.name, event.target.value), function () {
-                if (_this2.state.value != '' && _this2.state.phone != '' && _this2.state.website != '') {
+                if (_this2.state.value != '' && _this2.state.website != '') {
                     console.log("truthy");
                     _this2.setState({
                         show_add_button: true
@@ -58363,7 +58365,8 @@ var InputCompany = function (_React$Component) {
                 } else {
                     console.log("falsey");
                     _this2.setState({
-                        show_add_button: false
+                        show_add_button: false,
+                        show_check: false
                     });
                 }
             });
@@ -58391,6 +58394,8 @@ var InputCompany = function (_React$Component) {
     }, {
         key: 'onSuggestionSelected',
         value: function onSuggestionSelected(event, _ref) {
+            var _this3 = this;
+
             var suggestion = _ref.suggestion;
 
             console.log('suggestion selected!', suggestion);
@@ -58398,15 +58403,32 @@ var InputCompany = function (_React$Component) {
                 selected: suggestion,
                 show_add_button: false,
                 website: suggestion.website,
-                phone: suggestion.phone
+                phone: suggestion.phone,
+                show_check: true
+            }, function () {
+                _this3.props.action(suggestion.id);
             });
-            /*
-            document.getElementById('phone').value = suggestion.phone;
-            document.getElementById('website').value = suggestion.website;
-            document.getElementById('company_id').value = suggestion.id;
-            console.log(document.getElementById('company_id'), suggestion.id);
-            */
-            this.props.action(suggestion.id);
+        }
+    }, {
+        key: 'addCompany',
+        value: function addCompany(event) {
+            event.preventDefault();
+            this.setState({
+                show_add_button: false
+            });
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/api/companies', {
+                name: this.state.value,
+                phone: this.state.phone,
+                website: this.state.website
+            }).then(function (response) {
+                console.log("Response.id: " + response.data.id);
+                this.props.action(response.data.id);
+                this.setState({
+                    show_check: true
+                });
+            }.bind(this)).catch(function (error) {
+                console.log(error);
+            });
         }
     }, {
         key: 'render',
@@ -58450,7 +58472,8 @@ var InputCompany = function (_React$Component) {
                             onClick: this.addCompany
                         },
                         'Add'
-                    )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('i', { id: 'company_check', className: this.state.show_check ? 'fas fa-check floater' : 'fas fa-check floater hidden' })
                 ),
                 __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                     'div',

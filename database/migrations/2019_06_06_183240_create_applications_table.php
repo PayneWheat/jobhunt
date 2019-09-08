@@ -18,15 +18,26 @@ class CreateApplicationsTable extends Migration
             //$table->string('resume');
             $table->string('position');
             $table->unsignedInteger('company_id');
-            $table->string('location');
-            $table->unsignedInteger('application_status_id');
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->unsignedInteger('location_id');
+            $table->foreign('location_id')->references('id')->on('locations');
+            $table->unsignedInteger('status_id');
+            //$table->foreign('status_id')->references('id')->on('application_statuses');
             $table->unsignedInteger('posted_salary_min')->nullable();
             $table->unsignedInteger('posted_salary_max')->nullable();
             $table->unsignedInteger('requested_salary')->nullable();
             $table->text('job_description')->nullable();
             $table->text('resume_text')->nullable();
             $table->text('coverletter_text')->nullable();
+            $table->unsignedInteger('post_age')->nullable();
             $table->timestamps();
+            
+            
+            //$table->foreign('location_id')->references('id')->on('locations');
+            //$table->foreign('application_status_id')->references('id')->on('application_statuses');
+
+
+
         });
     }
 

@@ -11,7 +11,7 @@ class NewApplication extends Component {
         super();
         this.state = {
             position: '',
-            company_id: -1,
+            company_id: '',
             company_name: '',
             location_id: '',
             location_name: '',
@@ -27,7 +27,8 @@ class NewApplication extends Component {
             coverletter_text: '',
             posted_salary_min: '',
             posted_salary_max: '',
-            requested_salary: ''
+            requested_salary: '',
+            post_age: '',
         }
         this.handleFieldChange = this.handleFieldChange.bind(this);
         this.handleCreateNewApplication = this.handleCreateNewApplication.bind(this);
@@ -35,13 +36,6 @@ class NewApplication extends Component {
         this.renderErrorFor = this.renderErrorFor.bind(this);
         this.setCompanyId = this.setCompanyId.bind(this);
         this.setLocationId = this.setLocationId.bind(this);
-        /*
-        axios.get('/api/companies').then(response => {
-            this.setState({
-                companies: response.data
-            });
-        });
-        */
         axios.get('/api/locations').then(response => {
             let locationCities = [];
             response.data.map(city => {
@@ -73,19 +67,21 @@ class NewApplication extends Component {
             coverletter_text: this.state.coverletter_text,
             posted_salary_min: this.state.posted_salary_min,
             posted_salary_max: this.state.posted_salary_max,
-            requested_salary: this.state.requested_salary
+            requested_salary: this.state.requested_salary,
+            post_age: this.state.post_age
         }
         console.log(application);
-        /*
+        
         axios.post('/api/applications', application).then(response => {
             history.push('/');
         })
         .catch(error => {
+            console.log(error);
             this.setState({
                 errors: error.response.data.errors
             });
         })
-        */
+        
     }
     hasErrorFor(field) {
         return !!this.state.errors[field];
@@ -100,12 +96,13 @@ class NewApplication extends Component {
         }
     }
     setCompanyId(id) {
+        //console.log("Setting company id: " + id);
         this.setState({
             company_id: id
         });
     }
     setLocationId(id) {
-        console.log(id);
+        //console.log(id);
         this.setState({
             location_id: id
         });
@@ -127,57 +124,34 @@ class NewApplication extends Component {
                                                 <input
                                                     id='position'
                                                     type='text'
-                                                    className={`form-control ${this.hasErrorFor('position') ? 'is-invalid' : ''}`}
+                                                    /*className={`form-control ${this.hasErrorFor('position') ? 'is-invalid' : ''}`}*/
+                                                    className='form-control'
                                                     name='position'
                                                     value={this.state.position}
                                                     onChange={this.handleFieldChange}
                                                 />
-                                                {this.renderErrorFor('position')}
+                                                {/*this.renderErrorFor('position')*/}
                                             </div>
                                         </div>
                                         <div className='col-md-5'>
                                             <div className='form-group'>
-                                                {
-                                                    /* Choose location/create new 
-                                                <label htmlFor='location_name'>Job Location</label>
-                                                <input
-                                                    id='location_name'
-                                                    type='text'
-                                                    className='form-control'
-                                                    name='location_name'
-                                                    placeholder='City, State'
-                                                    value={this.state.location_name}
-                                                    onChange={this.handleLocationFieldChange}
-                                                />
-                                                */}
                                                 <label htmlFor='app_location'>Job Location</label>
                                                 <InputLocation
-                                                    stateFieldId = 'app_state'
-                                                    cityFieldId = 'app_city'
-                                                    locationFieldId= 'app_location_id'
+                                                    stateFieldId='app_state'
+                                                    cityFieldId='app_city'
+                                                    locationFieldId='app_location_id'
                                                     id='app_location'
                                                     name='app_state'
+                                                    /*className={`form-control ${this.hasErrorFor('app_location') ? 'is-invalid' : ''}`}*/
+                                                    className='form-control'
                                                     action={this.setLocationId}
                                                 />
-                                                <input
-                                                    id='app_location_id'
-                                                    type='hidden'
-                                                    name='location_id'
-                                                    value={this.state.location_id}
-                                                    onChange={this.handleFieldChange}
-                                                />
+                                                {/*this.renderErrorFor('app_location')*/}
                                             </div>
                                         </div>
                                     </div>
                                     
                                     <InputCompany action={this.setCompanyId}/>
-                                    <input
-                                        id='company_id'
-                                        type='hidden'
-                                        name='company_id'
-                                        onChange={this.handleFieldChange}
-                                        value={this.state.company_id}
-                                    />
                                     <div className='form-group'>
                                         <label htmlFor='resume'>Job Description</label>
                                         <textarea 
@@ -188,7 +162,35 @@ class NewApplication extends Component {
                                             value={this.state.job_description}
                                         />
                                     </div>
+                                    <div className='row'>
+                                        <div className='col-md-6'>
+                                            <label htmlFor='post_age'>Age of Job Posting (days)</label>
+                                            <div className='form-group no-gutters col-md-6'>
+                                                <input 
+                                                    id='post_age'
+                                                    type='number'
+                                                    name='post_age'
+                                                    className='form-control'
+                                                    onChange={this.handleFieldChange}
+                                                    value={this.state.post_age}
+                                                />
+                                            </div>
+                                        </div>
 
+                                        <div className='col-md-6'>
+                                            <label htmlFor='requested_salary'>Requested Salary (optional)</label>
+                                            <div className='form-group no-gutters col-md-8'>
+                                                <input
+                                                    id='requested_salary'
+                                                    type='number'
+                                                    name='requested_salary'
+                                                    className='form-control'
+                                                    onChange={this.handleFieldChange}
+                                                    value={this.state.requested_salary}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className='row'>
                                         <div className='col-md-8 no-gutters'>
                                             <label className='no-gutters-label'>Posted Salary Range (optional)</label>
@@ -220,19 +222,11 @@ class NewApplication extends Component {
                                             </div>
                                         </div>
                                         <div className='col-md-4'>
-                                            <div className='form-group'>
-                                                <label htmlFor='requested_salary'>Requested Salary</label>
-                                                <input
-                                                    id='requested_salary'
-                                                    type='number'
-                                                    name='requested_salary'
-                                                    className='form-control'
-                                                    onChange={this.handleFieldChange}
-                                                    value={this.state.requested_salary}
-                                                />
-                                            </div>
+
                                         </div>
                                     </div>
+                                    
+
                                     <div className='form-group'>
                                         <label htmlFor='resume_text'>Resume Submitted</label>
                                         <textarea 
@@ -253,11 +247,7 @@ class NewApplication extends Component {
                                             value={this.state.coverletter_text}
                                         />
                                     </div>
-                                    <button 
-                                        className='btn btn-primary'
-                                    >
-                                    Create Application
-                                    </button>
+                                    <button className='btn btn-primary'>Create Application</button>
                                 </form>
                             </div>
                         </div>

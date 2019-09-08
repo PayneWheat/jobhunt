@@ -11,6 +11,7 @@ class ApplicationsList extends Component {
     }
     componentDidMount() {
         axios.get('/api/applications').then(response => {
+            console.log(response.data);
             this.setState({
                 applications: response.data
             })
@@ -32,10 +33,10 @@ class ApplicationsList extends Component {
                                     {applications.map(application=>(
                                         <Link 
                                             className='list-group-item list-group-item-action d-flex justify-content-between align-items-center'
-                                            to={`/${application.id}`}
+                                            to={`/applications/${application.id}`}
                                             key={application.id}
                                         >
-                                            {application.company}
+                                            {application.created_at}: {application.position}, {application.company_id}, {application.application_status_id}
                                         </Link>
                                     ))}
                                 </ul>

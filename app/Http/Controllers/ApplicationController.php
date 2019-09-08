@@ -9,7 +9,9 @@ class ApplicationController extends Controller
     public function index()
     {
         $applications = Application::all();
+        $applications->load('company', 'location', 'status');
         return $applications->toJson();
+        //return $applications->toArray();
     }
 
     public function store(Request $request) 
@@ -20,7 +22,8 @@ class ApplicationController extends Controller
             'location_id' => 'required',
             'job_description' => 'nullable',
             'resume_text' => 'nullable',
-            'coverletter_text' => 'nullable'
+            'coverletter_text' => 'nullable',
+            'post_age' => 'nullable'
         ]);
 
         // add file uploading for resume pdfs
@@ -31,9 +34,10 @@ class ApplicationController extends Controller
             'job_description' => $validatedData['job_description'],
             'resume_text' => $validatedData['resume_text'],
             'coverletter_text' => $validatedData['coverletter_text'],
-            'application_status_id' => 1
+            'post_age' => $validatedData['post_age'],
+            'status_id' => 1
         ]);
-        return response()->json('Application created');
+        return response()->json($application);
     }
 
     public function show($id)
