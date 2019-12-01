@@ -6,20 +6,29 @@ class ApplicationsList extends Component {
     constructor() {
         super();
         this.state = {
-            applications: []
+            applications: [],
+            is_loading: true
         }
     }
     componentDidMount() {
         axios.get('/api/applications').then(response => {
             console.log(response.data);
             this.setState({
-                applications: response.data
+                applications: response.data,
+                is_loading: false
             })
         });
     }
+    convertDatetime(datetime) {
+        let t = datetime.split(/[- :]/);
+        let d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4],t[5]));
+        console.log(d);
+        return d.toLocaleDateString('en-US');
+    }
     render() {
-        const { applications } = this.state;
+        const { applications, is_loading } = this.state;
         return (
+            
             <div className='container'>
                 <div className='row justify-content-center'>
                     <div className='col-md-8'>
@@ -33,10 +42,13 @@ class ApplicationsList extends Component {
                                     {applications.map(application=>(
                                         <Link 
                                             className='list-group-item list-group-item-action d-flex justify-content-between align-items-center'
-                                            to={`/applications/${application.id}`}
+                                            to={`/application/${application.id}`}
                                             key={application.id}
                                         >
-                                            {application.created_at}: {application.position}, {application.company_id}, {application.application_status_id}
+                                            <span className='applist-date'>{this.convertDatetime(application.created_at)}:</span>
+                                            <span className='applist-company'>{application.company.name},</span> 
+                                            <span className='applist-position'>{application.position}</span>
+                                            <span className='applist-status pull-right badge badge-pill badge-primary'>{application.status.status}</span>
                                         </Link>
                                     ))}
                                 </ul>

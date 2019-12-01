@@ -88,3 +88,62 @@ i {
 i.floater {
   margin: 3px 10px;
 }
+
+.applist-date {
+  
+}
+.applist-company {
+  margin-left: 1em;
+  font-weight: 650;
+}
+.applist-position {
+  margin-left: 1em;
+
+}
+.applist-status {
+  text-transform: uppercase;
+  vertical-align: text-bottom;
+}
+.app-status {
+  text-transform: uppercase;
+  margin-left: .5em;
+  vertical-align: bottom;
+}
+.app-resume article, .app-job-description article {
+  white-space: pre-line;
+}
+
+.app-position {
+  font-size: 2em;
+  line-height: 1em;
+}
+
+.app-company {
+  font-size: 1.5em;
+  font-weight: 800;
+  line-height: 1em;
+}
+
+.app-info {
+  display: flex;
+  justify-content: space-around;
+}
+
+.app-info div {
+  flex-basis: 30%;
+  text-align: center;
+}
+.edit-row {
+  display: flex;
+  margin-bottom: 1em;
+}
+
+.edit-row a {
+  flex-basis: 10em;
+  margin-right: 1em;
+  font-size: 1em;
+}
+
+.edit-row a i {
+  margin-right: .5em;
+}

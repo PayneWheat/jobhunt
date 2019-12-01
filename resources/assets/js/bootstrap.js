@@ -53,3 +53,6 @@ if (token) {
 //     cluster: 'mt1',
 //     encrypted: true
 // });
+window.keyword_extractor = require('keyword-extractor');
+
+window.awesome_phonenumber = require('awesome-phonenumber');

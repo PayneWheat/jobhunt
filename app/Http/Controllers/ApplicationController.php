@@ -42,7 +42,9 @@ class ApplicationController extends Controller
 
     public function show($id)
     {
-        return Application::findOrFail($id)->toJson();
+        $application = Application::find($id);
+        $application->load('company', 'location', 'status');
+        return $application->toJson();
     }
 
     public function update($application)

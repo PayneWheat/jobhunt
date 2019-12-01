@@ -6,7 +6,7 @@ import InputCompany from './InputCompany';
 import InputLocation from './InputLocation';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
-class NewApplication extends Component {
+class EditApplication extends Component {
     constructor() {
         super();
         this.state = {
@@ -29,6 +29,7 @@ class NewApplication extends Component {
             posted_salary_max: '',
             requested_salary: '',
             post_age: '',
+            app_id: ''
         }
         this.handleFieldChange = this.handleFieldChange.bind(this);
         this.handleCreateNewApplication = this.handleCreateNewApplication.bind(this);
@@ -48,6 +49,30 @@ class NewApplication extends Component {
                 locations: response.data
             });
         });
+        console.log("Edit application constructor completed.");
+    }
+    componentDidMount() {
+        const id = this.props.match.params.id;
+        this.setState({
+            app_id: id
+        });
+        axios.get('/api/applications/' + id).then(response => {
+            console.log(response);
+            this.setState({
+                position: response.data.position,
+                company_id: response.data.company_id,
+                company_name: response.data.company_name,
+                location_id: response.data.location_id,
+                job_description: response.data.job_description,
+                post_age: response.data.post_age,
+                requested_salary: response.data.requested_salary,
+                posted_salary_min: response.data.posted_salary_min,
+                posted_salary_max: response.data.posted_salary_max,
+                resume_text: response.data.resume_text,
+                coverletter_text: response.data.coverletter_text
+            });
+        });
+        console.log("Edit application componentDidMount completed.");
     }
     handleFieldChange(event) {
         this.setState({
@@ -255,4 +280,4 @@ class NewApplication extends Component {
     }
 }
 
-export default NewApplication;
+export default EditApplication;

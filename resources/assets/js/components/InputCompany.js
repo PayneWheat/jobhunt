@@ -124,7 +124,9 @@ class InputCompany extends React.Component {
             console.log(error);
         });
     }
-
+    handlePhoneFieldChange(event) {
+        
+    }
     render() {
         const { value, suggestions } = this.state;
 
@@ -181,7 +183,7 @@ class InputCompany extends React.Component {
                                 name='phone'
                                 placeholder='123-456-7890'
                                 value={this.state.phone}
-                                onChange={this.handleFieldChange}
+                                onChange={this.handlePhoneFieldChange}
                             />
 
                         </div>
