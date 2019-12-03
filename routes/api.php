@@ -42,7 +42,7 @@ Route::post('contacts', 'ContactController@store');
 Route::get('contacts/{id}', 'ContactController@show');
 Route::put('contacts/{contact}', 'ContactController@update');
 
-Route::get('locations', 'locationController@index');
-Route::post('locations', 'locationController@store');
-Route::get('locations/{id}', 'locationController@show');
-Route::put('locations/{location}', 'locationController@update');
+Route::get('locations', 'LocationController@index');
+Route::post('locations', 'LocationController@store');
+Route::get('locations/{id}', 'LocationController@show');
+Route::put('locations/{location}', 'LocationController@update');
