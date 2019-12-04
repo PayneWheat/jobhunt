@@ -14,7 +14,7 @@ class EditApplication extends Component {
             company_id: '',
             company_name: '',
             location_id: '',
-            location_name: '',
+            location_value: '',
             errors: [],
             companies: [],
             company_suggestions: [],
@@ -59,12 +59,14 @@ class EditApplication extends Component {
         });
         axios.get('/api/applications/' + id).then(response => {
             console.log("edit response", response);
+            let locValue = response.data.location.city + ", " + response.data.location.state;
             this.setState({
                 position: response.data.position,
                 /*company_id: response.data.company.id,
                 company_name: response.data.company.name,*/
                 company: response.data.company,
                 location_id: response.data.location_id,
+                location_value: locValue,
                 job_description: response.data.job_description,
                 post_age: response.data.post_age,
                 requested_salary: response.data.requested_salary,
@@ -175,6 +177,7 @@ class EditApplication extends Component {
                                             /*className={`form-control ${this.hasErrorFor('app_location') ? 'is-invalid' : ''}`}*/
                                             className='form-control'
                                             action={this.setLocationId}
+                                            locationValue={this.state.location_value}
                                         />
                                         {/*this.renderErrorFor('app_location')*/}
                                     </div>

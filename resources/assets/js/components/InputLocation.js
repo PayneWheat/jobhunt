@@ -22,10 +22,10 @@ const renderSuggestion = suggestion => (
 );
 
 class InputLocation extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
-            value: '',
+            value: props.locationValue || '',
             suggestions: [],
             selected: '',
             show_location_button: false,
