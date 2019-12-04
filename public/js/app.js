@@ -71582,10 +71582,11 @@ function (_Component) {
       posted_salary_max: '',
       requested_salary: '',
       post_age: '',
-      app_id: ''
+      app_id: '',
+      is_loading: true
     };
     _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_this));
-    _this.handleCreateNewApplication = _this.handleCreateNewApplication.bind(_assertThisInitialized(_this));
+    _this.handleEditApplication = _this.handleEditApplication.bind(_assertThisInitialized(_this));
     _this.hasErrorFor = _this.hasErrorFor.bind(_assertThisInitialized(_this));
     _this.renderErrorFor = _this.renderErrorFor.bind(_assertThisInitialized(_this));
     _this.setCompanyId = _this.setCompanyId.bind(_assertThisInitialized(_this));
@@ -71618,12 +71619,14 @@ function (_Component) {
         app_id: id
       });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/applications/' + id).then(function (response) {
-        console.log(response);
+        console.log("edit response", response);
 
         _this2.setState({
           position: response.data.position,
-          company_id: response.data.company_id,
-          company_name: response.data.company_name,
+
+          /*company_id: response.data.company.id,
+          company_name: response.data.company.name,*/
+          company: response.data.company,
           location_id: response.data.location_id,
           job_description: response.data.job_description,
           post_age: response.data.post_age,
@@ -71631,8 +71634,11 @@ function (_Component) {
           posted_salary_min: response.data.posted_salary_min,
           posted_salary_max: response.data.posted_salary_max,
           resume_text: response.data.resume_text,
-          coverletter_text: response.data.coverletter_text
+          coverletter_text: response.data.coverletter_text,
+          is_loading: false
         });
+
+        console.log("EditApplication application after get", _this2.state);
       });
       console.log("Edit application componentDidMount completed.");
     }
@@ -71642,8 +71648,8 @@ function (_Component) {
       this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {
-    key: "handleCreateNewApplication",
-    value: function handleCreateNewApplication(event) {
+    key: "handleEditApplication",
+    value: function handleEditApplication(event) {
       var _this3 = this;
 
       event.preventDefault();
@@ -71660,8 +71666,8 @@ function (_Component) {
         requested_salary: this.state.requested_salary,
         post_age: this.state.post_age
       };
-      console.log(application);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/applications', application).then(function (response) {
+      console.log("EditApplication application", application);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/applications/' + this.state.app_id, application).then(function (response) {
         history.push('/');
       })["catch"](function (error) {
         console.log(error);
@@ -71704,15 +71710,15 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var applications = this.state.applications;
+      var is_loading = this.state.is_loading;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, !is_loading ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "row justify-content-center"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "col-md-6"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Create new application"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
-        onSubmit: this.handleCreateNewApplication
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Edit application"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+        onSubmit: this.handleEditApplication
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -71747,7 +71753,11 @@ function (_Component) {
         className: "form-control",
         action: this.setLocationId
       })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_InputCompany__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        action: this.setCompanyId
+        action: this.setCompanyId,
+        companyId: this.state.company.id,
+        companyName: this.state.company.name,
+        companyWebsite: this.state.company.website,
+        companyPhone: this.state.company.phone
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
@@ -71840,7 +71850,9 @@ function (_Component) {
         value: this.state.coverletter_text
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         className: "btn btn-primary"
-      }, "Create Application")))));
+      }, "Update Application"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        className: "btn btn-danger"
+      }, "Delete")))) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "loading"));
     }
   }]);
 
@@ -71968,30 +71980,35 @@ var InputCompany =
 function (_React$Component) {
   _inherits(InputCompany, _React$Component);
 
-  function InputCompany() {
+  function InputCompany(props) {
     var _this;
 
     _classCallCheck(this, InputCompany);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(InputCompany).call(this));
     _this.state = {
-      value: '',
+      value: props.companyName || '',
       suggestions: [],
       selected: '',
       city: '',
       state: '',
-      website: '',
-      phone: '',
+      website: props.companyWebsite || '',
+      phone: props.companyPhone || '',
+
+      /*company_name: props.companyName || '',*/
       show_add_button: false,
-      show_check: false
+      show_check: false,
+      readonly_addtl_fields: false
     }; // do something about enter key? it's posting instead of selecting
 
     _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
+    _this.onChangeName = _this.onChangeName.bind(_assertThisInitialized(_this));
     _this.onSuggestionsFetchRequested = _this.onSuggestionsFetchRequested.bind(_assertThisInitialized(_this));
     _this.onSuggestionsClearRequested = _this.onSuggestionsClearRequested.bind(_assertThisInitialized(_this));
     _this.onSuggestionSelected = _this.onSuggestionSelected.bind(_assertThisInitialized(_this));
     _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_this));
     _this.addCompany = _this.addCompany.bind(_assertThisInitialized(_this));
+    console.log("InputCompany props", props);
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/companies').then(function (response) {
       companies = response.data;
     });
@@ -72001,7 +72018,7 @@ function (_React$Component) {
   _createClass(InputCompany, [{
     key: "onChange",
     value: function onChange(event, newValue) {
-      console.log(newValue);
+      console.log("InputCompany::onChange newValue", event, newValue);
       this.setState({
         value: newValue.newValue
       });
@@ -72013,6 +72030,34 @@ function (_React$Component) {
         });
       }
     }
+  }, {
+    key: "onChangeName",
+    value: function onChangeName(event, newValue) {
+      console.log("InputCompany::onChangeName newValue", event, newValue);
+
+      if (this.state.readonly_addtl_fields) {
+        this.setState({
+          readonly_addtl_fields: false,
+          website: '',
+          phone: ''
+        });
+      }
+
+      this.setState({
+        value: newValue.newValue,
+        show_add_button: true
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.state.value != '') {
+        this.setState({
+          readonly_addtl_fields: true
+        });
+      }
+    } // add handler
+
   }, {
     key: "handleFieldChange",
     value: function handleFieldChange(event) {
@@ -72101,9 +72146,10 @@ function (_React$Component) {
       var _this$state = this.state,
           value = _this$state.value,
           suggestions = _this$state.suggestions;
+      console.log("rendering InputCompany", this.props, this.state);
       var inputProps = {
-        value: value,
-        onChange: this.onChange,
+        value: this.state.value,
+        onChange: this.onChangeName,
         className: 'form-control'
       };
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -72142,6 +72188,7 @@ function (_React$Component) {
         name: "website",
         placeholder: "company.co",
         value: this.state.website,
+        readOnly: this.state.readonly_addtl_fields,
         onChange: this.handleFieldChange
       }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "col-md-3"
@@ -72156,6 +72203,7 @@ function (_React$Component) {
         name: "phone",
         placeholder: "123-456-7890",
         value: this.state.phone,
+        readOnly: this.state.readonly_addtl_fields,
         onChange: this.handlePhoneFieldChange
       })))));
     }

@@ -23,32 +23,37 @@ const renderSuggestion = suggestion => (
 );
 
 class InputCompany extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
-            value: '',
+            value: props.companyName || '',
             suggestions: [],
             selected: '',
             city: '',
             state: '',
-            website: '',
-            phone: '',
+            website: props.companyWebsite || '',
+            phone: props.companyPhone || '',
+            /*company_name: props.companyName || '',*/
             show_add_button: false,
-            show_check: false
+            show_check: false,
+            readonly_addtl_fields: false
         }
+
         // do something about enter key? it's posting instead of selecting
         this.onChange = this.onChange.bind(this);
+        this.onChangeName = this.onChangeName.bind(this);
         this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
         this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
         this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
         this.handleFieldChange = this.handleFieldChange.bind(this);
         this.addCompany = this.addCompany.bind(this);
+        console.log("InputCompany props", props);
         axios.get('/api/companies').then(response => {
             companies = response.data;
         });
     }
     onChange(event, newValue) {
-        console.log(newValue);
+        console.log("InputCompany::onChange newValue", event, newValue);
         this.setState({
             value: newValue.newValue
         });
@@ -60,6 +65,28 @@ class InputCompany extends React.Component {
         }
 
     }
+    onChangeName(event, newValue) {
+        console.log("InputCompany::onChangeName newValue", event, newValue);
+        if(this.state.readonly_addtl_fields) {
+            this.setState({
+                readonly_addtl_fields: false,
+                website: '',
+                phone: ''
+            })
+        }
+        this.setState({
+            value: newValue.newValue,
+            show_add_button: true
+        });
+    }
+    componentDidMount() {
+        if(this.state.value != '') {
+            this.setState({
+                readonly_addtl_fields: true
+            });
+        }
+    }
+    // add handler
     handleFieldChange(event) {
         this.setState({
             [event.target.name]: event.target.value
@@ -129,10 +156,10 @@ class InputCompany extends React.Component {
     }
     render() {
         const { value, suggestions } = this.state;
-
+        console.log("rendering InputCompany", this.props, this.state);
         const inputProps = {
-            value,
-            onChange: this.onChange,
+            value: this.state.value,
+            onChange: this.onChangeName,
             className: 'form-control'
         };
 
@@ -169,6 +196,7 @@ class InputCompany extends React.Component {
                                 name='website'
                                 placeholder='company.co'
                                 value={this.state.website}
+                                readOnly={this.state.readonly_addtl_fields}
                                 onChange={this.handleFieldChange}
                             />
                         </div>
@@ -183,6 +211,7 @@ class InputCompany extends React.Component {
                                 name='phone'
                                 placeholder='123-456-7890'
                                 value={this.state.phone}
+                                readOnly={this.state.readonly_addtl_fields}
                                 onChange={this.handlePhoneFieldChange}
                             />
 

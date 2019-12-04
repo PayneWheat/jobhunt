@@ -44,10 +44,11 @@ class ApplicationController extends Controller
     {
         $application = Application::find($id);
         $application->load('company', 'location', 'status');
+        //$application = Application::with('company')->get();
         return $application->toJson();
     }
 
-    public function update($application)
+    public function update(Request $request, $id)
     {
         // update application
         $validatedData = $request->validate([
@@ -58,10 +59,10 @@ class ApplicationController extends Controller
             'resume_text' => 'nullable',
             'coverletter_text' => 'nullable'
         ]);
-
+        $application = Application::find($id);
         // add file uploading for resume pdfs
         $application->position = $validatedData['position'];
-        $application->application_status_id = $validatedData['status'];
+        //$application->application_status_id = $validatedData['status'];
         $application->location_id = $validatedData['location_id'];
         $application->job_description = $validatedData['job_description'];
         $application->resume_text = $validatedData['resume_text'];

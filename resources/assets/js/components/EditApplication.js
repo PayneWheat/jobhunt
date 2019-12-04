@@ -29,10 +29,11 @@ class EditApplication extends Component {
             posted_salary_max: '',
             requested_salary: '',
             post_age: '',
-            app_id: ''
+            app_id: '',
+            is_loading: true
         }
         this.handleFieldChange = this.handleFieldChange.bind(this);
-        this.handleCreateNewApplication = this.handleCreateNewApplication.bind(this);
+        this.handleEditApplication = this.handleEditApplication.bind(this);
         this.hasErrorFor = this.hasErrorFor.bind(this);
         this.renderErrorFor = this.renderErrorFor.bind(this);
         this.setCompanyId = this.setCompanyId.bind(this);
@@ -57,11 +58,12 @@ class EditApplication extends Component {
             app_id: id
         });
         axios.get('/api/applications/' + id).then(response => {
-            console.log(response);
+            console.log("edit response", response);
             this.setState({
                 position: response.data.position,
-                company_id: response.data.company_id,
-                company_name: response.data.company_name,
+                /*company_id: response.data.company.id,
+                company_name: response.data.company.name,*/
+                company: response.data.company,
                 location_id: response.data.location_id,
                 job_description: response.data.job_description,
                 post_age: response.data.post_age,
@@ -69,9 +71,12 @@ class EditApplication extends Component {
                 posted_salary_min: response.data.posted_salary_min,
                 posted_salary_max: response.data.posted_salary_max,
                 resume_text: response.data.resume_text,
-                coverletter_text: response.data.coverletter_text
+                coverletter_text: response.data.coverletter_text,
+                is_loading: false
             });
+            console.log("EditApplication application after get", this.state);
         });
+
         console.log("Edit application componentDidMount completed.");
     }
     handleFieldChange(event) {
@@ -79,7 +84,7 @@ class EditApplication extends Component {
             [event.target.name]: event.target.value
         });
     }
-    handleCreateNewApplication(event) {
+    handleEditApplication(event) {
         event.preventDefault();
         const { history } = this.props;
 
@@ -95,9 +100,8 @@ class EditApplication extends Component {
             requested_salary: this.state.requested_salary,
             post_age: this.state.post_age
         }
-        console.log(application);
-        
-        axios.post('/api/applications', application).then(response => {
+        console.log("EditApplication application", application);
+        axios.put('/api/applications/' + this.state.app_id, application).then(response => {
             history.push('/');
         })
         .catch(error => {
@@ -133,14 +137,16 @@ class EditApplication extends Component {
         });
     }
     render() {
-        const { applications } = this.state;
+        const { is_loading } = this.state;
         return (
+            
             <div className='container'>
+            {!is_loading ? (
                 <div className='row justify-content-center'>
                     <div className='col-md-6'>
-                        <div>Create new application</div>
+                        <div>Edit application</div>
                     
-                        <form onSubmit={this.handleCreateNewApplication}>
+                        <form onSubmit={this.handleEditApplication}>
                             <div className='row'>
                                 <div className='col-md-6'>
                                     <div className='form-group'>
@@ -175,7 +181,13 @@ class EditApplication extends Component {
                                 </div>
                             </div>
                             
-                            <InputCompany action={this.setCompanyId}/>
+                            <InputCompany 
+                                action={this.setCompanyId}
+                                companyId={this.state.company.id}
+                                companyName={this.state.company.name}
+                                companyWebsite={this.state.company.website}
+                                companyPhone={this.state.company.phone}
+                            />
                             <div className='form-group'>
                                 <label htmlFor='resume'>Job Description</label>
                                 <textarea 
@@ -271,10 +283,14 @@ class EditApplication extends Component {
                                     value={this.state.coverletter_text}
                                 />
                             </div>
-                            <button className='btn btn-primary'>Create Application</button>
+                            <button className='btn btn-primary'>Update Application</button>
+                            <button className='btn btn-danger'>Delete</button>
                         </form>
                     </div>
                 </div>
+                ) : (
+                    <h3>loading</h3>
+                )}
             </div>
         );
     }
