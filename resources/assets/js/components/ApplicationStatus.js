@@ -21,7 +21,6 @@ class ApplicationStatus extends Component {
     componentDidMount() {
         // get application statuses
         axios.get('/api/statuses').then(response => {
-            console.log(response);
             this.setState({
                 statuses: response.data,
                 is_loading: false
@@ -35,7 +34,6 @@ class ApplicationStatus extends Component {
             return statusItem.status == event.target.value;
         })[0] || null;
         if(selectedStatus) {
-            console.log("SelectedStatus:", selectedStatus, event.target.value);
             this.setState({
                 is_loading: true,
                 dropdown_mode: false

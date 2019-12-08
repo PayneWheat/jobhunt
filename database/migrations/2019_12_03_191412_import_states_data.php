@@ -27,6 +27,6 @@ class ImportStatesData extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('states');
     }
 }
