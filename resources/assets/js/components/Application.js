@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 //import Autosuggest from 'react-autosuggest';
 import InputCompany from './InputCompany';
 import InputLocation from './InputLocation';
+import ApplicationStatus from './ApplicationStatus';
 import { Link } from 'react-router-dom';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
@@ -44,6 +45,9 @@ class Application extends Component {
     }
     componentDidMount() {
         const app_id = this.props.match.params.id;
+        this.setState({
+            app_id: app_id
+        });
         axios.get('/api/applications/' + app_id).then(response => {
             console.log(response);
             this.setState({
@@ -106,7 +110,7 @@ class Application extends Component {
         return num.toFixed(places);
     }
     render() {
-        const { application, is_loading } = this.state;
+        const { application, is_loading, app_id } = this.state;
         console.log("app", application, is_loading);
         return (
             <div className='container'>
@@ -128,7 +132,10 @@ class Application extends Component {
                         <div>
                             <div className='app-company'>
                                 { application.company.name }
-                                <div className='app-status badge badge-pill badge-primary'>{ application.status.status }</div>
+                                <ApplicationStatus 
+                                    appId={ app_id }
+                                    status={ application.status }
+                                />
                             </div>
                             <div className='app-location'>{application.location.city}, {application.location.state}</div>
                             <div className='app-date'>Date applied: { this.convertDatetime(application.created_at) }</div>

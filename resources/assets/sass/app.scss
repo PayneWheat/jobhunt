@@ -103,11 +103,17 @@ i.floater {
 .applist-status {
   text-transform: uppercase;
   vertical-align: text-bottom;
+  cursor: pointer;
 }
 .app-status {
   text-transform: uppercase;
   margin-left: .5em;
   vertical-align: bottom;
+}
+.app-status-drop {
+  font-size: 14px;
+  padding: .15em;
+  border-radius: 10px;
 }
 .app-resume article, .app-job-description article {
   white-space: pre-line;

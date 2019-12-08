@@ -16,3 +16,9 @@ Route::get('/', function () {
 });
 */
 Route::view('/{path?}', 'app');
+/*
+Route::any('(.*)', function() {
+    return view('app');
+});
+*/
+//Route::any()

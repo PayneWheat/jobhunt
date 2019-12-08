@@ -16,7 +16,6 @@ class CreateApplicationStatusesTable extends Migration
         Schema::create('application_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('status');
-            $table->timestamps();
         });
     }
 

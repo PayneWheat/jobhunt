@@ -36,7 +36,8 @@ class InputCompany extends React.Component {
             /*company_name: props.companyName || '',*/
             show_add_button: false,
             show_check: false,
-            readonly_addtl_fields: false
+            readonly_addtl_fields: false,
+            override_readonly: props.readOnlyFields || false
         }
 
         // do something about enter key? it's posting instead of selecting
@@ -67,7 +68,7 @@ class InputCompany extends React.Component {
     }
     onChangeName(event, newValue) {
         console.log("InputCompany::onChangeName newValue", event, newValue);
-        if(this.state.readonly_addtl_fields) {
+        if(this.state.readonly_addtl_fields && !this.state.override_readonly) {
             this.setState({
                 readonly_addtl_fields: false,
                 website: '',
@@ -196,7 +197,7 @@ class InputCompany extends React.Component {
                                 name='website'
                                 placeholder='company.co'
                                 value={this.state.website}
-                                readOnly={this.state.readonly_addtl_fields}
+                                readOnly={(!this.state.override_readonly && this.state.readonly_addtl_fields)}
                                 onChange={this.handleFieldChange}
                             />
                         </div>
@@ -211,7 +212,7 @@ class InputCompany extends React.Component {
                                 name='phone'
                                 placeholder='123-456-7890'
                                 value={this.state.phone}
-                                readOnly={this.state.readonly_addtl_fields}
+                                readOnly={(!this.state.override_readonly && this.state.readonly_addtl_fields)}
                                 onChange={this.handlePhoneFieldChange}
                             />
 

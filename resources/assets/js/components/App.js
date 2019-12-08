@@ -8,6 +8,7 @@ import Application from './Application';
 import EditApplication from './EditApplication';
 import Companies from './Companies';
 import Company from './Company';
+import EditCompany from './EditCompany';
 
 class App extends Component {
     render() {
@@ -23,6 +24,7 @@ class App extends Component {
                         <Route path='/applications' component={ApplicationsList} />
                         <Route path='/companies' component={Companies} />
                         <Route exact path='/company/:id' component={Company} />
+                        <Route exact path='/company/edit/:id' component={EditCompany} />
                     </Switch>
                 </div>
             </BrowserRouter>

@@ -21,6 +21,8 @@ Route::get('applications', 'ApplicationController@index');
 Route::post('applications', 'ApplicationController@store');
 Route::get('applications/{id}', 'ApplicationController@show');
 Route::put('applications/{application}', 'ApplicationController@update');
+Route::get('applications/status/{appId}/{statusId}', 'ApplicationController@updateStatus');
+Route::get('statuses', 'ApplicationStatusController@index');
 
 Route::get('companies', 'CompanyController@index');
 Route::post('companies', 'CompanyController@store');

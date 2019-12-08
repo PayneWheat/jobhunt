@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Application;
+use App\ApplicationStatus;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -71,5 +72,15 @@ class ApplicationController extends Controller
         
         return response()->json('Application updated');
         
+    }
+
+    public function updateStatus($appId, $statusId)
+    {
+        $application = Application::find($appId);
+        $newStatus = ApplicationStatus::find($statusId);
+        if($application && $newStatus) {
+            $application->status_id = $statusId;
+            $application->update();
+        } 
     }
 }
