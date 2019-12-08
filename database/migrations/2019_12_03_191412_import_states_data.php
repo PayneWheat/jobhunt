@@ -13,7 +13,7 @@ class ImportStatesData extends Migration
      */
     public function up()
     {
-        Schema::create('states', function($table) {
+        Schema::create('states', function(Blueprint $table) {
             $table->integer('id');
             $table->string('abbreviation');
             $table->string('name');
