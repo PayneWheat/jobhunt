@@ -23,7 +23,7 @@ class ApplicationStatusTableSeeder extends Seeder
             'status' => 'Received'
         ]);
         DB::table('application_statuses')->insert([
-            'status' => 'Rejected'
+            'status' => 'Screening'
         ]);
         DB::table('application_statuses')->insert([
             'status' => 'Assessment'
@@ -33,6 +33,9 @@ class ApplicationStatusTableSeeder extends Seeder
         ]);
         DB::table('application_statuses')->insert([
             'status' => 'Offer'
+        ]);
+        DB::table('application_statuses')->insert([
+            'status' => 'Rejected'
         ]);
     }
 }

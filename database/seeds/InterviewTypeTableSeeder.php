@@ -11,20 +11,30 @@ class InterviewTypeTableSeeder extends Seeder
      */
     public function run()
     {
+        // Screening application status
         DB::table('interview_types')->insert([
-            'type' => 'Phone'
+            'type' => 'Phone',
+            'application_status_id' => 4
         ]);
+        // Interview application status
         DB::table('interview_types')->insert([
-            'type' => 'Video Conference'
+            'type' => 'Video Conference',
+            'application_status_id' => 6
         ]);
+        // Interview application status
         DB::table('interview_types')->insert([
-            'type' => 'On-site'
+            'type' => 'On-site',
+            'application_status_id' => 6
         ]);
+        // Assessment application status
         DB::table('interview_types')->insert([
-            'type' => 'Test'
+            'type' => 'Assessment',
+            'application_status_id' => 5
         ]);
+        // Assessment application status
         DB::table('interview_types')->insert([
-            'type' => 'Project'
+            'type' => 'Project',
+            'application_status_id' => 5
         ]);
     }
 }

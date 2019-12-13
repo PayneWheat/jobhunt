@@ -11,6 +11,7 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap-sass');
+    //window.datepicker = require('js-datepicker');
 } catch (e) {}
 
 /**
@@ -36,6 +37,8 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

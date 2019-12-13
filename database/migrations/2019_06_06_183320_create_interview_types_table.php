@@ -15,6 +15,7 @@ class CreateInterviewTypesTable extends Migration
     {
         Schema::create('interview_types', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('application_status_id')->nullable(); // recommended application status to switch to
             $table->string('type');
             $table->timestamps();
         });

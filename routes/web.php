@@ -15,10 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
-Route::view('/{path?}', 'app');
-/*
-Route::any('(.*)', function() {
+//Route::view('/{path?}', 'app');
+
+Route::any('{query}', function() {
     return view('app');
-});
-*/
+})->where('query', '.*');
+
 //Route::any()

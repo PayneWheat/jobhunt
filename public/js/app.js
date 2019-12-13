@@ -70993,7 +70993,8 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 try {
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
-  __webpack_require__(/*! bootstrap-sass */ "./node_modules/bootstrap-sass/assets/javascripts/bootstrap.js");
+  __webpack_require__(/*! bootstrap-sass */ "./node_modules/bootstrap-sass/assets/javascripts/bootstrap.js"); //window.datepicker = require('js-datepicker');
+
 } catch (e) {}
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -71059,6 +71060,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Companies__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Companies */ "./resources/assets/js/components/Companies.js");
 /* harmony import */ var _Company__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Company */ "./resources/assets/js/components/Company.js");
 /* harmony import */ var _EditCompany__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./EditCompany */ "./resources/assets/js/components/EditCompany.js");
+/* harmony import */ var _NewInterview__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./NewInterview */ "./resources/assets/js/components/NewInterview.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71076,6 +71078,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -71118,6 +71121,10 @@ function (_Component) {
         exact: true,
         path: "/application/edit/:id",
         component: _EditApplication__WEBPACK_IMPORTED_MODULE_7__["default"]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
+        path: "/application/:id/add/interview",
+        component: _NewInterview__WEBPACK_IMPORTED_MODULE_11__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/applications",
         component: _ApplicationsList__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -71179,8 +71186,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
- //import Select from 'react-select';
-//import Autosuggest from 'react-autosuggest';
 
 
 
@@ -71210,28 +71215,6 @@ function (_Component) {
       jd_keywords: null,
       resume_keywords: null,
       coverletter_keywords: null
-      /*
-      position: '',
-      company_id: '',
-      company_name: '',
-      location_id: '',
-      location_name: '',
-      errors: [],
-      companies: [],
-      company_suggestions: [],
-      locations: [],
-      location_options: [],
-      app_state: '',
-      app_city: '',
-      job_description: '',
-      resume_text: '',
-      coverletter_text: '',
-      posted_salary_min: '',
-      posted_salary_max: '',
-      requested_salary: '',
-      post_age: '',
-      */
-
     };
     return _this;
   }
@@ -71298,17 +71281,17 @@ function (_Component) {
         });
       });
     }
-  }, {
-    key: "applicationHeader",
-    value: function applicationHeader() {
-      return this.state.application.position;
+    /*
+    applicationHeader() {
+        return this.state.application.position;
     }
+    */
+
   }, {
     key: "convertDatetime",
     value: function convertDatetime(datetime) {
       var t = datetime.split(/[- :]/);
       var d = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
-      console.log(d);
       return d.toLocaleDateString('en-US');
     }
   }, {
@@ -71333,7 +71316,9 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
         to: '/application/edit/' + application.id,
         className: "btn btn-sm btn-info"
-      }, "Edit"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+        className: "fas fa-edit"
+      }), "Edit"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
         href: "#",
         className: "btn btn-sm btn-info"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
@@ -71343,7 +71328,12 @@ function (_Component) {
         className: "btn btn-sm btn-info"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
         className: "fas fa-sticky-note"
-      }), "Add Note")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
+      }), "Add Note"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+        to: '/application/' + application.id + '/add/interview',
+        className: "btn btn-sm btn-info"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+        className: "fas fa-calendar"
+      }), "Add Interview")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
         className: "app-header"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "app-position"
@@ -71469,8 +71459,6 @@ function (_Component) {
 
       // get application statuses
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/statuses').then(function (response) {
-        console.log(response);
-
         _this2.setState({
           statuses: response.data,
           is_loading: false
@@ -71482,40 +71470,28 @@ function (_Component) {
     value: function onChange(event) {
       var _this3 = this;
 
-      console.log("CHANGED", event, this.state); // call api endpoint to update application status
-      //let selectedStatus = null;
-
+      // call api endpoint to update application status
       var selectedStatus = this.state.statuses.filter(function (statusItem) {
         return statusItem.status == event.target.value;
-      })[0]; //console.log("selectedStatus2", selectedStatus2);
+      })[0] || null;
 
-      /*
-      for(let i = 0; i < this.state.statuses.length; i++) {
-          if(this.state.statuses[i].status == event.target.value) {
-              selectedStatus = this.state.statuses[i];
-          }
-      }
-      */
-
-      console.log("SelectedStatus:", selectedStatus, event.target.value);
-      this.setState({
-        is_loading: true,
-        dropdown_mode: false
-      });
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/applications/status/' + this.state.app_id + "/" + selectedStatus.id).then(function (response) {
-        console.log("response::", response);
-        console.log(_this3.state);
-
-        _this3.setState({
-          status: selectedStatus,
-          is_loading: false
+      if (selectedStatus) {
+        this.setState({
+          is_loading: true,
+          dropdown_mode: false
         });
-      }); // select the correct status
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/applications/status/' + this.state.app_id + "/" + selectedStatus.id).then(function (response) {
+          _this3.setState({
+            status: selectedStatus,
+            is_loading: false
+          });
+        });
+      } // select the correct status
+
     }
   }, {
     key: "onClick",
     value: function onClick(event) {
-      console.log("CLICKEd", event);
       this.setState({
         dropdown_mode: true
       });
@@ -73216,6 +73192,230 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (NewApplication);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/NewInterview.js":
+/*!********************************************************!*\
+  !*** ./resources/assets/js/components/NewInterview.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/react.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _InputCompany__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InputCompany */ "./resources/assets/js/components/InputCompany.js");
+/* harmony import */ var _InputLocation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./InputLocation */ "./resources/assets/js/components/InputLocation.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+ //import Select from 'react-select';
+//import Autosuggest from 'react-autosuggest';
+
+
+
+
+var getCompanySuggestionValue = function getCompanySuggestionValue(suggestion) {
+  return suggestion.name;
+};
+
+var NewInterview =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(NewInterview, _Component);
+
+  function NewInterview() {
+    var _this;
+
+    _classCallCheck(this, NewInterview);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(NewInterview).call(this));
+    _this.state = {
+      is_loading: true,
+      application: {},
+      types: [],
+      interview_type: null,
+      interview_datetime: null
+    };
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_this));
+    /*
+    axios.get('/api/locations').then(response => {
+        let locationCities = [];
+        response.data.map(city => {
+            locationCities.push(city)
+        });
+        this.setState({
+            location_options: locationCities
+        });
+        this.setState({
+            locations: response.data
+        });
+    });
+    */
+
+    return _this;
+  }
+
+  _createClass(NewInterview, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var app_id = this.props.match.params.id;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/applications/' + app_id).then(function (response) {
+        console.log("RESPONSE:", response);
+
+        _this2.setState({
+          is_loading: false,
+          application: response.data
+        });
+
+        console.log("application:", _this2.state.application);
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/interviews/types').then(function (response) {
+        console.log("RESPONSE (types):", response);
+
+        _this2.setState({
+          types: response.data
+        });
+      });
+    }
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(event) {
+      var _this3 = this;
+
+      event.preventDefault();
+      console.log(this.state);
+      var curType = this.state.types.filter(function (type) {
+        return type.type == _this3.state.interview_type;
+      })[0];
+      var typeId = curType.id;
+      console.log("curType", curType, typeId);
+      var interview = {
+        at_time: this.state.interview_datetime,
+        interview_type_id: typeId,
+        application_id: this.state.application.id
+      };
+      console.log("Form submitted", interview);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/interviews/', interview).then(function (response) {
+        console.log(response);
+        return response;
+      });
+    }
+  }, {
+    key: "handleFieldChange",
+    value: function handleFieldChange(event) {
+      var _this4 = this;
+
+      console.log(event.target.name, event.target.value);
+      this.setState(_defineProperty({}, event.target.name, event.target.value), function () {
+        console.log("STATE", _this4.state);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$state = this.state,
+          is_loading = _this$state.is_loading,
+          types = _this$state.types;
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "container"
+      }, !is_loading ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+        onSubmit: this.onSubmit
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "New interview for ", this.state.application.position, " at ", this.state.application.company.name)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "interview-type"
+      }, "Interview Type"), types ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+        className: "form-control",
+        name: "interview_type",
+        defaultValue: this.state.interview_type,
+        onChange: this.handleFieldChange
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        selected: true,
+        disabled: true,
+        hidden: true
+      }, "Choose a type"), types.map(function (type) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+          key: type.id
+        }, type.type);
+      })) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+        readOnly: "true"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Loading"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "interview-type"
+      }, "Interview Date and Time"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        className: "form-control",
+        name: "interview_datetime",
+        type: "datetime-local",
+        defaultValue: this.state.interview_datetime,
+        onChange: this.handleFieldChange
+      })), this.state.interview_type == "On-site" ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", null, "Address (optional)"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        className: "form-control",
+        name: "interview_address1",
+        type: "text",
+        placeholder: "Street Address 1",
+        defaultValue: this.state.interview_address1,
+        onChange: this.handleFieldChange
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        className: "form-control",
+        name: "interview_address2",
+        type: "text",
+        placeholder: "Street Address 2",
+        defaultValue: this.state.interview_address2,
+        onChange: this.handleFieldChange
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_InputLocation__WEBPACK_IMPORTED_MODULE_3__["default"], null)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        className: "form-control",
+        name: "interview_zip",
+        type: "text",
+        placeholder: "Zip Code",
+        defaultValue: this.state.interview_address,
+        onChange: this.handleFieldChange
+      }))) : null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        className: "btn btn-primary",
+        value: "Submit",
+        type: "submit"
+      })) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "loading"));
+    }
+  }]);
+
+  return NewInterview;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (NewInterview);
 
 /***/ }),
 

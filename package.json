@@ -32,6 +32,7 @@
     "dependencies": {
         "awesome-phonenumber": "^2.18.0",
         "font-awesome": "^4.7.0",
+        "js-datepicker": "^5.2.1",
         "keyword-extractor": "0.0.17",
         "react-autocomplete-input": "^1.0.10",
         "react-autosuggest": "^9.4.3",

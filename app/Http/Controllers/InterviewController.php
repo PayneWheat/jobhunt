@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 class InterviewController extends Controller
 {
-    //protected $fillable = ['position', 'at_time'];
     public function index()
     {
         $interviews = Interview::all();
@@ -15,16 +14,16 @@ class InterviewController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'position' => 'required',
             'at_time' => 'required|date',
-            'company_id' => 'required'
+            'application_id' => 'required|integer',
+            'interview_type_id' => 'required|integer'
         ]);
         $interview = Interview::create([
-            'position' => $validatedData['position'],
             'at_time' => $validatedData['at_time'],
-            'company_id' => $validatedData['company_id']
+            'application_id' => $validatedData['application_id'],
+            'interview_type_id' => $validatedData['interview_type_id']
         ]);
-        return response()->json('Interview created');
+        return response()->json($interview);
     }
     public function show($id)
     {
@@ -34,14 +33,19 @@ class InterviewController extends Controller
     {
         // update
         $validatedData = $request->validate([
-            'position' => 'required',
             'at_time' => 'required|date',
-            'company_id' => 'required'
+            'application_id' => 'required|integer',
+            'interview_type_id' => 'required|integer'
         ]);
-        $interview->position = $validatedData['position'];
         $interview->at_time = $validatedData['at_time'];
-        $interview->company_id = $validatedData['company_id'];
+        $interview->company_id = $validatedData['application_id'];
+        $interview->interview_type_id = $validatedData['interview_type_id'];
         $interview->update();
-        return response()->json('Interview updated');
+        return response()->json($interview);
+    }
+    public function types()
+    {
+        $types = \App\InterviewType::all();
+        return $types->toJson();
     }
 }

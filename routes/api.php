@@ -36,8 +36,10 @@ Route::put('offers/{offer}', 'OfferController@update');
 
 Route::get('interviews', 'InterviewController@index');
 Route::post('interviews', 'InterviewController@store');
+Route::get('interviews/types', 'InterviewController@types');
 Route::get('interviews/{id}', 'InterviewController@show');
 Route::put('interviews/{interview}', 'InterviewController@update');
+
 
 Route::get('contacts', 'ContactController@index');
 Route::post('contacts', 'ContactController@store');
@@ -48,3 +50,4 @@ Route::get('locations', 'LocationController@index');
 Route::post('locations', 'LocationController@store');
 Route::get('locations/{id}', 'LocationController@show');
 Route::put('locations/{location}', 'LocationController@update');
+

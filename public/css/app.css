@@ -11287,6 +11287,7 @@ button.close {
 
 i {
   font-family: "FontAwesome";
+  font-style: normal;
 }
 
 .hidden {

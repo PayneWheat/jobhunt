@@ -1,7 +1,5 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-//import Select from 'react-select';
-//import Autosuggest from 'react-autosuggest';
 import InputCompany from './InputCompany';
 import InputLocation from './InputLocation';
 import ApplicationStatus from './ApplicationStatus';
@@ -19,27 +17,6 @@ class Application extends Component {
             jd_keywords: null,
             resume_keywords: null,
             coverletter_keywords: null
-            /*
-            position: '',
-            company_id: '',
-            company_name: '',
-            location_id: '',
-            location_name: '',
-            errors: [],
-            companies: [],
-            company_suggestions: [],
-            locations: [],
-            location_options: [],
-            app_state: '',
-            app_city: '',
-            job_description: '',
-            resume_text: '',
-            coverletter_text: '',
-            posted_salary_min: '',
-            posted_salary_max: '',
-            requested_salary: '',
-            post_age: '',
-            */
         }
 
     }
@@ -97,13 +74,14 @@ class Application extends Component {
             });
         });
     }
+    /*
     applicationHeader() {
         return this.state.application.position;
     }
+    */
     convertDatetime(datetime) {
         let t = datetime.split(/[- :]/);
         let d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4],t[5]));
-        console.log(d);
         return d.toLocaleDateString('en-US');
     }
     percentageRound(num, places) {
@@ -121,10 +99,19 @@ class Application extends Component {
                             to={'/application/edit/' + application.id}
                             className='btn btn-sm btn-info'
                         >
+                            <i className="fas fa-edit"></i>
                             Edit
                         </Link>
                         <a href='#' className='btn btn-sm btn-info'><i className="fas fa-user-plus"></i>Add Contact</a>
                         <a href='#' className='btn btn-sm btn-info'><i className="fas fa-sticky-note"></i>Add Note</a>
+                        <Link 
+                            to={'/application/' + application.id + '/add/interview'} 
+                            className='btn btn-sm btn-info'
+
+                        >
+                                <i className="fas fa-calendar"></i>
+                                Add Interview
+                        </Link>
                     </div>
                     <section className='app-header'>
                         <div className='app-position'>{ application.position }</div>
