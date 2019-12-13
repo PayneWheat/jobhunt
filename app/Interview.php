@@ -6,14 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Interview extends Model
 {
-    protected $fillable = ['at_time', 'application_id', 'interview_type_id'];
+    protected $fillable = ['at_time'];
+    public function application() {
+        return $this->belongsTo('App\Application');
+    }
     public function notes()
     {
         return $this->morphOne('App\Note', 'notable');
     }
-    public function type()
+    public function interview_type()
     {
-        return $this->hasOne(InterviewType::class);
+        return $this->belongsTo('App\InterviewType');
     }
-
 }

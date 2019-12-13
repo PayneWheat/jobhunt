@@ -9,6 +9,7 @@ class InterviewController extends Controller
     public function index()
     {
         $interviews = Interview::all();
+        $interviews->load('application', 'application.company', 'interview_type');
         return $interviews->toJson();
     }
     public function store(Request $request)
@@ -27,7 +28,9 @@ class InterviewController extends Controller
     }
     public function show($id)
     {
-        return Interview::findOrFail($id)->toJson();
+        $interview = Interview::findOrFail($id);
+        $interview->load('application', 'application.company', 'interview_type');
+        return $interview->toJson();
     }
     public function update($interview)
     {

@@ -25,4 +25,8 @@ class Application extends Model
     {
         return $this->belongsTo('App\Company');
     }
+    public function interviews()
+    {
+        return $this->hasMany('App\Interview');
+    }
 }

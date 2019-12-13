@@ -13,7 +13,7 @@ class NewInterview extends Component {
             is_loading: true,
             application: {},
             types: [],
-            interview_type: null,
+            interview_type: '',
             interview_datetime: null,
         }
         this.onSubmit = this.onSubmit.bind(this);
@@ -93,7 +93,7 @@ class NewInterview extends Component {
                                 defaultValue={this.state.interview_type}
                                 onChange={this.handleFieldChange}
                             >
-                                <option selected disabled hidden>Choose a type</option>
+                                <option disabled value=''>Choose a type</option>
                                 {types.map(type=>(
                                     <option key={type.id}>{type.type}</option>
                                 ))}

@@ -10,6 +10,8 @@ import Companies from './Companies';
 import Company from './Company';
 import EditCompany from './EditCompany';
 import NewInterview from './NewInterview';
+import InterviewsList from './InterviewsList';
+import Home from './Home';
 
 class App extends Component {
     render() {
@@ -18,7 +20,7 @@ class App extends Component {
                 <div>
                     <Header />
                     <Switch>
-                        <Route exact path='/' component={ApplicationsList} />
+                        <Route exact path='/' component={Home} />
                         <Route path='/create' component={NewApplication} />
                         <Route exact path='/application/:id' component={Application} />
                         <Route exact path='/application/edit/:id' component={EditApplication} />
@@ -27,6 +29,7 @@ class App extends Component {
                         <Route path='/companies' component={Companies} />
                         <Route exact path='/company/:id' component={Company} />
                         <Route exact path='/company/edit/:id' component={EditCompany} />
+                        <Route path='/interviews' component={InterviewsList} />
 
                     </Switch>
                 </div>
