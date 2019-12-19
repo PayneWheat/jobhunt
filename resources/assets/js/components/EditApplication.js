@@ -7,7 +7,7 @@ import InputLocation from './InputLocation';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class EditApplication extends Component {
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
             position: '',
@@ -30,6 +30,8 @@ class EditApplication extends Component {
             requested_salary: '',
             post_age: '',
             app_id: '',
+            created_at: '',
+            applied_at: '',
             is_loading: true
         }
         this.handleFieldChange = this.handleFieldChange.bind(this);
@@ -59,11 +61,11 @@ class EditApplication extends Component {
         });
         axios.get('/api/applications/' + id).then(response => {
             console.log("edit response", response);
-            let locValue = response.data.location.city + ", " + response.data.location.state;
+            const locValue = response.data.location.city + ", " + response.data.location.state;
+            let dt = new Date(response.data.created_at).toISOString();
+            dt = dt.substring(0, dt.length - 1);
             this.setState({
                 position: response.data.position,
-                /*company_id: response.data.company.id,
-                company_name: response.data.company.name,*/
                 company: response.data.company,
                 location_id: response.data.location_id,
                 location_value: locValue,
@@ -74,6 +76,8 @@ class EditApplication extends Component {
                 posted_salary_max: response.data.posted_salary_max,
                 resume_text: response.data.resume_text,
                 coverletter_text: response.data.coverletter_text,
+                created_at: response.data.created_at,
+                applied_at: response.data.applied_at,
                 is_loading: false
             });
             console.log("EditApplication application after get", this.state);
@@ -89,10 +93,9 @@ class EditApplication extends Component {
     handleEditApplication(event) {
         event.preventDefault();
         const { history } = this.props;
-
         const application = {
             position: this.state.position,
-            company_id: this.state.company_id,
+            company_id: this.state.company.id,
             location_id: this.state.location_id,
             job_description: this.state.job_description,
             resume_text: this.state.resume_text,
@@ -100,7 +103,8 @@ class EditApplication extends Component {
             posted_salary_min: this.state.posted_salary_min,
             posted_salary_max: this.state.posted_salary_max,
             requested_salary: this.state.requested_salary,
-            post_age: this.state.post_age
+            post_age: this.state.post_age,
+            applied_at: this.state.applied_at
         }
         console.log("EditApplication application", application);
         axios.put('/api/applications/' + this.state.app_id, application).then(response => {
@@ -149,6 +153,20 @@ class EditApplication extends Component {
                         <div>Edit application</div>
                     
                         <form onSubmit={this.handleEditApplication}>
+                            <div className='row'>
+                                <div className='col-md-12'>
+                                    <div className='form-group'>
+                                        <label htmlFor='applied_at'>Date Applied</label>
+                                        <input 
+                                            type='date' 
+                                            className='form-control' 
+                                            name='applied_at' 
+                                            defaultValue={this.state.applied_at} 
+                                            onChange={this.handleFieldChange}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                             <div className='row'>
                                 <div className='col-md-6'>
                                     <div className='form-group'>

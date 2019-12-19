@@ -71174,6 +71174,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InputLocation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./InputLocation */ "./resources/assets/js/components/InputLocation.js");
 /* harmony import */ var _ApplicationStatus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ApplicationStatus */ "./resources/assets/js/components/ApplicationStatus.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _InterviewsList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./InterviewsList */ "./resources/assets/js/components/InterviewsList.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71191,6 +71192,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -71351,9 +71353,9 @@ function (_Component) {
         status: application.status
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "app-location"
-      }, application.location.city, ", ", application.location.state), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, application.location.city, ", ", application.location.state), application.applied_at ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "app-date"
-      }, "Date applied: ", this.convertDatetime(application.created_at))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, "Date applied: ", application.applied_at) : null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "app-info"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "app-matches"
@@ -71383,7 +71385,9 @@ function (_Component) {
         className: "app-sandwich"
       }, "old when applied")), (application.posted_salary_min != undefined || application.posted_salary_max != undefined || application.requested_salary != undefined) && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "app-salary"
-      }, (application.posted_salary_min != undefined || application.posted_salary_max != undefined) && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Salary Range:\xA0", application.posted_salary_min && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "$", application.posted_salary_min), application.posted_salary_min && application.posted_salary_max && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "\xA0-\xA0"), application.posted_salary_max && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "$", application.posted_salary_max)), application.requested_salary && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Requested Salary: $", application.requested_salary)))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, (application.posted_salary_min != undefined || application.posted_salary_max != undefined) && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Salary Range:\xA0", application.posted_salary_min && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "$", application.posted_salary_min), application.posted_salary_min && application.posted_salary_max && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "\xA0-\xA0"), application.posted_salary_max && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "$", application.posted_salary_max)), application.requested_salary && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Requested Salary: $", application.requested_salary)))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_InterviewsList__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        applicationId: app_id
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "app-job-description"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "Job Description"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("article", null, application.job_description)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "app-resume"
@@ -71898,7 +71902,7 @@ var EditApplication =
 function (_Component) {
   _inherits(EditApplication, _Component);
 
-  function EditApplication() {
+  function EditApplication(props) {
     var _this;
 
     _classCallCheck(this, EditApplication);
@@ -71925,6 +71929,8 @@ function (_Component) {
       requested_salary: '',
       post_age: '',
       app_id: '',
+      created_at: '',
+      applied_at: '',
       is_loading: true
     };
     _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_this));
@@ -71963,12 +71969,11 @@ function (_Component) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/applications/' + id).then(function (response) {
         console.log("edit response", response);
         var locValue = response.data.location.city + ", " + response.data.location.state;
+        var dt = new Date(response.data.created_at).toISOString();
+        dt = dt.substring(0, dt.length - 1);
 
         _this2.setState({
           position: response.data.position,
-
-          /*company_id: response.data.company.id,
-          company_name: response.data.company.name,*/
           company: response.data.company,
           location_id: response.data.location_id,
           location_value: locValue,
@@ -71979,6 +71984,8 @@ function (_Component) {
           posted_salary_max: response.data.posted_salary_max,
           resume_text: response.data.resume_text,
           coverletter_text: response.data.coverletter_text,
+          created_at: response.data.created_at,
+          applied_at: response.data.applied_at,
           is_loading: false
         });
 
@@ -72000,7 +72007,7 @@ function (_Component) {
       var history = this.props.history;
       var application = {
         position: this.state.position,
-        company_id: this.state.company_id,
+        company_id: this.state.company.id,
         location_id: this.state.location_id,
         job_description: this.state.job_description,
         resume_text: this.state.resume_text,
@@ -72008,7 +72015,8 @@ function (_Component) {
         posted_salary_min: this.state.posted_salary_min,
         posted_salary_max: this.state.posted_salary_max,
         requested_salary: this.state.requested_salary,
-        post_age: this.state.post_age
+        post_age: this.state.post_age,
+        applied_at: this.state.applied_at
       };
       console.log("EditApplication application", application);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/applications/' + this.state.app_id, application).then(function (response) {
@@ -72064,6 +72072,20 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Edit application"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
         onSubmit: this.handleEditApplication
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "applied_at"
+      }, "Date Applied"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "date",
+        className: "form-control",
+        name: "applied_at",
+        defaultValue: this.state.applied_at,
+        onChange: this.handleFieldChange
+      })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "col-md-6"
@@ -72987,7 +73009,7 @@ var InterviewsList =
 function (_Component) {
   _inherits(InterviewsList, _Component);
 
-  function InterviewsList() {
+  function InterviewsList(props) {
     var _this;
 
     _classCallCheck(this, InterviewsList);
@@ -72996,6 +73018,7 @@ function (_Component) {
     _this.state = {
       interviews: [],
       is_loading: true,
+      application_id: props.applicationId || null,
       mode: 'list'
     };
     return _this;
@@ -73006,16 +73029,29 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/interviews').then(function (response) {
-        console.log(response.data);
+      if (this.state.application_id) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/applications/' + this.state.application_id + '/interviews').then(function (response) {
+          console.log("specific app interviews:", response.data);
 
-        _this2.setState({
-          interviews: response.data,
-          is_loading: false
-        }, function () {
-          console.log(_this2.state);
+          _this2.setState({
+            interviews: response.data,
+            is_loading: false
+          }, function () {
+            console.log(_this2.state);
+          });
         });
-      });
+      } else {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/interviews').then(function (response) {
+          console.log(response.data);
+
+          _this2.setState({
+            interviews: response.data,
+            is_loading: false
+          }, function () {
+            console.log(_this2.state);
+          });
+        });
+      }
     }
   }, {
     key: "convertDatetime",
@@ -73033,11 +73069,11 @@ function (_Component) {
           interviews = _this$state.interviews;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Interviews"), !is_loading ? interviews.map(function (interview) {
+      }, !is_loading ? interviews.length > 0 ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Interviews"), interviews.map(function (interview) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           key: interview.id
         }, interview.at_time, " with ", interview.application.company.name, ", ", interview.application.position);
-      }) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "loading"));
+      })) : null : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "loading"));
     }
   }]);
 

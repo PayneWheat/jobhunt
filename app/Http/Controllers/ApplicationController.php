@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Application;
 use App\ApplicationStatus;
+use App\Interview;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -58,7 +59,8 @@ class ApplicationController extends Controller
             'location_id' => 'required',
             'job_description' => 'nullable',
             'resume_text' => 'nullable',
-            'coverletter_text' => 'nullable'
+            'coverletter_text' => 'nullable',
+            'applied_at' => 'nullable'
         ]);
         $application = Application::find($id);
         // add file uploading for resume pdfs
@@ -68,6 +70,7 @@ class ApplicationController extends Controller
         $application->job_description = $validatedData['job_description'];
         $application->resume_text = $validatedData['resume_text'];
         $application->coverletter_text = $validatedData['coverletter_text'];
+        $application->applied_at = $validatedData['applied_at'];
         $application->update();
         
         return response()->json('Application updated');
@@ -80,7 +83,17 @@ class ApplicationController extends Controller
         $newStatus = ApplicationStatus::find($statusId);
         if($application && $newStatus) {
             $application->status_id = $statusId;
+            if($newStatus->status == "Sent") {
+                $application->applied_at = date('Y-m-d');
+            }
             $application->update();
         } 
+    }
+
+    public function interviews($id)
+    {
+        $interviews = Interview::where('application_id', '=', $id)->get();
+        $interviews->load('application', 'application.company', 'interview_type');
+        return $interviews->toJson();
     }
 }

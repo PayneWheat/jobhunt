@@ -30,6 +30,7 @@ class CreateApplicationsTable extends Migration
             $table->text('resume_text')->nullable();
             $table->text('coverletter_text')->nullable();
             $table->unsignedInteger('post_age')->nullable();
+            $table->date('applied_at')->nullable();
             $table->timestamps();
             
             

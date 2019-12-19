@@ -4,6 +4,7 @@ import InputCompany from './InputCompany';
 import InputLocation from './InputLocation';
 import ApplicationStatus from './ApplicationStatus';
 import { Link } from 'react-router-dom';
+import InterviewsList from './InterviewsList';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class Application extends Component {
@@ -125,7 +126,9 @@ class Application extends Component {
                                 />
                             </div>
                             <div className='app-location'>{application.location.city}, {application.location.state}</div>
-                            <div className='app-date'>Date applied: { this.convertDatetime(application.created_at) }</div>
+                            {application.applied_at ? (
+                                <div className='app-date'>Date applied: { application.applied_at }</div>
+                            ) : null}
                         </div>
                         <div className='app-info'>
                             <div className='app-matches'>
@@ -165,6 +168,9 @@ class Application extends Component {
                             }
                         </div>
                     </section>
+                    <InterviewsList
+                        applicationId={app_id}
+                    />
                     <div className='app-job-description'>
                         <h3>Job Description</h3>
                         <article>{application.job_description}</article>
