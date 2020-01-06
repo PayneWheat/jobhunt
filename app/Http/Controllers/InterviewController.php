@@ -14,17 +14,21 @@ class InterviewController extends Controller
     }
     public function store(Request $request)
     {
+        $resData = [];
+        array_push($resData, $request);
         $validatedData = $request->validate([
             'at_time' => 'required|date',
-            'application_id' => 'required|integer',
-            'interview_type_id' => 'required|integer'
+            'application_id' => 'required',
+            'interview_type_id' => 'required'
         ]);
+        array_push($resData, $validatedData);
         $interview = Interview::create([
             'at_time' => $validatedData['at_time'],
             'application_id' => $validatedData['application_id'],
             'interview_type_id' => $validatedData['interview_type_id']
         ]);
-        return response()->json($interview);
+        array_push($resData, $interview);
+        return response()->json($resData);
     }
     public function show($id)
     {

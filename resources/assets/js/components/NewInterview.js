@@ -7,7 +7,7 @@ import InputLocation from './InputLocation';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class NewInterview extends Component {
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
             is_loading: true,

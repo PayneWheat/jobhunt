@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Interview extends Model
 {
-    protected $fillable = ['at_time'];
+    protected $fillable = ['at_time', 'application_id', 'interview_type_id'];
     public function application() {
         return $this->belongsTo('App\Application');
     }

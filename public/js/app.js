@@ -73451,7 +73451,7 @@ var NewInterview =
 function (_Component) {
   _inherits(NewInterview, _Component);
 
-  function NewInterview() {
+  function NewInterview(props) {
     var _this;
 
     _classCallCheck(this, NewInterview);
