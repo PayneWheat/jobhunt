@@ -71846,7 +71846,7 @@ function (_Component) {
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/companies').then(function (response) {
         console.log(response);
         var co = response.data.sort(function (a, b) {
-          return a.name > b.name ? 1 : -1;
+          return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;
         });
 
         _this2.setState({
