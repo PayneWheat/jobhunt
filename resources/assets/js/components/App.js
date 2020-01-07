@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from './Header';
-import ApplicationsList from './ApplicationsList';
+import Applications from './Applications';
 import NewApplication from './NewApplication';
 import Application from './Application';
 import EditApplication from './EditApplication';
@@ -10,7 +10,7 @@ import Companies from './Companies';
 import Company from './Company';
 import EditCompany from './EditCompany';
 import NewInterview from './NewInterview';
-import InterviewsList from './InterviewsList';
+import Interviews from './Interviews';
 import Home from './Home';
 
 class App extends Component {
@@ -25,11 +25,11 @@ class App extends Component {
                         <Route exact path='/application/:id' component={Application} />
                         <Route exact path='/application/edit/:id' component={EditApplication} />
                         <Route exact path='/application/:id/add/interview' component={NewInterview} />
-                        <Route path='/applications' component={ApplicationsList} />
+                        <Route path='/applications' component={Applications} />
                         <Route path='/companies' component={Companies} />
                         <Route exact path='/company/:id' component={Company} />
                         <Route exact path='/company/edit/:id' component={EditCompany} />
-                        <Route path='/interviews' component={InterviewsList} />
+                        <Route path='/interviews' component={Interviews} />
 
                     </Switch>
                 </div>
