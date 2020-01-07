@@ -71563,9 +71563,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -71590,6 +71590,7 @@ function (_Component) {
       applications: [],
       is_loading: true
     };
+    _this.goToApplication = _this.goToApplication.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -71616,6 +71617,11 @@ function (_Component) {
       return d.toLocaleDateString('en-US');
     }
   }, {
+    key: "goToApplication",
+    value: function goToApplication(appId) {
+      console.log("go to application page. id: " + appId);
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
@@ -71626,35 +71632,24 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "row justify-content-center"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "col-md-8"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-header"
-      }, "Applications"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-body"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        className: "btn btn-primary mb-3",
-        to: "/create"
-      }, "Create new application"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
-        className: "list-group list-group-flush"
+        className: "list-container"
       }, applications.map(function (application) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-          className: "list-group-item list-group-item-action d-flex justify-content-between align-items-center",
-          to: "/application/".concat(application.id),
-          key: application.id
-        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+          className: "list-row",
+          key: application.id,
+          to: "/application/".concat(application.id)
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-date"
-        }, _this3.convertDatetime(application.created_at), ":"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        }, _this3.convertDatetime(application.created_at), ":"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-company"
-        }, application.company.name, ","), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        }, application.company.name, ","), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-position"
-        }, application.position), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
-          className: "applist-status pull-right badge badge-pill badge-primary"
-        }, application.status.status));
-      })))))));
+        }, application.position), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "applist-status"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+          className: "pull-right badge badge-pill badge-primary"
+        }, application.status.status)));
+      })));
     }
   }]);
 
@@ -71741,12 +71736,12 @@ function (_Component) {
           is_loading = _this$state.is_loading;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
-      }, !is_loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "list-group list-group-flush"
+      }, !is_loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "list-container"
       }, companies.map(function (company) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           to: "/company/".concat(company.id),
-          className: "list-group-item list-group-item-action",
+          className: "list-row",
           key: company.id
         }, company.name);
       })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "loading"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Application list for this company..."));
@@ -72442,7 +72437,9 @@ function (_Component) {
   _createClass(Home, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ApplicationsList__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_InterviewsList__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Applications"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ApplicationsList__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Interviews"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_InterviewsList__WEBPACK_IMPORTED_MODULE_2__["default"], null));
     }
   }]);
 
@@ -73069,9 +73066,13 @@ function (_Component) {
           interviews = _this$state.interviews;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container"
-      }, !is_loading ? interviews.length > 0 ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Interviews"), interviews.map(function (interview) {
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          key: interview.id
+      }, !is_loading ? interviews.length > 0 ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "list-container"
+      }, interviews.map(function (interview) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          className: "list-row",
+          key: interview.id,
+          to: "/application/".concat(interview.application.id)
         }, interview.at_time, " with ", interview.application.company.name, ", ", interview.application.position);
       })) : null : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "loading"));
     }

@@ -4,8 +4,10 @@ import InterviewsList from './InterviewsList';
 class Home extends Component {
     render() {
         return (
-            <div>
+            <div className='container'>
+                <h2>Applications</h2>
                 <ApplicationsList />
+                <h2>Interviews</h2>
                 <InterviewsList />
             </div>
         );

@@ -9,6 +9,7 @@ class ApplicationsList extends Component {
             applications: [],
             is_loading: true
         }
+        this.goToApplication = this.goToApplication.bind(this);
     }
     componentDidMount() {
         axios.get('/api/applications').then(response => {
@@ -25,36 +26,26 @@ class ApplicationsList extends Component {
         console.log(d);
         return d.toLocaleDateString('en-US');
     }
+    goToApplication(appId) {
+        console.log("go to application page. id: " + appId);
+    }
     render() {
         const { applications, is_loading } = this.state;
         return (
-            
             <div className='container'>
-                <div className='row justify-content-center'>
-                    <div className='col-md-8'>
-                        <div className='card'>
-                            <div className='card-header'>Applications</div>
-                            <div className='card-body'>
-                                <Link className='btn btn-primary mb-3' to='/create'>
-                                    Create new application
-                                </Link>
-                                <ul className='list-group list-group-flush'>
-                                    {applications.map(application=>(
-                                        <Link 
-                                            className='list-group-item list-group-item-action d-flex justify-content-between align-items-center'
-                                            to={`/application/${application.id}`}
-                                            key={application.id}
-                                        >
-                                            <span className='applist-date'>{this.convertDatetime(application.created_at)}:</span>
-                                            <span className='applist-company'>{application.company.name},</span> 
-                                            <span className='applist-position'>{application.position}</span>
-                                            <span className='applist-status pull-right badge badge-pill badge-primary'>{application.status.status}</span>
-                                        </Link>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                <div className='list-container'>
+                    {applications.map(application=>(
+                        <Link 
+                            className='list-row' 
+                            key={application.id}
+                            to={`/application/${application.id}`}
+                        >
+                            <div className='applist-date'>{this.convertDatetime(application.created_at)}</div>
+                            <div className='applist-company'>{application.company.name},</div> 
+                            <div className='applist-position'>{application.position}</div>
+                            <div className='applist-status'><span className='pull-right badge badge-pill badge-primary'>{application.status.status}</span></div>
+                        </Link>
+                    ))}
                 </div>
             </div>
         );

@@ -43,12 +43,15 @@ class InterviewsList extends Component {
             <div className='container'>
                 {!is_loading ? (
                     interviews.length > 0 ? (
-                        <div>
-                            <div>Interviews</div>
+                        <div className='list-container'>
                             {interviews.map(interview=>(
-                                <div key={interview.id}>
+                                <Link 
+                                className='list-row' 
+                                key={interview.id}
+                                to={`/application/${interview.application.id}`}
+                                >
                                     {interview.at_time} with {interview.application.company.name}, {interview.application.position}
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     ) : null

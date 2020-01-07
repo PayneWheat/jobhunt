@@ -26,17 +26,17 @@ class Companies extends Component {
             
             <div className='container'>
             {!is_loading ? (
-                <ul className='list-group list-group-flush'>
+                <div className='list-container'>
                     {companies.map(company=>(
                         <Link
                             to={`/company/${company.id}`}
-                            className='list-group-item list-group-item-action'
+                            className='list-row'
                             key={company.id}
                         >
                         {company.name}
                         </Link>
                     ))}
-                </ul>
+                </div>
             ) : (
                 <h3>loading</h3>
             )}

@@ -89,7 +89,7 @@ i {
 i.floater {
   margin: 3px 10px;
 }
-
+/*
 .applist-date {
   
 }
@@ -101,6 +101,7 @@ i.floater {
   margin-left: 1em;
 
 }
+*/
 .applist-status {
   text-transform: uppercase;
   vertical-align: text-bottom;
@@ -153,4 +154,53 @@ i.floater {
 
 .edit-row a i {
   margin-right: .5em;
+}
+
+.list-container{
+  background-color: white;
+}
+
+.list-row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: .5em .5em;
+  /*
+  border-bottom: 1px solid rgb(211, 224, 233);
+  */
+  border-left: 1px solid rgb(211, 224, 233);
+  border-right: 1px solid rgb(211, 224, 233);
+  border-bottom: 1px solid rgb(211, 224, 233);
+  cursor: pointer;
+}
+.list-row:hover {
+  background-color: #f5f5f5;
+}
+.list-row:first-of-type {
+  border-top-left-radius: .3em;
+  border-top-right-radius: .3em;
+  border-top: 1px solid rgb(211, 224, 233);
+}
+.list-row:last-of-type {
+  border-bottom-left-radius: .3em;
+  border-bottom-right-radius: .3em;
+  /*
+  border-bottom: none;
+  */
+  
+}
+.applist-date {
+  flex-basis: 7em;
+}
+
+.applist-company {
+  flex-basis: 20em;
+}
+
+.applist-position {
+  flex-basis: 25em;
+  flex-grow: 2;
+}
+
+.applist-status {
+  flex-basis: 5em;
 }
