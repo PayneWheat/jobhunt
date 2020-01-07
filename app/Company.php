@@ -27,5 +27,4 @@ class Company extends Model
     {
         return $this->morphOne('App\Note', 'notable');
     }
-
 }

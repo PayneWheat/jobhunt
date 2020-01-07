@@ -10,6 +10,7 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::all();
+        $companies->sortBy('name');
         return $companies->toArray();
     }
     public function store(Request $request)
