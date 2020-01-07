@@ -31,11 +31,27 @@ class InterviewsList extends Component {
             });
         }
     }
-    convertDatetime(datetime) {
+    convertDatetime(datetime, timeonly=false) {
         let t = datetime.split(/[- :]/);
-        let d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4],t[5]));
+        let d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
         console.log(d);
-        return d.toLocaleDateString('en-US');
+        if(!timeonly) {
+            return d.toLocaleDateString('en-US');
+        } else {
+            /*
+            const options = {
+                timeZone: "America/Chicago",
+                hour12: true,
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            }
+            return d.toLocaleTimeString('en-US', options);
+            */
+           console.log(t, d.getHours(), d.getMinutes(), d.getSeconds());
+           //return d.toLocaleTimeString();
+            return (t[3] <= 12 ? t[3] : t[3] % 12) + ":" + t[4] + (t[3] < 12 ? " AM" : " PM");
+        }
     }
     render() {
         const { is_loading, interviews } = this.state;
@@ -50,7 +66,18 @@ class InterviewsList extends Component {
                                 key={interview.id}
                                 to={`/application/${interview.application.id}`}
                                 >
-                                    {interview.at_time} with {interview.application.company.name}, {interview.application.position}
+                                    <div className='interviewlist-date'>
+                                        {this.convertDatetime(interview.at_time)}
+                                    </div>
+                                    <div className='interviewlist-time'>
+                                        {this.convertDatetime(interview.at_time, true)}
+                                    </div>
+                                    <div className='interviewlist-company'>
+                                        {interview.application.company.name}
+                                    </div>
+                                    <div className='interviewlist-position'>
+                                        {interview.application.position}
+                                    </div>
                                 </Link>
                             ))}
                         </div>

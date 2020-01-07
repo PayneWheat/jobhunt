@@ -171,9 +171,13 @@ i.floater {
   border-right: 1px solid rgb(211, 224, 233);
   border-bottom: 1px solid rgb(211, 224, 233);
   cursor: pointer;
+  text-decoration: none;
+  color: rgb(99, 107, 111);
 }
 .list-row:hover {
   background-color: #f5f5f5;
+  text-decoration: none;
+  color: rgb(99, 107, 111);
 }
 .list-row:first-of-type {
   border-top-left-radius: .3em;
@@ -203,4 +207,20 @@ i.floater {
 
 .applist-status {
   flex-basis: 5em;
+}
+
+.interviewlist-date {
+  flex-basis: 6em;
+}
+
+.interviewlist-time {
+  flex-basis: 6em;
+}
+
+.interviewlist-company {
+  flex-basis: 20em;
+}
+
+.interviewlist-position {
+  flex-basis: 20em;
 }

@@ -73244,14 +73244,34 @@ function (_Component) {
   }, {
     key: "convertDatetime",
     value: function convertDatetime(datetime) {
+      var timeonly = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       var t = datetime.split(/[- :]/);
       var d = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
       console.log(d);
-      return d.toLocaleDateString('en-US');
+
+      if (!timeonly) {
+        return d.toLocaleDateString('en-US');
+      } else {
+        /*
+        const options = {
+            timeZone: "America/Chicago",
+            hour12: true,
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        }
+        return d.toLocaleTimeString('en-US', options);
+        */
+        console.log(t, d.getHours(), d.getMinutes(), d.getSeconds()); //return d.toLocaleTimeString();
+
+        return (t[3] <= 12 ? t[3] : t[3] % 12) + ":" + t[4] + (t[3] < 12 ? " AM" : " PM");
+      }
     }
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       var _this$state = this.state,
           is_loading = _this$state.is_loading,
           interviews = _this$state.interviews;
@@ -73264,7 +73284,15 @@ function (_Component) {
           className: "list-row",
           key: interview.id,
           to: "/application/".concat(interview.application.id)
-        }, interview.at_time, " with ", interview.application.company.name, ", ", interview.application.position);
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "interviewlist-date"
+        }, _this3.convertDatetime(interview.at_time)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "interviewlist-time"
+        }, _this3.convertDatetime(interview.at_time, true)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "interviewlist-company"
+        }, interview.application.company.name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "interviewlist-position"
+        }, interview.application.position));
       })) : null : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "loading"));
     }
   }]);

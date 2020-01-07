@@ -11456,10 +11456,14 @@ i.floater {
   border-right: 1px solid #d3e0e9;
   border-bottom: 1px solid #d3e0e9;
   cursor: pointer;
+  text-decoration: none;
+  color: #636b6f;
 }
 
 .list-row:hover {
   background-color: #f5f5f5;
+  text-decoration: none;
+  color: #636b6f;
 }
 
 .list-row:first-of-type {
@@ -11491,5 +11495,21 @@ i.floater {
 
 .applist-status {
   flex-basis: 5em;
+}
+
+.interviewlist-date {
+  flex-basis: 6em;
+}
+
+.interviewlist-time {
+  flex-basis: 6em;
+}
+
+.interviewlist-company {
+  flex-basis: 20em;
+}
+
+.interviewlist-position {
+  flex-basis: 20em;
 }
 
