@@ -14,8 +14,9 @@ class CompaniesList extends Component {
     componentDidMount() {
         axios.get('/api/companies').then(response => {
             console.log(response);
+            let co = response.data.sort((a, b) => (a.name > b.name) ? 1 : -1);
             this.setState({
-                companies: response.data,
+                companies: co,
                 is_loading: false
             });
         });
