@@ -164,9 +164,6 @@ i.floater {
   display: flex;
   flex-wrap: wrap;
   padding: .5em .5em;
-  /*
-  border-bottom: 1px solid rgb(211, 224, 233);
-  */
   border-left: 1px solid rgb(211, 224, 233);
   border-right: 1px solid rgb(211, 224, 233);
   border-bottom: 1px solid rgb(211, 224, 233);
@@ -187,24 +184,23 @@ i.floater {
 .list-row:last-of-type {
   border-bottom-left-radius: .3em;
   border-bottom-right-radius: .3em;
-  /*
-  border-bottom: none;
-  */
-  
-}
-.applist-date {
-  flex-basis: 7em;
 }
 
+.applist-date {
+  flex-basis: 6em;
+  text-align: right;
+  padding-right: 1em;
+}
+.applist-location {
+  flex-basis: 19em;
+}
 .applist-company {
   flex-basis: 20em;
 }
-
 .applist-position {
-  flex-basis: 25em;
+  flex-basis: 20em;
   flex-grow: 2;
 }
-
 .applist-status {
   flex-basis: 5em;
 }
@@ -212,15 +208,15 @@ i.floater {
 .interviewlist-date {
   flex-basis: 6em;
 }
-
 .interviewlist-time {
   flex-basis: 6em;
 }
-
+.interviewlist-type {
+  flex-basis: 13em;
+}
 .interviewlist-company {
   flex-basis: 20em;
 }
-
 .interviewlist-position {
   flex-basis: 20em;
 }

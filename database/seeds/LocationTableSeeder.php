@@ -16,5 +16,33 @@ class LocationTableSeeder extends Seeder
             'city'=>'Sugar Land',
             'state'=>'Texas'
         ]);
+        Location::create([
+            'city'=>'Houston',
+            'state'=>'Texas'
+        ]);
+        Location::create([
+            'city'=>'Austin',
+            'state'=>'Texas'
+        ]);
+        Location::create([
+            'city'=>'Round Rock',
+            'state'=>'Texas'
+        ]);
+        Location::create([
+            'city'=>'San Francisco',
+            'state'=>'California'
+        ]);
+        Location::create([
+            'city'=>'Los Angeles',
+            'state'=>'California'
+        ]);
+        Location::create([
+            'city'=>'San Diego',
+            'state'=>'California'
+        ]);
+        Location::create([
+            'city'=>'New York',
+            'state'=>'New York'
+        ]);
     }
 }

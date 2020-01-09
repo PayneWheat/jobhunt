@@ -40,7 +40,8 @@ class ApplicationsList extends Component {
                             key={application.id}
                             to={`/application/${application.id}`}
                         >
-                            <div className='applist-date'>{this.convertDatetime(application.created_at)}</div>
+                            <div className='applist-date'>{application.applied_at ? this.convertDatetime(application.created_at) : "---"}</div>
+                            <div className='applist-location'>{application.location.city}, {application.location.state}</div>
                             <div className='applist-company'>{application.company.name},</div> 
                             <div className='applist-position'>{application.position}</div>
                             <div className='applist-status'><span className='pull-right badge badge-pill badge-primary'>{application.status.status}</span></div>

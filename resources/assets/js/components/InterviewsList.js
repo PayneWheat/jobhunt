@@ -72,6 +72,9 @@ class InterviewsList extends Component {
                                     <div className='interviewlist-time'>
                                         {this.convertDatetime(interview.at_time, true)}
                                     </div>
+                                    <div className='interviewlist-type'>
+                                        {interview.interview_type.type}
+                                    </div>
                                     <div className='interviewlist-company'>
                                         {interview.application.company.name}
                                     </div>

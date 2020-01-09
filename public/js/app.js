@@ -71704,7 +71704,9 @@ function (_Component) {
           to: "/application/".concat(application.id)
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-date"
-        }, _this3.convertDatetime(application.created_at)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        }, application.applied_at ? _this3.convertDatetime(application.created_at) : "---"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "applist-location"
+        }, application.location.city, ", ", application.location.state), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-company"
         }, application.company.name, ","), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-position"
@@ -71871,7 +71873,7 @@ function (_Component) {
           className: "list-row",
           key: company.id
         }, company.name);
-      })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "loading"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Application list for this company..."));
+      })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "loading"));
     }
   }]);
 
@@ -73289,6 +73291,8 @@ function (_Component) {
         }, _this3.convertDatetime(interview.at_time)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "interviewlist-time"
         }, _this3.convertDatetime(interview.at_time, true)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "interviewlist-type"
+        }, interview.interview_type.type), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "interviewlist-company"
         }, interview.application.company.name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "interviewlist-position"
@@ -73861,8 +73865,8 @@ function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Payne\Documents\jobhunt\jobhunt\resources\assets\js\app.js */"./resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Payne\Documents\jobhunt\jobhunt\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! C:\Users\wheat\Documents\jobhunt\resources\assets\js\app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\wheat\Documents\jobhunt\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ })

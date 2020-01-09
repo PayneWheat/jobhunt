@@ -11449,9 +11449,6 @@ i.floater {
   display: flex;
   flex-wrap: wrap;
   padding: 0.5em 0.5em;
-  /*
-  border-bottom: 1px solid rgb(211, 224, 233);
-  */
   border-left: 1px solid #d3e0e9;
   border-right: 1px solid #d3e0e9;
   border-bottom: 1px solid #d3e0e9;
@@ -11475,13 +11472,16 @@ i.floater {
 .list-row:last-of-type {
   border-bottom-left-radius: 0.3em;
   border-bottom-right-radius: 0.3em;
-  /*
-  border-bottom: none;
-  */
 }
 
 .applist-date {
-  flex-basis: 7em;
+  flex-basis: 6em;
+  text-align: right;
+  padding-right: 1em;
+}
+
+.applist-location {
+  flex-basis: 19em;
 }
 
 .applist-company {
@@ -11489,7 +11489,7 @@ i.floater {
 }
 
 .applist-position {
-  flex-basis: 25em;
+  flex-basis: 20em;
   flex-grow: 2;
 }
 
@@ -11503,6 +11503,10 @@ i.floater {
 
 .interviewlist-time {
   flex-basis: 6em;
+}
+
+.interviewlist-type {
+  flex-basis: 13em;
 }
 
 .interviewlist-company {

@@ -41,7 +41,6 @@ class CompaniesList extends Component {
             ) : (
                 <h3>loading</h3>
             )}
-                <div>Application list for this company...</div>
             </div>
         );
     }

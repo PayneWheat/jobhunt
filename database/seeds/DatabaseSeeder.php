@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             CompanyTableSeeder::class,
             LocationTableSeeder::class,
             ApplicationTableSeeder::class,
-            StateTableSeeder::class
+            StateTableSeeder::class,
+            InterviewTableSeeder::class
         ]);
     }
 }
