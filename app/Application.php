@@ -9,10 +9,6 @@ class Application extends Model
     protected $fillable = ['resume', 'position', 'status_id', 'job_description', 'resume_text', 'coverletter_text', 'post_age', 'company_id', 'location_id'];
     // location relationship defined in location
     // company relationship in company
-    public function notes()
-    {
-        return $this->morphOne('App\Note', 'notable');
-    }
     public function location()
     {
         return $this->belongsTo('App\Location');
@@ -28,5 +24,9 @@ class Application extends Model
     public function interviews()
     {
         return $this->hasMany('App\Interview');
+    }
+    public function notes()
+    {
+        return $this->hasMany('App\Note');
     }
 }

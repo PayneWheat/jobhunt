@@ -4,7 +4,7 @@ class Companies extends Component {
     render() {
         return (
             <div className='container'>
-                <h2>Companies</h2>
+                <h2 className='jh-heading'>Companies</h2>
                 <CompaniesList />
             </div>
         );

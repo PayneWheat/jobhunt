@@ -7,9 +7,11 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
+
+
 try {
     window.$ = window.jQuery = require('jquery');
-
+    window.Popper = require('popper.js').default;
     require('bootstrap-sass');
     //window.datepicker = require('js-datepicker');
 } catch (e) {}

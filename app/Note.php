@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
-    protected $fillable = ['note'];
-    public function notable()
+    protected $fillable = ['note', 'system_flag'];
+    public function application()
     {
-        return $this->morphTo();
+        return $this->belongsTo('App\Application');
     }
 }

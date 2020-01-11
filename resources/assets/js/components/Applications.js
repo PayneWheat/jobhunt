@@ -5,12 +5,15 @@ class Applications extends Component {
     render() {
         return (
             <div className='container'>
-                <h2>Applications</h2>
-                <Link
+                <h2 className='jh-heading'>
+                    Applications
+                    <Link 
                         to='/create'
+                        className='heading-button'
                     >
-                    Create Application
-                </Link>
+                        <i className="fas fa-plus-circle"></i>
+                    </Link>
+                </h2>
                 <ApplicationsList />
             </div>
         );

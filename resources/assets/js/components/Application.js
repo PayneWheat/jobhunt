@@ -5,6 +5,7 @@ import InputLocation from './InputLocation';
 import ApplicationStatus from './ApplicationStatus';
 import { Link } from 'react-router-dom';
 import InterviewsList from './InterviewsList';
+import ApplicationInfo from './ApplicationInfo';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class Application extends Component {
@@ -103,8 +104,8 @@ class Application extends Component {
                             <i className="fas fa-edit"></i>
                             Edit
                         </Link>
-                        <a href='#' className='btn btn-sm btn-info'><i className="fas fa-user-plus"></i>Add Contact</a>
-                        <a href='#' className='btn btn-sm btn-info'><i className="fas fa-sticky-note"></i>Add Note</a>
+                        <button className='btn btn-sm btn-info' data-toggle='modal' data-target='#contact-modal'><i className="fas fa-user-plus"></i> Add Contact</button>
+                        <button className='btn btn-sm btn-info' data-toggle='modal' data-target='#note-modal'><i className="fas fa-sticky-note"></i> Add Note</button>
                         <Link 
                             to={'/application/' + application.id + '/add/interview'} 
                             className='btn btn-sm btn-info'
@@ -171,25 +172,49 @@ class Application extends Component {
                     <InterviewsList
                         applicationId={app_id}
                     />
-                    <div className='app-job-description'>
-                        <h3>Job Description</h3>
-                        <article>{application.job_description}</article>
-                    </div>
+                    <ApplicationInfo 
+                        jobDesc={application.job_description}
+                        resumeText={application.resume_text}
+                        coverLetterText={application.coverletter_text}
+                    />
 
-                    <div className='app-resume'>
-                        <h3>Submitted Resume</h3>
-                        <article>{application.resume_text}</article>
+                    <div className="app-notes">
+                        <h3>Notes</h3>
+                        {application.notes.map(note => (
+                            <div
+                                key={note.id}
+                                className='application-note'
+                            >
+                                <div className='note-header'>{note.created_at} {note.system_flag ? (<span className='note-header-sys'>SYSTEM NOTE</span>) : null}</div>
+                                {note.note}
+                            </div>
+                        ))}
                     </div>
-                    <div className='app-cover-letter'>
-                        <h3>Submitted Cover Letter</h3>
-                        <article>{application.coverletter_text}</article>
-                    </div>
-
                 </div>
 
             ) : (
                 <h3>loading</h3>
             )}
+
+                <div className="modal fade" id="note-modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            ...
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary">Save changes</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
         );

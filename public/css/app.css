@@ -11431,7 +11431,8 @@ i.floater {
   margin-bottom: 1em;
 }
 
-.edit-row a {
+.edit-row a,
+.edit-row button {
   flex-basis: 10em;
   margin-right: 1em;
   font-size: 1em;
@@ -11474,46 +11475,89 @@ i.floater {
   border-bottom-right-radius: 0.3em;
 }
 
-.applist-date {
-  flex-basis: 6em;
+.applist-date,
+.interviewlist-date {
+  /*flex-basis: 6em;*/
+  width: 6.75em;
   text-align: right;
   padding-right: 1em;
 }
 
 .applist-location {
-  flex-basis: 19em;
+  /*flex-basis: 19em;*/
+  width: 19em;
 }
 
 .applist-company {
-  flex-basis: 20em;
+  /*flex-basis: 20em;*/
+  width: 20em;
 }
 
 .applist-position {
-  flex-basis: 20em;
+  /*flex-basis: 20em;*/
+  width: 20em;
   flex-grow: 2;
 }
 
 .applist-status {
-  flex-basis: 5em;
-}
-
-.interviewlist-date {
-  flex-basis: 6em;
+  /*flex-basis: 5em;*/
+  width: 8em;
 }
 
 .interviewlist-time {
-  flex-basis: 6em;
+  /*flex-basis: 6em;*/
+  width: 6em;
 }
 
 .interviewlist-type {
-  flex-basis: 13em;
+  /*flex-basis: 13em;*/
+  width: 13em;
 }
 
 .interviewlist-company {
-  flex-basis: 20em;
+  /*flex-basis: 20em;*/
+  width: 20em;
 }
 
 .interviewlist-position {
-  flex-basis: 20em;
+  /*flex-basis: 20em;*/
+  width: 20em;
+}
+
+.heading-button {
+  text-decoration: none;
+  margin-left: 0.5em;
+}
+
+h2.jh-heading {
+  font-size: 1.7em;
+}
+
+.accordion-button {
+  width: 100%;
+  margin: 0.5em 0;
+  border-style: solid;
+  border-width: 1px;
+  background-color: #fff;
+  border-radius: 0.3em;
+  border-color: #d3e0e9;
+  font-size: 1.3em;
+}
+
+.application-info-output {
+  white-space: pre-line;
+}
+
+.app-info-tabs {
+  height: 20em;
+  overflow: scroll;
+}
+
+.app-collapsable-buttons {
+  margin-top: 1.5em;
+}
+
+.app-info-button {
+  margin-right: 1em;
 }
 

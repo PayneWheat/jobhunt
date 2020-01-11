@@ -4,7 +4,7 @@ class Interviews extends Component {
     render() {
         return (
             <div className='container'>
-                <h2>Interviews</h2>
+                <h2 class='jh-heading'>Interviews</h2>
                 <InterviewsList />
             </div>
         );

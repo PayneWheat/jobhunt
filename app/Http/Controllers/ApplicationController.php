@@ -45,7 +45,7 @@ class ApplicationController extends Controller
     public function show($id)
     {
         $application = Application::find($id);
-        $application->load('company', 'location', 'status');
+        $application->load('company', 'location', 'status', 'notes');
         //$application = Application::with('company')->get();
         return $application->toJson();
     }

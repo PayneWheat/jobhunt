@@ -9,7 +9,6 @@ class ApplicationsList extends Component {
             applications: [],
             is_loading: true
         }
-        this.goToApplication = this.goToApplication.bind(this);
     }
     componentDidMount() {
         axios.get('/api/applications').then(response => {
@@ -25,9 +24,6 @@ class ApplicationsList extends Component {
         let d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4],t[5]));
         console.log(d);
         return d.toLocaleDateString('en-US');
-    }
-    goToApplication(appId) {
-        console.log("go to application page. id: " + appId);
     }
     render() {
         const { applications, is_loading } = this.state;
