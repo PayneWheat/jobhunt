@@ -6,6 +6,7 @@ import ApplicationStatus from './ApplicationStatus';
 import { Link } from 'react-router-dom';
 import InterviewsList from './InterviewsList';
 import ApplicationInfo from './ApplicationInfo';
+import NewNote from './NewNote';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class Application extends Component {
@@ -179,7 +180,7 @@ class Application extends Component {
                     />
 
                     <div className="app-notes">
-                        <h3>Notes</h3>
+                        <h2 className='jh-heading'>Notes</h2>
                         {application.notes.map(note => (
                             <div
                                 key={note.id}
@@ -190,31 +191,33 @@ class Application extends Component {
                             </div>
                         ))}
                     </div>
+                    <div className="modal fade" id="note-modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">New Note</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <div>Create a note for {application.position} at  {application.company.name}</div>
+                                <NewNote 
+                                    application={application}
+                                />
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" className="btn btn-primary">Save changes</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             ) : (
                 <h3>loading</h3>
             )}
-
-                <div className="modal fade" id="note-modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            ...
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             
         );

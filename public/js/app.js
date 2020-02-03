@@ -73807,6 +73807,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _InterviewsList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./InterviewsList */ "./resources/assets/js/components/InterviewsList.js");
 /* harmony import */ var _ApplicationInfo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ApplicationInfo */ "./resources/assets/js/components/ApplicationInfo.js");
+/* harmony import */ var _NewNote__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./NewNote */ "./resources/assets/js/components/NewNote.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -73824,6 +73825,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -74028,7 +74030,9 @@ function (_Component) {
         coverLetterText: application.coverletter_text
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "app-notes"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "Notes"), application.notes.map(function (note) {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
+        className: "jh-heading"
+      }, "Notes"), application.notes.map(function (note) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           key: note.id,
           className: "application-note"
@@ -74037,7 +74041,7 @@ function (_Component) {
         }, note.created_at, " ", note.system_flag ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
           className: "note-header-sys"
         }, "SYSTEM NOTE") : null), note.note);
-      }))) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "loading"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "modal fade",
         id: "note-modal",
         tabIndex: "-1",
@@ -74054,7 +74058,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
         className: "modal-title",
         id: "exampleModalLabel"
-      }, "Modal title"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+      }, "New Note"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         type: "button",
         className: "close",
         "data-dismiss": "modal",
@@ -74063,7 +74067,9 @@ function (_Component) {
         "aria-hidden": "true"
       }, "\xD7"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "modal-body"
-      }, "..."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Create a note for ", application.position, " at  ", application.company.name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_NewNote__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        application: application
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "modal-footer"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         type: "button",
@@ -74072,7 +74078,7 @@ function (_Component) {
       }, "Close"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         type: "button",
         className: "btn btn-primary"
-      }, "Save changes"))))));
+      }, "Save changes")))))) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "loading"));
     }
   }]);
 
@@ -74147,7 +74153,6 @@ function (_Component) {
   }, {
     key: "openTab",
     value: function openTab(event) {
-      console.log("hello", event.target.attributes.getNamedItem('data-tab').value);
       var tabId = event.target.attributes.getNamedItem('data-tab').value;
       this.setState({
         openTab: tabId
@@ -74156,33 +74161,37 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "application-info-tabs"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
         className: "application-info-nav"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "app-collapsable-buttons",
-        onClick: this.openTab,
+        onClick: this.state.openTab == 1 ? 'app-collapsable-buttons jh-active' : 'app-collapsable-buttons',
         "data-tab": "1"
       }, "Job Description"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "app-collapsable-buttons",
+        className: this.state.openTab == 2 ? 'app-collapsable-buttons jh-active' : 'app-collapsable-buttons',
         onClick: this.openTab,
         "data-tab": "2"
       }, "Resume"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "app-collapsable-buttons",
+        className: this.state.openTab == 3 ? 'app-collapsable-buttons jh-active' : 'app-collapsable-buttons',
         onClick: this.openTab,
         "data-tab": "3"
-      }, "Cover Letter")), this.state.openTab == 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("article", {
+      }, "Cover Letter")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "application-info-panel"
+      }, this.state.openTab == 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("article", {
         className: "application-info-output"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        className: "jh-heading"
+        className: "jh-heading-slim"
       }, "Job Description"), this.state.job_description) : null, this.state.openTab == 2 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("article", {
         className: "application-info-output"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        className: "jh-heading"
+        className: "jh-heading-slim"
       }, "Submitted Resume"), this.state.resume_text) : null, this.state.openTab == 3 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("article", {
         className: "application-info-output"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        className: "jh-heading"
-      }, "Submitted Cover Letter"), this.state.coverletter_text) : null);
+        className: "jh-heading-slim"
+      }, "Submitted Cover Letter"), this.state.coverletter_text) : null));
     }
   }]);
 
@@ -76643,6 +76652,87 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (NewInterview);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/NewNote.js":
+/*!***************************************************!*\
+  !*** ./resources/assets/js/components/NewNote.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/react.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _InputCompany__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./InputCompany */ "./resources/assets/js/components/InputCompany.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+var NewNote =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(NewNote, _Component);
+
+  function NewNote(props) {
+    var _this;
+
+    _classCallCheck(this, NewNote);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(NewNote).call(this, props));
+    _this.state = {
+      application: props.application || null,
+      is_loading: true
+    };
+    return _this;
+  }
+
+  _createClass(NewNote, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setState({
+        is_loading: false
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var is_loading = this.state.is_loading;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, !is_loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        name: "newnote",
+        className: "new-note"
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "loading"));
+    }
+  }]);
+
+  return NewNote;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (NewNote);
 
 /***/ }),
 
