@@ -52,7 +52,6 @@ class EditApplication extends Component {
                 locations: response.data
             });
         });
-        console.log("Edit application constructor completed.");
     }
     componentDidMount() {
         const id = this.props.match.params.id;
@@ -80,10 +79,7 @@ class EditApplication extends Component {
                 applied_at: response.data.applied_at,
                 is_loading: false
             });
-            console.log("EditApplication application after get", this.state);
         });
-
-        console.log("Edit application componentDidMount completed.");
     }
     handleFieldChange(event) {
         this.setState({

@@ -8,6 +8,9 @@ import InterviewsList from './InterviewsList';
 import ApplicationInfo from './ApplicationInfo';
 import NewNote from './NewNote';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { LinkContainer } from 'react-router-bootstrap'
+import NewInterview from './NewInterview';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class Application extends Component {
@@ -20,9 +23,14 @@ class Application extends Component {
             keyword_matches: null,
             jd_keywords: null,
             resume_keywords: null,
-            coverletter_keywords: null
+            coverletter_keywords: null,
+            show_comment_modal: false,
+            show_interview_modal: false
         }
-
+        this.showCommentModal = this.showCommentModal.bind(this);
+        this.hideCommentModal = this.hideCommentModal.bind(this);
+        this.showInterviewModal = this.showInterviewModal.bind(this);
+        this.hideInterviewModal = this.hideInterviewModal.bind(this);
     }
     componentDidMount() {
         const app_id = this.props.match.params.id;
@@ -91,32 +99,79 @@ class Application extends Component {
     percentageRound(num, places) {
         return num.toFixed(places);
     }
+    showCommentModal() {
+        this.setState({
+            show_comment_modal: true
+        })
+    }
+    hideCommentModal() {
+        this.setState({
+            show_comment_modal: false
+        })
+    }
+    showInterviewModal() {
+        this.setState({
+            show_interview_modal: true
+        })
+    }
+    hideInterviewModal() {
+        this.setState({
+            show_interview_modal: false
+        })
+    }
     render() {
-        const { application, is_loading, app_id } = this.state;
+        const { application, is_loading, app_id, show_comment_modal, show_interview_modal } = this.state;
         console.log("app", application, is_loading);
         return (
             <div className='container'>
             {!is_loading ? (
-                <div className='row'>
+                <div>
                     <div className='edit-row'>
-                        <Link 
-                            to={'/application/edit/' + application.id}
-                            className='btn btn-sm btn-info'
-                        >
-                            <i className="fas fa-edit"></i>
-                            Edit
-                        </Link>
+                        <LinkContainer to={'/application/edit/' + application.id}>
+                            <Button className="app-button"><i className="fas fa-edit"></i>Edit</Button>
+                        </LinkContainer>
                         
-                        <Button><i className="fas fa-user-plus"></i> Add Contact</Button>
-                        <button className='btn btn-sm btn-info' data-toggle='modal' data-target='#note-modal'><i className="fas fa-sticky-note"></i> Add Note</button>
-                        <Link 
-                            to={'/application/' + application.id + '/add/interview'} 
-                            className='btn btn-sm btn-info'
+                        <Button className="app-button"><i className="fas fa-user-plus"></i> Add Contact</Button>
+                        <Button className="app-button" onClick={this.showCommentModal}><i className="fas fa-sticky-note"></i> Add Note</Button>
+                        <Button className="app-button" onClick={this.showInterviewModal}><i className="fas fa-calendar"></i> Add Interview</Button>
+                        {/*
+                        <LinkContainer to={'/application/' + application.id + '/add/interview'}>
+                                <Button className="app-button"><i className="fas fa-calendar"></i>Add Interview</Button>
+                        </LinkContainer>
+                        */}
+                        
+                        <Modal show={show_comment_modal} onHide={this.hideCommentModal}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>New Note</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <NewNote 
+                                    application={application}
+                                />
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={this.hideCommentModal}>
+                                    Close
+                                </Button>
+                                <Button variant="primary" onClick={this.hideCommentModal}>
+                                    Create Note
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
 
-                        >
-                                <i className="fas fa-calendar"></i>
-                                Add Interview
-                        </Link>
+                        <Modal show={show_interview_modal} onHide={this.hideInterviewModal}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>New Note</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <NewInterview application={application}/>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={this.hideInterviewModal}>
+                                    Close
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
                     </div>
                     <section className='app-header'>
                         <div className='app-position'>{ application.position }</div>
@@ -172,9 +227,11 @@ class Application extends Component {
                             }
                         </div>
                     </section>
+                    <h2 className='jh-heading'>Interviews</h2>
                     <InterviewsList
                         applicationId={app_id}
                     />
+                    <h2 className='jh-heading'>Application Info</h2>
                     <ApplicationInfo 
                         jobDesc={application.job_description}
                         resumeText={application.resume_text}
@@ -192,28 +249,6 @@ class Application extends Component {
                                 {note.note}
                             </div>
                         ))}
-                    </div>
-                    <div className="modal fade" id="note-modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">New Note</h5>
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div className="modal-body">
-                                <div>Create a note for {application.position} at  {application.company.name}</div>
-                                <NewNote 
-                                    application={application}
-                                />
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary">Save changes</button>
-                            </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 

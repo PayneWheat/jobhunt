@@ -11,7 +11,7 @@ class NewInterview extends Component {
         super();
         this.state = {
             is_loading: true,
-            application: {},
+            application: props.application,
             types: [],
             interview_type: '',
             interview_datetime: null,
@@ -34,6 +34,7 @@ class NewInterview extends Component {
         */
     }
     componentDidMount() {
+        /*
         const app_id = this.props.match.params.id;
         axios.get('/api/applications/' + app_id).then(response=> {
             console.log("RESPONSE:", response);
@@ -43,9 +44,11 @@ class NewInterview extends Component {
             });
             console.log("application:", this.state.application);
         });
+        */
         axios.get('/api/interviews/types').then(response=>{
             console.log("RESPONSE (types):", response);
             this.setState({
+                is_loading: false,
                 types: response.data
             });
         });

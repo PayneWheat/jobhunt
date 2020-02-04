@@ -56,7 +56,7 @@ class InterviewsList extends Component {
     render() {
         const { is_loading, interviews } = this.state;
         return (
-            <div className='container'>
+            <div className='container interview-list'>
                 {!is_loading ? (
                     interviews.length > 0 ? (
                         <div className='list-container'>
