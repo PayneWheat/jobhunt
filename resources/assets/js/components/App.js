@@ -12,6 +12,7 @@ import EditCompany from './EditCompany';
 import NewInterview from './NewInterview';
 import Interviews from './Interviews';
 import Home from './Home';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
     render() {

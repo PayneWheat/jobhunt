@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import InterviewsList from './InterviewsList';
 import ApplicationInfo from './ApplicationInfo';
 import NewNote from './NewNote';
+import Button from 'react-bootstrap/Button';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class Application extends Component {
@@ -105,7 +106,8 @@ class Application extends Component {
                             <i className="fas fa-edit"></i>
                             Edit
                         </Link>
-                        <button className='btn btn-sm btn-info' data-toggle='modal' data-target='#contact-modal'><i className="fas fa-user-plus"></i> Add Contact</button>
+                        
+                        <Button><i className="fas fa-user-plus"></i> Add Contact</Button>
                         <button className='btn btn-sm btn-info' data-toggle='modal' data-target='#note-modal'><i className="fas fa-sticky-note"></i> Add Note</button>
                         <Link 
                             to={'/application/' + application.id + '/add/interview'} 

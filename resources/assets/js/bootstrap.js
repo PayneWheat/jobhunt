@@ -10,9 +10,11 @@ window._ = require('lodash');
 
 
 try {
-    window.$ = window.jQuery = require('jquery');
-    window.Popper = require('popper.js').default;
-    require('bootstrap-sass');
+    //window.$ = window.jQuery = require('jquery');
+    //window.Popper = require('popper.js').default;
+    //require('bootstrap-sass');
+    require('bootstrap')
+    require('react-bootstrap')
     //window.datepicker = require('js-datepicker');
 } catch (e) {}
 
