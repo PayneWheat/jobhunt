@@ -9,8 +9,10 @@ class NewNote extends Component {
         
         this.state = {
             application: props.application || null,
-            is_loading: true
+            is_loading: true,
+            value: ''
         };
+        this.onChange = this.onChange.bind(this);
 
     }
     componentDidMount() {
@@ -18,7 +20,11 @@ class NewNote extends Component {
             is_loading: false
         })
     }
-
+    onChange(event) {
+        this.setState({
+            value: event.target.value
+        }, ()=>{this.props.action(this.state.value);});
+    }
     render() {
         const { is_loading } = this.state;
         return (
@@ -28,6 +34,7 @@ class NewNote extends Component {
                 <textarea 
                     name='newnote'
                     className='new-note'
+                    onChange={this.onChange}
                 >
 
                 </textarea>

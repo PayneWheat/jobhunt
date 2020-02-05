@@ -52,3 +52,4 @@ Route::post('locations', 'LocationController@store');
 Route::get('locations/{id}', 'LocationController@show');
 Route::put('locations/{location}', 'LocationController@update');
 
+Route::post('notes/create', 'NoteController@store');

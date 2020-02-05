@@ -81,7 +81,9 @@ class NewApplication extends Component {
                     created_at: response.data.created_at,
                     applied_at: response.data.applied_at,
                     is_loading: false
-                }, ()=>{console.log("NewApplication mount:", this.state.company)});
+                }, ()=>{
+                    console.log("NewApplication mount:", this.state.company);
+                });
             });
         } else {
             this.setState({
@@ -280,8 +282,8 @@ class NewApplication extends Component {
                                         className='form-control'
                                         name='resume_text'
                                         onChange={this.handleFieldChange}
-                                        value={this.state.resume_text}
-                                    />
+                                        /*value={this.state.resume_text}*/
+                                    >{this.state.resume_text}</Form.Control>
                                 </Form.Group>
                             </Col>
                         </Row>

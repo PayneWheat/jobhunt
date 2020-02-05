@@ -25,12 +25,16 @@ class Application extends Component {
             resume_keywords: null,
             coverletter_keywords: null,
             show_comment_modal: false,
-            show_interview_modal: false
+            show_interview_modal: false,
+            new_note: '',
+            notes: []
         }
         this.showCommentModal = this.showCommentModal.bind(this);
         this.hideCommentModal = this.hideCommentModal.bind(this);
         this.showInterviewModal = this.showInterviewModal.bind(this);
         this.hideInterviewModal = this.hideInterviewModal.bind(this);
+        this.createNote = this.createNote.bind(this);
+        this.noteChanged = this.noteChanged.bind(this);
     }
     componentDidMount() {
         const app_id = this.props.match.params.id;
@@ -40,7 +44,8 @@ class Application extends Component {
         axios.get('/api/applications/' + app_id).then(response => {
             this.setState({
                 application: response.data,
-            });
+                notes: response.data.notes
+            }, () => {console.log("Fetched and set notes state", this.state.notes)});
             let jd_keys = keyword_extractor.extract(this.state.application.job_description, {
                 language: "english",
                 remove_digits: true,
@@ -106,6 +111,40 @@ class Application extends Component {
             show_comment_modal: false
         })
     }
+    noteChanged(id) {
+        console.log("new note changed", id);
+        this.setState({
+            new_note: id
+        })
+    }
+    createNote(event) {
+        const { history } = this.props;
+        console.log("Create comment", this.state.new_note, this.state.app_id);
+        if(this.state.new_note != '') {
+            const note = {
+                note: this.state.new_note,
+                system_flag: false,
+                application_id: this.state.app_id
+            }
+            axios.post('/api/notes/create', note).then(response => {
+                this.hideCommentModal();
+                console.log(response, this.state.application.notes);
+                let notes = this.state.application.notes;
+                notes.push(response.data);
+                /*
+                this.setState({
+                    notes: notes
+                }, console.log("Appended new note:", this.state.notes));
+                */
+               console.log(this.state.application.notes);
+               this.setState({
+                   
+               })
+            });
+        } else {
+            // throw error
+        }
+    }
     showInterviewModal() {
         this.setState({
             show_interview_modal: true
@@ -117,7 +156,7 @@ class Application extends Component {
         })
     }
     render() {
-        const { application, is_loading, app_id, show_comment_modal, show_interview_modal } = this.state;
+        const { application, is_loading, app_id, show_comment_modal, show_interview_modal, notes } = this.state;
         return (
             <div className='container'>
             {!is_loading ? (
@@ -143,13 +182,15 @@ class Application extends Component {
                             <Modal.Body>
                                 <NewNote 
                                     application={application}
+                                    /*onChange={this.noteChanged}*/
+                                    action={this.noteChanged}
                                 />
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={this.hideCommentModal}>
                                     Close
                                 </Button>
-                                <Button variant="primary" onClick={this.hideCommentModal}>
+                                <Button variant="primary" onClick={this.createNote}>
                                     Create Note
                                 </Button>
                             </Modal.Footer>
@@ -236,7 +277,7 @@ class Application extends Component {
 
                     <div className="app-notes">
                         <h2 className='jh-heading'>Notes</h2>
-                        {application.notes.map(note => (
+                        {notes.map(note => (
                             <div
                                 key={note.id}
                                 className='application-note'

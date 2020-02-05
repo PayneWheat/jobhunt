@@ -97984,12 +97984,16 @@ function (_Component) {
       resume_keywords: null,
       coverletter_keywords: null,
       show_comment_modal: false,
-      show_interview_modal: false
+      show_interview_modal: false,
+      new_note: '',
+      notes: []
     };
     _this.showCommentModal = _this.showCommentModal.bind(_assertThisInitialized(_this));
     _this.hideCommentModal = _this.hideCommentModal.bind(_assertThisInitialized(_this));
     _this.showInterviewModal = _this.showInterviewModal.bind(_assertThisInitialized(_this));
     _this.hideInterviewModal = _this.hideInterviewModal.bind(_assertThisInitialized(_this));
+    _this.createNote = _this.createNote.bind(_assertThisInitialized(_this));
+    _this.noteChanged = _this.noteChanged.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -98004,7 +98008,10 @@ function (_Component) {
       });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/applications/' + app_id).then(function (response) {
         _this2.setState({
-          application: response.data
+          application: response.data,
+          notes: response.data.notes
+        }, function () {
+          console.log("Fetched and set notes state", _this2.state.notes);
         });
 
         var jd_keys = keyword_extractor.extract(_this2.state.application.job_description, {
@@ -98083,6 +98090,47 @@ function (_Component) {
       });
     }
   }, {
+    key: "noteChanged",
+    value: function noteChanged(id) {
+      console.log("new note changed", id);
+      this.setState({
+        new_note: id
+      });
+    }
+  }, {
+    key: "createNote",
+    value: function createNote(event) {
+      var _this3 = this;
+
+      var history = this.props.history;
+      console.log("Create comment", this.state.new_note, this.state.app_id);
+
+      if (this.state.new_note != '') {
+        var note = {
+          note: this.state.new_note,
+          system_flag: false,
+          application_id: this.state.app_id
+        };
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/notes/create', note).then(function (response) {
+          _this3.hideCommentModal();
+
+          console.log(response, _this3.state.application.notes);
+          var notes = _this3.state.application.notes;
+          notes.push(response.data);
+          /*
+          this.setState({
+              notes: notes
+          }, console.log("Appended new note:", this.state.notes));
+          */
+
+          console.log(_this3.state.application.notes);
+
+          _this3.setState({});
+        });
+      } else {// throw error
+      }
+    }
+  }, {
     key: "showInterviewModal",
     value: function showInterviewModal() {
       this.setState({
@@ -98104,7 +98152,8 @@ function (_Component) {
           is_loading = _this$state.is_loading,
           app_id = _this$state.app_id,
           show_comment_modal = _this$state.show_comment_modal,
-          show_interview_modal = _this$state.show_interview_modal;
+          show_interview_modal = _this$state.show_interview_modal,
+          notes = _this$state.notes;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container"
       }, !is_loading ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -98136,12 +98185,15 @@ function (_Component) {
         closeButton: true
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_10__["default"].Title, null, "New Note")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_10__["default"].Body, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_NewNote__WEBPACK_IMPORTED_MODULE_8__["default"], {
         application: application
+        /*onChange={this.noteChanged}*/
+        ,
+        action: this.noteChanged
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_10__["default"].Footer, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
         variant: "secondary",
         onClick: this.hideCommentModal
       }, "Close"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
         variant: "primary",
-        onClick: this.hideCommentModal
+        onClick: this.createNote
       }, "Create Note"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_10__["default"], {
         show: show_interview_modal,
         onHide: this.hideInterviewModal
@@ -98209,7 +98261,7 @@ function (_Component) {
         className: "app-notes"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
         className: "jh-heading"
-      }, "Notes"), application.notes.map(function (note) {
+      }, "Notes"), notes.map(function (note) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           key: note.id,
           className: "application-note"
@@ -100244,9 +100296,10 @@ function (_Component) {
         id: "resume_text",
         className: "form-control",
         name: "resume_text",
-        onChange: this.handleFieldChange,
-        value: this.state.resume_text
-      })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_5__["default"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        onChange: this.handleFieldChange
+        /*value={this.state.resume_text}*/
+
+      }, this.state.resume_text)))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_5__["default"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_6__["default"], {
         md: 12
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_7__["default"].Group, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_7__["default"].Label, {
         htmlFor: "coverletter_text"
@@ -100517,9 +100570,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -100543,8 +100596,10 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(NewNote).call(this, props));
     _this.state = {
       application: props.application || null,
-      is_loading: true
+      is_loading: true,
+      value: ''
     };
+    _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -100556,12 +100611,24 @@ function (_Component) {
       });
     }
   }, {
+    key: "onChange",
+    value: function onChange(event) {
+      var _this2 = this;
+
+      this.setState({
+        value: event.target.value
+      }, function () {
+        _this2.props.action(_this2.state.value);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var is_loading = this.state.is_loading;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, !is_loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         name: "newnote",
-        className: "new-note"
+        className: "new-note",
+        onChange: this.onChange
       }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "loading"));
     }
   }]);
