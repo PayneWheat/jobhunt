@@ -14,7 +14,7 @@ class InterviewController extends Controller
     }
     public function store(Request $request)
     {
-        $resData = [];
+        $resData = ["HELLO WORLD"];
         array_push($resData, $request);
         $validatedData = $request->validate([
             'at_time' => 'required|date',
@@ -28,7 +28,7 @@ class InterviewController extends Controller
             'interview_type_id' => $validatedData['interview_type_id']
         ]);
         array_push($resData, $interview);
-        return response()->json($interview);
+        return response()->json($resData);
     }
     public function show($id)
     {
