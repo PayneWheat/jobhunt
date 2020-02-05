@@ -4,12 +4,19 @@ import React, { Component } from 'react';
 //import Autosuggest from 'react-autosuggest';
 import InputCompany from './InputCompany';
 import InputLocation from './InputLocation';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class NewApplication extends Component {
-    constructor() {
+    constructor(props) {
+        console.log("NewApp constructor", props.app_id);
         super();
         this.state = {
+            edit: props.edit || false,
             position: '',
             company_id: '',
             company_name: '',
@@ -29,7 +36,10 @@ class NewApplication extends Component {
             posted_salary_max: '',
             requested_salary: '',
             post_age: '',
+            app_id: props.app_id || null,
+            is_loading: true
         }
+        console.log(this.state);
         this.handleFieldChange = this.handleFieldChange.bind(this);
         this.handleCreateNewApplication = this.handleCreateNewApplication.bind(this);
         this.hasErrorFor = this.hasErrorFor.bind(this);
@@ -49,7 +59,38 @@ class NewApplication extends Component {
             });
         });
     }
+    componentDidMount() {
+        if(this.state.edit) {
+            axios.get('/api/applications/' + this.state.app_id).then(response => {
+                console.log("edit response", response);
+                const locValue = response.data.location.city + ", " + response.data.location.state;
+                let dt = new Date(response.data.created_at).toISOString();
+                dt = dt.substring(0, dt.length - 1);
+                this.setState({
+                    position: response.data.position,
+                    company: response.data.company,
+                    location_id: response.data.location_id,
+                    location_value: locValue,
+                    job_description: response.data.job_description,
+                    post_age: response.data.post_age,
+                    requested_salary: response.data.requested_salary,
+                    posted_salary_min: response.data.posted_salary_min,
+                    posted_salary_max: response.data.posted_salary_max,
+                    resume_text: response.data.resume_text,
+                    coverletter_text: response.data.coverletter_text,
+                    created_at: response.data.created_at,
+                    applied_at: response.data.applied_at,
+                    is_loading: false
+                }, ()=>{console.log("NewApplication mount:", this.state.company)});
+            });
+        } else {
+            this.setState({
+                is_loading: false
+            })
+        }
+    }
     handleFieldChange(event) {
+        console.log("NewApp Field Changed", event);
         this.setState({
             [event.target.name]: event.target.value
         });
@@ -70,7 +111,6 @@ class NewApplication extends Component {
             requested_salary: this.state.requested_salary,
             post_age: this.state.post_age
         }
-        console.log(application);
         
         axios.post('/api/applications', application).then(response => {
             history.push('/');
@@ -108,34 +148,32 @@ class NewApplication extends Component {
         });
     }
     render() {
-        const { applications } = this.state;
+        const { applications, is_loading, company } = this.state;
+        console.log("Render:", company, is_loading);
         return (
-            <div className='container'>
-                <div className='row justify-content-center'>
-                    <div className='col-md-6'>
+            <Container>
+            {!is_loading ? (
+                    <Form onSubmit={this.handleCreateNewApplication}>
                         <div>Create new application</div>
-                    
-                        <form onSubmit={this.handleCreateNewApplication}>
-                            <div className='row'>
-                                <div className='col-md-6'>
-                                    <div className='form-group'>
-                                        <label htmlFor='position'>Position</label>
-                                        <input
-                                            id='position'
-                                            type='text'
-                                            /*className={`form-control ${this.hasErrorFor('position') ? 'is-invalid' : ''}`}*/
-                                            className='form-control'
-                                            name='position'
-                                            value={this.state.position}
-                                            onChange={this.handleFieldChange}
-                                        />
-                                        {/*this.renderErrorFor('position')*/}
-                                    </div>
-                                </div>
-                                <div className='col-md-5'>
-                                    <div className='form-group'>
-                                        <label htmlFor='app_location'>Job Location</label>
-                                        <InputLocation
+                        <Row>
+                            <Col md={6}>
+                                <Form.Group>
+                                    <Form.Label htmlFor='position'>Position</Form.Label>
+                                    <Form.Control
+                                        id='position'
+                                        type='text'
+                                        /*className={`form-control ${this.hasErrorFor('position') ? 'is-invalid' : ''}`}*/
+                                        name='position'
+                                        value={this.state.position}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                    {/*this.renderErrorFor('position')*/}
+                                </Form.Group>
+                            </Col>
+                            <Col md={5}>
+                                <Form.Group>
+                                    <Form.Label htmlFor='app_location'>Job Location</Form.Label>
+                                    <InputLocation
                                             stateFieldId='app_state'
                                             cityFieldId='app_city'
                                             locationFieldId='app_location_id'
@@ -144,113 +182,131 @@ class NewApplication extends Component {
                                             /*className={`form-control ${this.hasErrorFor('app_location') ? 'is-invalid' : ''}`}*/
                                             className='form-control'
                                             action={this.setLocationId}
+                                            locationValue={this.state.location_value}
                                         />
-                                        {/*this.renderErrorFor('app_location')*/}
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <InputCompany action={this.setCompanyId}/>
-                            <div className='form-group'>
-                                <label htmlFor='resume'>Job Description</label>
-                                <textarea 
-                                    id='job_description' 
-                                    className='form-control'
-                                    name='job_description'
-                                    onChange={this.handleFieldChange}
-                                    value={this.state.job_description}
+                                        {/*this.renderErrorFor('app_location')*/}                         
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={12}>
+                                <InputCompany 
+                                    action={this.setCompanyId}
+                                    companyId={company ? (company.id) : null}
+                                    companyName={company ? (company.name) : null}
+                                    companyWebsite={company ? (company.website) : null}
+                                    companyPhone={company ? (company.phone) : null}
                                 />
-                            </div>
-                            <div className='row'>
-                                <div className='col-md-6'>
-                                    <label htmlFor='post_age'>Age of Job Posting (days)</label>
-                                    <div className='form-group no-gutters col-md-6'>
-                                        <input 
-                                            id='post_age'
-                                            type='number'
-                                            name='post_age'
-                                            className='form-control'
-                                            onChange={this.handleFieldChange}
-                                            value={this.state.post_age}
-                                        />
-                                    </div>
-                                </div>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={12}>
+                                <Form.Group>
+                                    <Form.Label htmlFor='resume'>Job Description</Form.Label>
+                                    <Form.Control
+                                        as='textarea'
+                                        id='job_description' 
+                                        name='job_description'
+                                        onChange={this.handleFieldChange}
+                                        value={this.state.job_description}
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={6}>
+                                <Form.Label htmlFor='post_age'>Age of Job Posting (days)</Form.Label>
+                                <Form.Group noGutters={true}>
+                                    <Form.Control 
+                                        id='post_age'
+                                        type='number'
+                                        name='post_age'
+                                        onChange={this.handleFieldChange}
+                                        value={this.state.post_age}
+                                    />
+                                </Form.Group>
+                            </Col>
+                            <Col md={6}>
+                                <Form.Label htmlFor='requested_salary'>Requested Salary (optional)</Form.Label>
+                                <Form.Group noGutters={true}>
+                                    <Form.Control
+                                        id='requested_salary'
+                                        type='number'
+                                        name='requested_salary'
+                                        onChange={this.handleFieldChange}
+                                        value={this.state.requested_salary}
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={12}>
+                                <Form.Label htmlFor='post_age'>Posted Salary Range (optional)</Form.Label>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={6}>
+                                <Form.Group>
+                                    <Form.Control
+                                        id='posted_salary_min'
+                                        type='number'
+                                        placeholder='Minimum'
+                                        name='posted_salary_min'
+                                        onChange={this.handleFieldChange}
+                                        value={this.state.posted_salary_min}
+                                    />
+                                </Form.Group>
+                            </Col>
+                            <Col md={6}>
+                                <Form.Group>
+                                    <Form.Control
+                                        id='posted_salary_max'
+                                        type='number'
+                                        placeholder='Maximum'
+                                        name='posted_salary_max'
+                                        onChange={this.handleFieldChange}
+                                        value={this.state.posted_salary_max}
+                                    />
+                                </Form.Group>                            
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={12}>
+                                <Form.Group>
+                                    <Form.Label htmlFor='resume_text'>Resume Submitted</Form.Label>
+                                    <Form.Control
+                                        as='textarea'
+                                        id='resume_text' 
+                                        className='form-control'
+                                        name='resume_text'
+                                        onChange={this.handleFieldChange}
+                                        value={this.state.resume_text}
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={12}>
+                                <Form.Group>
+                                    <Form.Label htmlFor='coverletter_text'>Cover Letter Submitted</Form.Label>
+                                    <Form.Control
+                                        as='textarea' 
+                                        id='coverletter_text' 
+                                        className='form-control'
+                                        name='coverletter_text'
+                                        onChange={this.handleFieldChange}
+                                        value={this.state.coverletter_text}
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Button>Create Application</Button>
+                    </Form>
 
-                                <div className='col-md-6'>
-                                    <label htmlFor='requested_salary'>Requested Salary (optional)</label>
-                                    <div className='form-group no-gutters col-md-8'>
-                                        <input
-                                            id='requested_salary'
-                                            type='number'
-                                            name='requested_salary'
-                                            className='form-control'
-                                            onChange={this.handleFieldChange}
-                                            value={this.state.requested_salary}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-md-8 no-gutters'>
-                                    <label className='no-gutters-label'>Posted Salary Range (optional)</label>
-                                    <div className='col-sm-6'>
-                                        <div className='form-group'>
-                                            <input
-                                                id='posted_salary_min'
-                                                type='number'
-                                                placeholder='Minimum'
-                                                name='posted_salary_min'
-                                                className='form-control'
-                                                onChange={this.handleFieldChange}
-                                                value={this.state.posted_salary_min}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className='col-sm-6'>
-                                        <div className='form-group'>
-                                        <input
-                                            id='posted_salary_max'
-                                            type='number'
-                                            placeholder='Maximum'
-                                            name='posted_salary_max'
-                                            className='form-control'
-                                            onChange={this.handleFieldChange}
-                                            value={this.state.posted_salary_max}
-                                        />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='col-md-4'>
-
-                                </div>
-                            </div>
-                            
-
-                            <div className='form-group'>
-                                <label htmlFor='resume_text'>Resume Submitted</label>
-                                <textarea 
-                                    id='resume_text' 
-                                    className='form-control'
-                                    name='resume_text'
-                                    onChange={this.handleFieldChange}
-                                    value={this.state.resume_text}
-                                />
-                            </div>
-                            <div className='form-group'>
-                                <label htmlFor='coverletter_text'>Cover Letter Submitted</label>
-                                <textarea 
-                                    id='coverletter_text' 
-                                    className='form-control'
-                                    name='coverletter_text'
-                                    onChange={this.handleFieldChange}
-                                    value={this.state.coverletter_text}
-                                />
-                            </div>
-                            <button className='btn btn-primary'>Create Application</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            ) : (
+                <h3>LOADING</h3>
+            )}
+            </Container>
         );
     }
 }

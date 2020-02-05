@@ -142,15 +142,18 @@ class InputLocation extends React.Component {
                     key={this.props.value}
                     id='job_location'
                 />
-                
-                <button 
-                    id='add_location'
-                    className={this.state.show_location_button ? 'btn btn-secondary btn-sm floater' : 'btn btn-secondary btn-sm hidden floater'}
-                    onClick={this.addLocation}
-                >
-                    Add
-                </button>
-                <i id='location_check' className={this.state.show_location_check ? 'fas fa-check floater' : 'fas fa-check floater hidden'}></i>
+                {this.state.show_location_button ? (
+                    <button 
+                        id='add_location'
+                        className={this.state.show_location_button ? 'btn btn-secondary btn-sm floater' : 'btn btn-secondary btn-sm hidden floater'}
+                        onClick={this.addLocation}
+                    >
+                        Add
+                    </button>
+                ) : null}
+                {this.state.show_location_check ? (
+                    <i id='location_check' className={this.state.show_location_check ? 'fas fa-check floater' : 'fas fa-check floater hidden'}></i>
+                ) : null}
             </div>
         )
     }

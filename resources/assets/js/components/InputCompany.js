@@ -1,7 +1,10 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
-import InputLocation from './InputLocation';
+//import InputLocation from './InputLocation';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col'
 
 let companies = [];
 const getSuggestions = value => {
@@ -25,6 +28,7 @@ const renderSuggestion = suggestion => (
 class InputCompany extends React.Component {
     constructor(props) {
         super();
+        console.log("InputCompany props", props);
         this.state = {
             value: props.companyName || '',
             suggestions: [],
@@ -37,7 +41,8 @@ class InputCompany extends React.Component {
             show_add_button: false,
             show_check: false,
             readonly_addtl_fields: false,
-            override_readonly: props.readOnlyFields || false
+            override_readonly: props.readOnlyFields || false,
+            is_loading: true
         }
 
         // do something about enter key? it's posting instead of selecting
@@ -48,13 +53,8 @@ class InputCompany extends React.Component {
         this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
         this.handleFieldChange = this.handleFieldChange.bind(this);
         this.addCompany = this.addCompany.bind(this);
-        console.log("InputCompany props", props);
-        axios.get('/api/companies').then(response => {
-            companies = response.data;
-        });
     }
     onChange(event, newValue) {
-        console.log("InputCompany::onChange newValue", event, newValue);
         this.setState({
             value: newValue.newValue
         });
@@ -67,7 +67,6 @@ class InputCompany extends React.Component {
 
     }
     onChangeName(event, newValue) {
-        console.log("InputCompany::onChangeName newValue", event, newValue);
         if(this.state.readonly_addtl_fields && !this.state.override_readonly) {
             this.setState({
                 readonly_addtl_fields: false,
@@ -81,11 +80,21 @@ class InputCompany extends React.Component {
         });
     }
     componentDidMount() {
+        console.log("InputCompany mount:", this.state)
+        axios.get('/api/companies').then(response => {
+            this.setState({
+                companies: response.data,
+                is_loading: false
+            });
+        });
         if(this.state.value != '') {
             this.setState({
                 readonly_addtl_fields: true
             });
         }
+    }
+    componentDidUpdate() {
+        console.log("InputCompany update", this.state);
     }
     // add handler
     handleFieldChange(event) {
@@ -93,12 +102,10 @@ class InputCompany extends React.Component {
             [event.target.name]: event.target.value
         }, ()=>{
             if(this.state.value != '' && this.state.website != '') {
-                console.log("truthy");
                 this.setState({
                     show_add_button: true
-                }, ()=>{console.log(this.state);});
+                });
             } else {
-                console.log("falsey");
                 this.setState({
                     show_add_button: false,
                     show_check: false
@@ -156,8 +163,7 @@ class InputCompany extends React.Component {
         
     }
     render() {
-        const { value, suggestions } = this.state;
-        console.log("rendering InputCompany", this.props, this.state);
+        const { value, suggestions, is_loading } = this.state;
         const inputProps = {
             value: this.state.value,
             onChange: this.onChangeName,
@@ -165,60 +171,75 @@ class InputCompany extends React.Component {
         };
 
         return (
+            
             <div className='company-input'>
-                <div className='form-group rel-pos'>
-                    <label htmlFor='company'>Company</label>
-                    <Autosuggest
-                        suggestions={suggestions}
-                        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                        getSuggestionValue={getSuggestionValue}
-                        onSuggestionSelected={this.onSuggestionSelected}
-                        renderSuggestion={renderSuggestion}
-                        inputProps={inputProps}
-                    />
-                    <button 
-                        id='add_company'
-                        className={this.state.show_add_button ? 'btn btn-secondary btn-sm floater' : 'btn btn-secondary btn-sm hidden floater'}
-                        onClick={this.addCompany}
-                    >
-                        Add
-                    </button>
-                    <i id='company_check' className={this.state.show_check ? 'fas fa-check floater' : 'fas fa-check floater hidden'}></i>
-                </div>
-                <div className='row'>
-                    <div className='col-md-5'>
-                        <div className='form-group'>
-                            <label htmlFor='website'>Website</label>
-                            <input 
-                                type='text'
-                                className='form-control'
-                                id='website'
-                                name='website'
-                                placeholder='company.co'
-                                value={this.state.website}
-                                readOnly={(!this.state.override_readonly && this.state.readonly_addtl_fields)}
-                                onChange={this.handleFieldChange}
-                            />
-                        </div>
-                    </div>
-                    <div className='col-md-3'>
-                        <div className='form-group'>
-                            <label htmlFor='phone'>Phone Number</label>
-                            <input 
-                                type='text'
-                                className='form-control'
-                                id='phone'
-                                name='phone'
-                                placeholder='123-456-7890'
-                                value={this.state.phone}
-                                readOnly={(!this.state.override_readonly && this.state.readonly_addtl_fields)}
-                                onChange={this.handlePhoneFieldChange}
-                            />
+            {!is_loading ? (
+                <div>
+                    <div className='form-group rel-pos'>
+                        <label htmlFor='company'>Company</label>
+                        <Autosuggest
+                            suggestions={suggestions}
+                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                            getSuggestionValue={getSuggestionValue}
+                            onSuggestionSelected={this.onSuggestionSelected}
+                            renderSuggestion={renderSuggestion}
+                            inputProps={inputProps}
+                            value={value}
+                        />
+                        {this.state.show_add_button ? (
+                            <button 
+                                id='add_company'
+                                className={this.state.show_add_button ? 'btn btn-secondary btn-sm floater' : 'btn btn-secondary btn-sm hidden floater'}
+                                onClick={this.addCompany}
+                            >
+                                Add
+                            </button>
+                        ) : null}
 
-                        </div>
+                        {this.state.show_check ? (
+                            <i id='company_check' className={this.state.show_check ? 'fas fa-check floater' : 'fas fa-check floater hidden'}></i>
+                        ) : null}
                     </div>
+                    <Row>
+                        <Col md={5}>
+                            <div className='form-group'>
+                                <label htmlFor='website'>Website</label>
+                                <input 
+                                    type='text'
+                                    className='form-control'
+                                    id='website'
+                                    name='website'
+                                    placeholder='company.co'
+                                    value={this.state.website}
+                                    readOnly={(!this.state.override_readonly && this.state.readonly_addtl_fields)}
+                                    onChange={this.handleFieldChange}
+                                />
+                            </div>
+                        </Col>
+                        <Col md={3}>
+                            <div className='form-group'>
+                                <label htmlFor='phone'>Phone Number</label>
+                                <input 
+                                    type='text'
+                                    className='form-control'
+                                    id='phone'
+                                    name='phone'
+                                    placeholder='123-456-7890'
+                                    value={this.state.phone}
+                                    readOnly={(!this.state.override_readonly && this.state.readonly_addtl_fields)}
+                                    onChange={this.handlePhoneFieldChange}
+                                />
+
+                            </div>
+                        </Col>
+                    </Row>
                 </div>
+            ) : (
+                <h3>loading</h3>
+            )}
+            
+                
             </div>
         )
     }

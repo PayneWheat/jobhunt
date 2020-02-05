@@ -19,7 +19,7 @@ class InterviewsList extends Component {
                 this.setState({
                     interviews: response.data,
                     is_loading: false
-                }, ()=>{console.log(this.state)});
+                });
             });
         } else {
             axios.get('/api/interviews').then(response => {
@@ -27,28 +27,16 @@ class InterviewsList extends Component {
                 this.setState({
                     interviews: response.data,
                     is_loading: false
-                }, ()=>{console.log(this.state)});
+                });
             });
         }
     }
     convertDatetime(datetime, timeonly=false) {
         let t = datetime.split(/[- :]/);
         let d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
-        console.log(d);
         if(!timeonly) {
             return d.toLocaleDateString('en-US');
         } else {
-            /*
-            const options = {
-                timeZone: "America/Chicago",
-                hour12: true,
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit"
-            }
-            return d.toLocaleTimeString('en-US', options);
-            */
-           console.log(t, d.getHours(), d.getMinutes(), d.getSeconds());
            //return d.toLocaleTimeString();
             return (t[3] <= 12 ? t[3] : t[3] % 12) + ":" + t[4] + (t[3] < 12 ? " AM" : " PM");
         }
@@ -56,7 +44,7 @@ class InterviewsList extends Component {
     render() {
         const { is_loading, interviews } = this.state;
         return (
-            <div className='container interview-list'>
+            <div className='interview-list'>
                 {!is_loading ? (
                     interviews.length > 0 ? (
                         <div className='list-container'>

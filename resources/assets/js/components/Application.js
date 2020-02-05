@@ -38,7 +38,6 @@ class Application extends Component {
             app_id: app_id
         });
         axios.get('/api/applications/' + app_id).then(response => {
-            console.log(response);
             this.setState({
                 application: response.data,
             });
@@ -60,7 +59,6 @@ class Application extends Component {
                 return_changed_case: true,
                 remove_duplicates: true
             });
-            console.log(jd_keys, resume_keys);
             let matches = [];
             for(let i = 0; i < jd_keys.length; i++) {
                 for(let j = 0; j < resume_keys.length; j++) {
@@ -76,7 +74,6 @@ class Application extends Component {
                 }
                 
             }
-            console.log(matches);
             this.setState({
                 keyword_matches: matches,
                 jd_keywords: jd_keys,
@@ -121,7 +118,6 @@ class Application extends Component {
     }
     render() {
         const { application, is_loading, app_id, show_comment_modal, show_interview_modal } = this.state;
-        console.log("app", application, is_loading);
         return (
             <div className='container'>
             {!is_loading ? (
@@ -161,7 +157,7 @@ class Application extends Component {
 
                         <Modal show={show_interview_modal} onHide={this.hideInterviewModal}>
                             <Modal.Header closeButton>
-                                <Modal.Title>New Note</Modal.Title>
+                                <Modal.Title>New Interview</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 <NewInterview application={application}/>

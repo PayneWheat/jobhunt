@@ -14117,40 +14117,33 @@ i.floater {
 
 .applist-date,
 .interviewlist-date {
-  /*flex-basis: 6em;*/
   width: 6.75em;
   text-align: right;
   padding-right: 1em;
 }
 
 .applist-location {
-  /*flex-basis: 19em;*/
-  width: 19em;
+  width: 17em;
 }
 
 .applist-company {
-  /*flex-basis: 20em;*/
-  width: 20em;
+  width: 17em;
 }
 
 .applist-position {
-  /*flex-basis: 20em;*/
-  width: 20em;
+  width: 17em;
   flex-grow: 2;
 }
 
 .applist-status {
-  /*flex-basis: 5em;*/
-  width: 8em;
+  width: 7em;
 }
 
 .interviewlist-time {
-  /*flex-basis: 6em;*/
   width: 6em;
 }
 
 .interviewlist-type {
-  /*flex-basis: 13em;*/
   width: 13em;
 }
 

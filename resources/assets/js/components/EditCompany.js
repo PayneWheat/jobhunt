@@ -32,8 +32,7 @@ class EditCompany extends Component {
     render() {
         const { company, is_loading } = this.state;
         return (
-            
-            <div className='container'>
+            <div id="input-company">
             {!is_loading ? (
                 <div>  
                     <InputCompany 
