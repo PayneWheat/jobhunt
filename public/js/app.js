@@ -98010,8 +98010,6 @@ function (_Component) {
         _this2.setState({
           application: response.data,
           notes: response.data.notes
-        }, function () {
-          console.log("Fetched and set notes state", _this2.state.notes);
         });
 
         var jd_keys = keyword_extractor.extract(_this2.state.application.job_description, {
@@ -98092,7 +98090,6 @@ function (_Component) {
   }, {
     key: "noteChanged",
     value: function noteChanged(id) {
-      console.log("new note changed", id);
       this.setState({
         new_note: id
       });
@@ -98103,7 +98100,6 @@ function (_Component) {
       var _this3 = this;
 
       var history = this.props.history;
-      console.log("Create comment", this.state.new_note, this.state.app_id);
 
       if (this.state.new_note != '') {
         var note = {
@@ -98114,18 +98110,12 @@ function (_Component) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/notes/create', note).then(function (response) {
           _this3.hideCommentModal();
 
-          console.log(response, _this3.state.application.notes);
-          var notes = _this3.state.application.notes;
+          var notes = _this3.state.notes;
           notes.push(response.data);
-          /*
-          this.setState({
-              notes: notes
-          }, console.log("Appended new note:", this.state.notes));
-          */
 
-          console.log(_this3.state.application.notes);
-
-          _this3.setState({});
+          _this3.setState({
+            notes: notes
+          });
         });
       } else {// throw error
       }
@@ -99897,8 +99887,6 @@ function (_Component) {
 
       if (this.state.application_id) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/applications/' + this.state.application_id + '/interviews').then(function (response) {
-          console.log("specific app interviews:", response.data);
-
           _this2.setState({
             interviews: response.data,
             is_loading: false
@@ -99906,8 +99894,6 @@ function (_Component) {
         });
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/interviews').then(function (response) {
-          console.log(response.data);
-
           _this2.setState({
             interviews: response.data,
             is_loading: false

@@ -45,7 +45,7 @@ class Application extends Component {
             this.setState({
                 application: response.data,
                 notes: response.data.notes
-            }, () => {console.log("Fetched and set notes state", this.state.notes)});
+            });
             let jd_keys = keyword_extractor.extract(this.state.application.job_description, {
                 language: "english",
                 remove_digits: true,
@@ -112,14 +112,12 @@ class Application extends Component {
         })
     }
     noteChanged(id) {
-        console.log("new note changed", id);
         this.setState({
             new_note: id
         })
     }
     createNote(event) {
         const { history } = this.props;
-        console.log("Create comment", this.state.new_note, this.state.app_id);
         if(this.state.new_note != '') {
             const note = {
                 note: this.state.new_note,
@@ -128,18 +126,11 @@ class Application extends Component {
             }
             axios.post('/api/notes/create', note).then(response => {
                 this.hideCommentModal();
-                console.log(response, this.state.application.notes);
-                let notes = this.state.application.notes;
+                let notes = this.state.notes;
                 notes.push(response.data);
-                /*
                 this.setState({
                     notes: notes
-                }, console.log("Appended new note:", this.state.notes));
-                */
-               console.log(this.state.application.notes);
-               this.setState({
-                   
-               })
+                });
             });
         } else {
             // throw error

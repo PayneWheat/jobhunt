@@ -15,7 +15,6 @@ class InterviewsList extends Component {
     componentDidMount() {
         if(this.state.application_id) {
             axios.get('/api/applications/' + this.state.application_id +'/interviews').then(response => {
-                console.log("specific app interviews:", response.data);
                 this.setState({
                     interviews: response.data,
                     is_loading: false
@@ -23,7 +22,6 @@ class InterviewsList extends Component {
             });
         } else {
             axios.get('/api/interviews').then(response => {
-                console.log(response.data);
                 this.setState({
                     interviews: response.data,
                     is_loading: false
