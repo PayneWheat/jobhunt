@@ -28,7 +28,7 @@ class InterviewController extends Controller
             'interview_type_id' => $validatedData['interview_type_id']
         ]);
         array_push($resData, $interview);
-        return response()->json($resData);
+        return response()->json($interview);
     }
     public function show($id)
     {

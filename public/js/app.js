@@ -98641,7 +98641,6 @@ function (_Component) {
     value: function convertDatetime(datetime) {
       var t = datetime.split(/[- :]/);
       var d = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
-      console.log(d);
       return d.toLocaleDateString('en-US');
     }
   }, {
