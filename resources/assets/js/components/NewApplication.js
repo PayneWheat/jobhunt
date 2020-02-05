@@ -98,6 +98,7 @@ class NewApplication extends Component {
         });
     }
     handleCreateNewApplication(event) {
+        console.log("SUBMITTING");
         event.preventDefault();
         const { history } = this.props;
 
@@ -302,7 +303,7 @@ class NewApplication extends Component {
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Button>Create Application</Button>
+                        <Button type='submit'>Create Application</Button>
                     </Form>
 
             ) : (

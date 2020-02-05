@@ -100118,6 +100118,7 @@ function (_Component) {
     value: function handleCreateNewApplication(event) {
       var _this3 = this;
 
+      console.log("SUBMITTING");
       event.preventDefault();
       var history = this.props.history;
       var application = {
@@ -100296,7 +100297,9 @@ function (_Component) {
         name: "coverletter_text",
         onChange: this.handleFieldChange,
         value: this.state.coverletter_text
-      })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_8__["default"], null, "Create Application")) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "LOADING"));
+      })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        type: "submit"
+      }, "Create Application")) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "LOADING"));
     }
   }]);
 
