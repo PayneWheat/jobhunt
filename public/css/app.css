@@ -14104,11 +14104,32 @@ i.floater {
   color: #636b6f;
 }
 
-.list-row:first-of-type {
+.list-header {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.5em 0.5em;
+  border-left: 1px solid #d3e0e9;
+  border-right: 1px solid #d3e0e9;
+  border-bottom: 1px solid #d3e0e9;
+  border-top: 1px solid #d3e0e9;
   border-top-left-radius: 0.3em;
   border-top-right-radius: 0.3em;
-  border-top: 1px solid #d3e0e9;
 }
+
+/*
+.list-header div {
+  border-right: 1px solid rgb(211, 224, 233);
+}
+.list-header div:last-of-type {
+  border-right: none;
+}
+
+.list-row:first-of-type {
+  border-top-left-radius: .3em;
+  border-top-right-radius: .3em;
+  border-top: 1px solid rgb(211, 224, 233);
+}
+*/
 
 .list-row:last-of-type {
   border-bottom-left-radius: 0.3em;

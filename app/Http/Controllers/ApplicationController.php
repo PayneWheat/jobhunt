@@ -10,10 +10,9 @@ class ApplicationController extends Controller
 {
     public function index()
     {
-        $applications = Application::all();
+        $applications = Application::orderBy('created_at', 'desc')->get();
         $applications->load('company', 'location', 'status');
         return $applications->toJson();
-        //return $applications->toArray();
     }
 
     public function store(Request $request) 

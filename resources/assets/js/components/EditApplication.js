@@ -4,7 +4,6 @@ import NewApplication from './NewApplication';
 
 class EditApplication extends Component {
     constructor(props) {
-        console.log("EditApp constructor", props.match.params.id);
         super();
         this.state = {
             app_id: props.match.params.id

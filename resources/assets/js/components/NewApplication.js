@@ -39,7 +39,6 @@ class NewApplication extends Component {
             app_id: props.app_id || null,
             is_loading: true
         }
-        console.log(this.state);
         this.handleFieldChange = this.handleFieldChange.bind(this);
         this.handleCreateNewApplication = this.handleCreateNewApplication.bind(this);
         this.hasErrorFor = this.hasErrorFor.bind(this);
@@ -62,7 +61,6 @@ class NewApplication extends Component {
     componentDidMount() {
         if(this.state.edit) {
             axios.get('/api/applications/' + this.state.app_id).then(response => {
-                console.log("edit response", response);
                 const locValue = response.data.location.city + ", " + response.data.location.state;
                 let dt = new Date(response.data.created_at).toISOString();
                 dt = dt.substring(0, dt.length - 1);
@@ -81,8 +79,6 @@ class NewApplication extends Component {
                     created_at: response.data.created_at,
                     applied_at: response.data.applied_at,
                     is_loading: false
-                }, ()=>{
-                    console.log("NewApplication mount:", this.state.company);
                 });
             });
         } else {
@@ -92,13 +88,11 @@ class NewApplication extends Component {
         }
     }
     handleFieldChange(event) {
-        console.log("NewApp Field Changed", event);
         this.setState({
             [event.target.name]: event.target.value
         });
     }
     handleCreateNewApplication(event) {
-        console.log("SUBMITTING");
         event.preventDefault();
         const { history } = this.props;
 
@@ -116,14 +110,15 @@ class NewApplication extends Component {
         }
         
         axios.post('/api/applications', application).then(response => {
-            history.push('/');
+            console.log("application created:", response.data);
+            history.push('/application/' + response.data.id);
         })
         .catch(error => {
             console.log(error);
             this.setState({
                 errors: error.response.data.errors
             });
-        })
+        });
         
     }
     hasErrorFor(field) {
@@ -139,13 +134,11 @@ class NewApplication extends Component {
         }
     }
     setCompanyId(id) {
-        //console.log("Setting company id: " + id);
         this.setState({
             company_id: id
         });
     }
     setLocationId(id) {
-        //console.log(id);
         this.setState({
             location_id: id
         });

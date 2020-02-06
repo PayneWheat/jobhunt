@@ -98592,9 +98592,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -98617,8 +98617,10 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ApplicationsList).call(this));
     _this.state = {
       applications: [],
+      search_query: "",
       is_loading: true
     };
+    _this.onChangeSearch = _this.onChangeSearch.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -98644,9 +98646,20 @@ function (_Component) {
       return d.toLocaleDateString('en-US');
     }
   }, {
+    key: "onChangeSearch",
+    value: function onChangeSearch(event) {
+      var _this3 = this;
+
+      this.setState({
+        search_query: event.target.value
+      }, function () {
+        console.log(_this3.state.search_query);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var _this$state = this.state,
           applications = _this$state.applications,
@@ -98654,19 +98667,39 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "list-search"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        name: "applist-search",
+        id: "applist-search",
+        placeholder: "Search...",
+        onChange: this.onChangeSearch
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "list-container"
-      }, applications.map(function (application) {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "list-header"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "applist-date list-col-header"
+      }, "Applied"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "applist-location list-col-header"
+      }, "Location"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "applist-company list-col-header"
+      }, "Company"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "applist-position list-col-header"
+      }, "Position"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "applist-status list-col-header"
+      }, "Status")), applications.map(function (application) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           className: "list-row",
           key: application.id,
           to: "/application/".concat(application.id)
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-date"
-        }, application.applied_at ? _this3.convertDatetime(application.created_at) : "---"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        }, application.applied_at ? _this4.convertDatetime(application.created_at) : "---"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-location"
         }, application.location.city, ", ", application.location.state), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-company"
-        }, application.company.name, ","), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        }, application.company.name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-position"
         }, application.position), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-status"
@@ -98978,7 +99011,6 @@ function (_Component) {
 
     _classCallCheck(this, EditApplication);
 
-    console.log("EditApp constructor", props.match.params.id);
     _this = _possibleConstructorReturn(this, _getPrototypeOf(EditApplication).call(this));
     _this.state = {
       app_id: props.match.params.id
@@ -99067,8 +99099,6 @@ function (_Component) {
 
       var co_id = this.props.match.params.id;
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/companies/' + co_id).then(function (response) {
-        console.log(response);
-
         _this2.setState({
           company: response.data,
           is_loading: false
@@ -99078,7 +99108,6 @@ function (_Component) {
   }, {
     key: "setCompanyId",
     value: function setCompanyId(id) {
-      //console.log("Setting company id: " + id);
       this.setState({
         company_id: id
       });
@@ -100045,7 +100074,6 @@ function (_Component) {
       app_id: props.app_id || null,
       is_loading: true
     };
-    console.log(_this.state);
     _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_this));
     _this.handleCreateNewApplication = _this.handleCreateNewApplication.bind(_assertThisInitialized(_this));
     _this.hasErrorFor = _this.hasErrorFor.bind(_assertThisInitialized(_this));
@@ -100076,7 +100104,6 @@ function (_Component) {
 
       if (this.state.edit) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/applications/' + this.state.app_id).then(function (response) {
-          console.log("edit response", response);
           var locValue = response.data.location.city + ", " + response.data.location.state;
           var dt = new Date(response.data.created_at).toISOString();
           dt = dt.substring(0, dt.length - 1);
@@ -100096,8 +100123,6 @@ function (_Component) {
             created_at: response.data.created_at,
             applied_at: response.data.applied_at,
             is_loading: false
-          }, function () {
-            console.log("NewApplication mount:", _this2.state.company);
           });
         });
       } else {
@@ -100109,7 +100134,6 @@ function (_Component) {
   }, {
     key: "handleFieldChange",
     value: function handleFieldChange(event) {
-      console.log("NewApp Field Changed", event);
       this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {
@@ -100117,7 +100141,6 @@ function (_Component) {
     value: function handleCreateNewApplication(event) {
       var _this3 = this;
 
-      console.log("SUBMITTING");
       event.preventDefault();
       var history = this.props.history;
       var application = {
@@ -100133,7 +100156,8 @@ function (_Component) {
         post_age: this.state.post_age
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/applications', application).then(function (response) {
-        history.push('/');
+        console.log("application created:", response.data);
+        history.push('/application/' + response.data.id);
       })["catch"](function (error) {
         console.log(error);
 
@@ -100159,7 +100183,6 @@ function (_Component) {
   }, {
     key: "setCompanyId",
     value: function setCompanyId(id) {
-      //console.log("Setting company id: " + id);
       this.setState({
         company_id: id
       });
@@ -100167,7 +100190,6 @@ function (_Component) {
   }, {
     key: "setLocationId",
     value: function setLocationId(id) {
-      //console.log(id);
       this.setState({
         location_id: id
       });
@@ -100436,7 +100458,7 @@ function (_Component) {
         application_id: this.state.application.id
       };
       console.log("Form submitted", interview);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/interviews/', interview).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/interviews', interview).then(function (response) {
         console.log(response);
         return response;
       });

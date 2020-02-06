@@ -16,7 +16,6 @@ class EditCompany extends Component {
     componentDidMount() {
         const co_id = this.props.match.params.id;
         axios.get('/api/companies/' + co_id).then(response => {
-            console.log(response);
             this.setState({
                 company: response.data,
                 is_loading: false
@@ -24,7 +23,6 @@ class EditCompany extends Component {
         });
     }
     setCompanyId(id) {
-        //console.log("Setting company id: " + id);
         this.setState({
             company_id: id
         });
