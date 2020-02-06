@@ -67,7 +67,7 @@ class NewInterview extends Component {
             application_id: this.state.application.id,
         }
         console.log("Form submitted", interview);
-        axios.post('/api/interviews/', interview).then(response=>{
+        axios.post('/api/interviews', interview).then(response=>{
             console.log(response);
             return response;
         });
