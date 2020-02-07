@@ -180,31 +180,13 @@ i.floater {
   text-decoration: none;
   color: rgb(99, 107, 111);
 }
-.list-header {
-  display: flex;
-  flex-wrap: wrap;
-  padding: .5em .5em;
-  border-left: 1px solid rgb(211, 224, 233);
-  border-right: 1px solid rgb(211, 224, 233);
-  border-bottom: 1px solid rgb(211, 224, 233);
-  border-top: 1px solid rgb(211, 224, 233);
-  border-top-left-radius: .3em;
-  border-top-right-radius: .3em;
-}
-/*
-.list-header div {
-  border-right: 1px solid rgb(211, 224, 233);
-}
-.list-header div:last-of-type {
-  border-right: none;
-}
 
 .list-row:first-of-type {
   border-top-left-radius: .3em;
   border-top-right-radius: .3em;
   border-top: 1px solid rgb(211, 224, 233);
 }
-*/
+
 .list-row:last-of-type {
   border-bottom-left-radius: .3em;
   border-bottom-right-radius: .3em;

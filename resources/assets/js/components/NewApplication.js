@@ -110,7 +110,6 @@ class NewApplication extends Component {
         }
         
         axios.post('/api/applications', application).then(response => {
-            console.log("application created:", response.data);
             history.push('/application/' + response.data.id);
         })
         .catch(error => {
