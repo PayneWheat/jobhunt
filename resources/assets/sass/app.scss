@@ -2,7 +2,8 @@
 @import "~font-awesome/scss/font-awesome";
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600,800|Lato|Open+Sans&display=swap");
+//@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
 // Variables
 //@import "variables";
@@ -192,25 +193,112 @@ i.floater {
   border-bottom-right-radius: .3em;
 }
 
-.applist-date, .interviewlist-date {
+
+
+
+.interviewlist-date {
   width: 6.75em;
   text-align: right;
   padding-right: 1em;
 }
+.applist-date {
+  flex-basis: 30%;
+  min-width: 6.5em;
+  font-family: 'Open Sans', sans-serif;
+}
 .applist-location {
-  width: 17em;
+  flex-basis: 30%;
 }
 .applist-company {
-  width: 17em;
+  flex-basis: 40%;
+  text-align: center;
+  font-weight: 600;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.1em;
 }
 .applist-position {
-  width: 17em;
-  flex-grow: 2;
+  flex-basis: 40%;
+  text-align: center;
 }
 .applist-status {
-  width: 7em;
+  flex-basis: 30%;
+  text-align: right;
 }
-
+.list-header {
+  display: flex;
+  align-items: flex-end;
+}
+.list-search {
+  margin-left: auto;
+}
+@media only screen and (max-width: 600px) {
+  .list-header {
+    flex-wrap: wrap;
+  }
+  .list-search {
+    margin-left: 0;
+    flex-basis: 100%;
+  }
+  
+  .applist-date {
+    order: 4;
+    flex-basis: 40%;
+    font-family: 'Open Sans', sans-serif;
+    text-align: right;
+  }
+  .applist-location {
+    order: 5;
+    flex-basis: 100%;
+  }
+  .applist-company {
+    order: 1;
+    flex-basis: 60%;
+    text-align: left;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+    font-size: 1em;
+  }
+  .applist-position {
+    order: 3;
+    flex-basis: 60%;
+    text-align: left;
+  }
+  .applist-status {
+    order: 2;
+    flex-basis: 40%;
+    text-align: right;
+  }
+}
+@media only screen and (max-width: 340px) {
+  .applist-date {
+    order: 3;
+    flex-basis: 100%;
+    font-family: 'Open Sans', sans-serif;
+    text-align: left;
+  }
+  .applist-location {
+    order: 4;
+    flex-basis: 100%;
+  }
+  .applist-company {
+    order: 1;
+    flex-basis: 100%;
+    text-align: left;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+    font-size: 1em;
+  }
+  .applist-position {
+    order: 2;
+    flex-basis: 100%;
+    text-align: left;
+  }
+  .applist-status {
+    order: 5;
+    flex-basis: 100%;
+    text-align: left;
+  }
+}
 .interviewlist-time {
   width: 6em;
 }
@@ -231,11 +319,11 @@ i.floater {
   margin-left: .5em;
 }
 
-h2.jh-heading {
+.jh-heading {
   font-size: 1.7em;
 }
 
-h2.jh-heading-slim {
+.jh-heading-slim {
   font-size: 1.7em;
   margin-top: 0;
 }
