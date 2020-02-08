@@ -9,7 +9,8 @@ class InterviewsList extends Component {
             interviews: [],
             is_loading: true,
             application_id: props.applicationId || null,
-            mode: 'list'
+            mode: 'list',
+
         }
     }
     componentDidMount() {

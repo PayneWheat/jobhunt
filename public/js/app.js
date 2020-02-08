@@ -98320,9 +98320,9 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ApplicationInfo).call(this));
     _this.state = {
-      job_description: props.jobDesc || "SOMETHING WENT WRONG",
-      resume_text: props.resumeText || "SOMETHING WENT WRONG",
-      coverletter_text: props.coverLetterText || "SOMETHING WENT WRONG"
+      job_description: props.jobDesc || "No Job Description",
+      resume_text: props.resumeText || "No Resume Submitted",
+      coverletter_text: props.coverLetterText || "No Cover Letter Submitted"
     };
     return _this;
   }
@@ -98582,6 +98582,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_bootstrap_Pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap/Pagination */ "./node_modules/react-bootstrap/esm/Pagination.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -98604,6 +98605,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var ApplicationsList =
 /*#__PURE__*/
 function (_Component) {
@@ -98619,9 +98621,17 @@ function (_Component) {
       applications: [],
       is_loading: true,
       filtered_applications: [],
-      search_query: ''
+      search_query: '',
+      max_items: 10,
+      starting_index: 0,
+      pages: 0,
+      active: 1,
+      pagination_buttons: [],
+      displayed_applications: []
     };
     _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
+    _this.onPageChange = _this.onPageChange.bind(_assertThisInitialized(_this));
+    _this.updatePagination = _this.updatePagination.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -98635,9 +98645,33 @@ function (_Component) {
 
         _this2.setState({
           applications: response.data,
+          displayed_applications: response.data.slice(0, _this2.state.max_items),
           filtered_applications: response.data,
+          pages: Math.ceil(response.data.length / _this2.state.max_items),
           is_loading: false
+        }, function () {
+          console.log(_this2.state.displayed_applications, _this2.state.pages);
+
+          _this2.updatePagination();
         });
+      });
+    }
+  }, {
+    key: "updatePagination",
+    value: function updatePagination() {
+      var items = [];
+
+      for (var num = 1; num <= this.state.pages; num++) {
+        items.push(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Pagination__WEBPACK_IMPORTED_MODULE_3__["default"].Item, {
+          key: num,
+          active: num == this.state.active,
+          "data-page-num": num,
+          onClick: this.onPageChange
+        }, num));
+      }
+
+      this.setState({
+        pagination_buttons: items
       });
     }
   }, {
@@ -98653,6 +98687,27 @@ function (_Component) {
       if (app.applied_at && app.applied_at.toLowerCase().includes(query) || app.location.city.toLowerCase().includes(query) || app.position.toLowerCase().includes(query) || app.company.name.toLowerCase().includes(query)) {
         return true;
       }
+
+      return false;
+    }
+  }, {
+    key: "onPageChange",
+    value: function onPageChange(event) {
+      var _this3 = this;
+
+      var pageNum = event.target.getAttribute('data-page-num');
+      console.log("pageNum", pageNum);
+      var startingIndex = (pageNum - 1) * this.state.max_items;
+      console.log("starting index:", startingIndex);
+      var filtApps = this.state.filtered_applications.slice(startingIndex, startingIndex + this.state.max_items);
+      this.setState({
+        displayed_applications: filtApps,
+        active: pageNum
+      }, function () {
+        _this3.updatePagination();
+
+        console.log(_this3.state.active);
+      });
     }
   }, {
     key: "onChange",
@@ -98682,12 +98737,14 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       console.log("Render. applications:", this.state.applications);
       var _this$state = this.state,
           filtered_applications = _this$state.filtered_applications,
-          is_loading = _this$state.is_loading;
+          is_loading = _this$state.is_loading,
+          pagination_buttons = _this$state.pagination_buttons,
+          displayed_applications = _this$state.displayed_applications;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -98707,14 +98764,14 @@ function (_Component) {
         onChange: this.onChange
       }))), !is_loading ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "list-container"
-      }, filtered_applications.map(function (application) {
+      }, displayed_applications.map(function (application) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           className: "list-row",
           key: application.id,
           to: "/application/".concat(application.id)
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-date"
-        }, application.applied_at ? _this3.convertDatetime(application.created_at) : "---"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        }, application.applied_at ? _this4.convertDatetime(application.created_at) : "---"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-company"
         }, application.company.name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-status"
@@ -98725,7 +98782,7 @@ function (_Component) {
         }, application.location.city, ", ", application.location.state), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-position"
         }, application.position));
-      })) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "loading"));
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Pagination__WEBPACK_IMPORTED_MODULE_3__["default"], null, pagination_buttons)) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "loading"));
     }
   }]);
 

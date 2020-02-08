@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Pagination from 'react-bootstrap/Pagination';
 
 class ApplicationsList extends Component {
     constructor() {
@@ -9,18 +10,44 @@ class ApplicationsList extends Component {
             applications: [],
             is_loading: true,
             filtered_applications: [],
-            search_query: ''
+            search_query: '',
+            max_items: 10,
+            starting_index: 0,
+            pages: 0,
+            active: 1,
+            pagination_buttons: [],
+            displayed_applications: []
         }
         this.onChange = this.onChange.bind(this);
+        this.onPageChange = this.onPageChange.bind(this);
+        this.updatePagination = this.updatePagination.bind(this);
     }
     componentDidMount() {
         axios.get('/api/applications').then(response => {
             console.log(response.data);
             this.setState({
                 applications: response.data,
+                displayed_applications: response.data.slice(0, this.state.max_items),
                 filtered_applications: response.data,
+                pages: Math.ceil(response.data.length / this.state.max_items),
                 is_loading: false
+            }, () => {
+                console.log(this.state.displayed_applications, this.state.pages)
+                this.updatePagination();
             });
+        });
+    }
+    updatePagination() {
+        let items = []
+        for(let num = 1; num <= this.state.pages; num++) {
+            items.push(
+                <Pagination.Item key={num} active={num == this.state.active} data-page-num={num} onClick={this.onPageChange}>
+                    {num}
+                </Pagination.Item>
+            );
+        }
+        this.setState({
+            pagination_buttons: items
         });
     }
     convertDatetime(datetime) {
@@ -35,6 +62,21 @@ class ApplicationsList extends Component {
         || app.company.name.toLowerCase().includes(query)) {
             return true;
         }
+        return false;
+    }
+    onPageChange(event) {
+        let pageNum = event.target.getAttribute('data-page-num');
+        console.log("pageNum", pageNum);
+        let startingIndex = (pageNum - 1) * this.state.max_items; 
+        console.log("starting index:", startingIndex);
+        let filtApps = this.state.filtered_applications.slice(startingIndex, startingIndex + this.state.max_items);
+        this.setState({
+            displayed_applications: filtApps,
+            active: pageNum
+        }, () => {
+            this.updatePagination();
+            console.log(this.state.active);
+        });
     }
     onChange(event) {
         console.log(event.target.value);
@@ -57,7 +99,7 @@ class ApplicationsList extends Component {
     }
     render() {
         console.log("Render. applications:", this.state.applications);
-        const { filtered_applications, is_loading } = this.state;
+        const { filtered_applications, is_loading, pagination_buttons, displayed_applications } = this.state;
         return (
             <div className='container'>
                 <div className='list-header'>
@@ -80,7 +122,7 @@ class ApplicationsList extends Component {
                 </div>
             {!is_loading ? (
                 <div className='list-container'>
-                    {filtered_applications.map(application=>(
+                    {displayed_applications.map(application=>(
                         <Link 
                             className='list-row' 
                             key={application.id}
@@ -93,6 +135,7 @@ class ApplicationsList extends Component {
                             <div className='applist-position'>{application.position}</div>
                         </Link>
                     ))}
+                    <Pagination>{pagination_buttons}</Pagination>
                 </div>
 
             ) : (

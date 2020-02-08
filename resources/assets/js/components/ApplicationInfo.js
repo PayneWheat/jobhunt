@@ -7,9 +7,9 @@ class ApplicationInfo extends Component {
     constructor(props) {
         super();
         this.state = {
-            job_description: props.jobDesc || "SOMETHING WENT WRONG",
-            resume_text: props.resumeText || "SOMETHING WENT WRONG",
-            coverletter_text: props.coverLetterText || "SOMETHING WENT WRONG",
+            job_description: props.jobDesc || "No Job Description",
+            resume_text: props.resumeText || "No Resume Submitted",
+            coverletter_text: props.coverLetterText || "No Cover Letter Submitted"
         }
     }
     componentWillMount() {
