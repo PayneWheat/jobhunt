@@ -39,7 +39,8 @@ class ApplicationsList extends Component {
     }
     updatePagination() {
         let items = []
-        for(let num = 1; num <= this.state.pages; num++) {
+        let displayedPages = Math.ceil(this.state.filtered_applications.length / this.state.max_items);
+        for(let num = 1; num <= displayedPages; num++) {
             items.push(
                 <Pagination.Item key={num} active={num == this.state.active} data-page-num={num} onClick={this.onPageChange}>
                     {num}
@@ -47,7 +48,8 @@ class ApplicationsList extends Component {
             );
         }
         this.setState({
-            pagination_buttons: items
+            pagination_buttons: items,
+            pages: displayedPages
         });
     }
     convertDatetime(datetime) {
@@ -91,7 +93,12 @@ class ApplicationsList extends Component {
         console.log("Filtered results:", filtApps);
         this.setState({
             search_query: event.target.value,
-            filtered_applications: filtApps
+            filtered_applications: filtApps,
+            active: 1,
+            displayed_applications: filtApps.slice(0, this.state.max_items)
+        }, () => {
+            console.log("filt", this.state.filtered_applications, this.state.displayed_applications);
+            this.updatePagination();
         });
     }
     sortList(event) {

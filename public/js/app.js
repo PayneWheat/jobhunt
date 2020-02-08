@@ -98660,8 +98660,9 @@ function (_Component) {
     key: "updatePagination",
     value: function updatePagination() {
       var items = [];
+      var displayedPages = Math.ceil(this.state.filtered_applications.length / this.state.max_items);
 
-      for (var num = 1; num <= this.state.pages; num++) {
+      for (var num = 1; num <= displayedPages; num++) {
         items.push(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap_Pagination__WEBPACK_IMPORTED_MODULE_3__["default"].Item, {
           key: num,
           active: num == this.state.active,
@@ -98671,7 +98672,8 @@ function (_Component) {
       }
 
       this.setState({
-        pagination_buttons: items
+        pagination_buttons: items,
+        pages: displayedPages
       });
     }
   }, {
@@ -98712,6 +98714,8 @@ function (_Component) {
   }, {
     key: "onChange",
     value: function onChange(event) {
+      var _this4 = this;
+
       console.log(event.target.value);
       var query = event.target.value.toLowerCase();
       var apps = this.state.applications;
@@ -98726,7 +98730,13 @@ function (_Component) {
       console.log("Filtered results:", filtApps);
       this.setState({
         search_query: event.target.value,
-        filtered_applications: filtApps
+        filtered_applications: filtApps,
+        active: 1,
+        displayed_applications: filtApps.slice(0, this.state.max_items)
+      }, function () {
+        console.log("filt", _this4.state.filtered_applications, _this4.state.displayed_applications);
+
+        _this4.updatePagination();
       });
     }
   }, {
@@ -98737,7 +98747,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       console.log("Render. applications:", this.state.applications);
       var _this$state = this.state,
@@ -98771,7 +98781,7 @@ function (_Component) {
           to: "/application/".concat(application.id)
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-date"
-        }, application.applied_at ? _this4.convertDatetime(application.created_at) : "---"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        }, application.applied_at ? _this5.convertDatetime(application.created_at) : "---"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-company"
         }, application.company.name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "applist-status"
