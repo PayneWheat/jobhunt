@@ -1,0 +1,402 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+// @import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+// Icons
+@import "~font-awesome/scss/font-awesome";
+
+// Fonts
+
+// Bootstrap
+//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+
+body {
+  font-family: 'Raleway', sans-serif;
+}
+// Custom
+i {
+  font-family: 'FontAwesome';
+  font-style: normal;
+}
+
+.hidden {
+  display: hidden;
+}
+.rel-pos {
+  position: relative;
+}
+.react-autosuggest__container {
+    position: relative;
+}
+
+.react-autosuggest__input--focused {
+    outline: none;
+  }
+  
+  .react-autosuggest__input--open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .react-autosuggest__suggestions-container {
+    display: none;
+  }
+
+  .react-autosuggest__suggestions-container--open {
+    display: block;
+    position: absolute;
+    top: 36px;
+    width: 555px;
+    border: 1px solid #aaa;
+    background-color: #fff;
+    font-family: Helvetica, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    border-radius: 4px;
+    z-index: 2;
+  }
+  @media (max-width: 991px) {
+    .react-autosuggest__suggestions-container--open {
+        width: 100%;
+    }
+  }
+  .react-autosuggest__suggestions-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  .react-autosuggest__suggestion {
+    cursor: pointer;
+    padding: 10px 20px;
+  }
+
+  .react-autosuggest__suggestion--highlighted {
+    background-color: #ddd;
+  }
+
+
+  .no-gutters {
+      padding-left: 0;
+  }
+  .no-gutters-label {
+      padding: 0 15px 0 15px;
+  }
+
+.floater {
+  position: absolute;
+  top: 30px;
+  right: 14px;
+}
+i.floater {
+  margin: 3px 10px;
+}
+/*
+.applist-date {
+  
+}
+.applist-company {
+  margin-left: 1em;
+  font-weight: 650;
+}
+.applist-position {
+  margin-left: 1em;
+
+}
+*/
+.applist-status {
+  text-transform: uppercase;
+  vertical-align: text-bottom;
+  cursor: pointer;
+}
+.app-status {
+  text-transform: uppercase;
+  margin-left: .5em;
+  vertical-align: bottom;
+}
+.app-status-drop {
+  font-size: 14px;
+  padding: .15em;
+  border-radius: 10px;
+}
+.app-resume article, .app-job-description article {
+  white-space: pre-line;
+}
+
+.app-position {
+  font-size: 2em;
+  line-height: 1em;
+}
+
+.app-company {
+  font-size: 1.5em;
+  font-weight: 800;
+  line-height: 1em;
+}
+
+.app-info {
+  display: flex;
+  justify-content: space-around;
+  margin: 1.7em 0;
+}
+
+.app-info div {
+  flex-basis: 30%;
+  text-align: center;
+}
+.edit-row {
+  display: flex;
+  margin-bottom: 1em;
+}
+
+.edit-row a, .edit-row button {
+  flex-basis: 10em;
+  margin-right: 1em;
+  font-size: 0.9em;
+}
+
+.edit-row a i {
+  margin-right: .5em;
+}
+
+.list-container{
+  background-color: white;
+}
+
+.list-row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: .5em .5em;
+  border-left: 1px solid rgb(211, 224, 233);
+  border-right: 1px solid rgb(211, 224, 233);
+  border-bottom: 1px solid rgb(211, 224, 233);
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(99, 107, 111);
+}
+.list-row:hover {
+  background-color: #f5f5f5;
+  text-decoration: none;
+  color: rgb(99, 107, 111);
+}
+
+.list-row:first-of-type {
+  border-top-left-radius: .3em;
+  border-top-right-radius: .3em;
+  border-top: 1px solid rgb(211, 224, 233);
+}
+
+.list-row:last-of-type {
+  border-bottom-left-radius: .3em;
+  border-bottom-right-radius: .3em;
+}
+
+.interviewlist-date {
+  width: 6.75em;
+  text-align: right;
+  padding-right: 1em;
+}
+.applist-date {
+  flex-basis: 20%;
+  min-width: 6.5em;
+  font-family: 'Open Sans', sans-serif;
+}
+.applist-location {
+  flex-basis: 20%;
+}
+.applist-company {
+  flex-basis: 60%;
+  text-align: center;
+  font-weight: 600;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.1em;
+}
+.applist-position {
+  flex-basis: 60%;
+  text-align: center;
+}
+.applist-status {
+  flex-basis: 20%;
+  text-align: right;
+}
+.list-header {
+  display: flex;
+  align-items: flex-end;
+}
+.list-search {
+  margin-left: auto;
+}
+@media only screen and (max-width: 767px) {
+  .list-header {
+    flex-wrap: wrap;
+  }
+  .list-search {
+    margin-left: 0;
+    flex-basis: 100%;
+  }
+  
+  .applist-date {
+    order: 4;
+    flex-basis: 40%;
+    font-family: 'Open Sans', sans-serif;
+    text-align: right;
+  }
+  .applist-location {
+    order: 5;
+    flex-basis: 100%;
+  }
+  .applist-company {
+    order: 1;
+    flex-basis: 60%;
+    text-align: left;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+    font-size: 1em;
+  }
+  .applist-position {
+    order: 3;
+    flex-basis: 60%;
+    text-align: left;
+  }
+  .applist-status {
+    order: 2;
+    flex-basis: 40%;
+    text-align: right;
+  }
+}
+@media only screen and (max-width: 340px) {
+  .applist-date {
+    order: 3;
+    flex-basis: 100%;
+    font-family: 'Open Sans', sans-serif;
+    text-align: left;
+  }
+  .applist-location {
+    order: 4;
+    flex-basis: 100%;
+  }
+  .applist-company {
+    order: 1;
+    flex-basis: 100%;
+    text-align: left;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+    font-size: 1em;
+  }
+  .applist-position {
+    order: 2;
+    flex-basis: 100%;
+    text-align: left;
+  }
+  .applist-status {
+    order: 5;
+    flex-basis: 100%;
+    text-align: left;
+  }
+}
+.interviewlist-time {
+  width: 6em;
+}
+.interviewlist-type {
+  width: 13em;
+}
+.interviewlist-company {
+  /*flex-basis: 20em;*/
+  width: 20em;
+}
+.interviewlist-position {
+  /*flex-basis: 20em;*/
+  width: 20em;
+}
+
+.heading-button {
+  text-decoration: none;
+  margin-left: .5em;
+}
+
+.jh-heading {
+  font-size: 1.7em;
+}
+
+.jh-heading-slim {
+  font-size: 1.7em;
+  margin-top: 0;
+}
+
+.accordion-button {
+  width: 100%;
+  margin: 0.5em 0;
+  border-style: solid;
+  border-width: 1px;
+  background-color: #fff;
+  border-radius: 0.3em;
+  border-color: rgb(211, 224, 233);
+  font-size: 1.3em;
+}
+
+.application-info-output {
+  white-space: pre-line;
+  height: 25em;
+  overflow-y: scroll;
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0.5em;
+}
+.app-info-tabs {
+  height: 20em;
+  overflow: scroll;
+}
+.app-collapsable-buttons {
+  padding: 0 1em;
+}
+
+.app-info-button {
+  margin-right: 1em;
+}
+.application-info-tabs {
+  margin-top: 1em;
+}
+.application-info-nav {
+  border-top: 1px solid rgb(211, 224, 233);
+  border-left: 1px solid rgb(211, 224, 233);
+  border-right: 1px solid rgb(211, 224, 233);
+  border-top-left-radius: .3em;
+  border-top-right-radius: .3em;
+  margin: 0 1em;
+}
+.application-info-panel {
+  margin: 0 1em 1em 1em;
+  padding: 1em;
+  border-bottom-left-radius: .3em;
+  border-bottom-right-radius: .3em;
+  border-left: 1px solid rgb(211, 224, 233);
+  border-right: 1px solid rgb(211, 224, 233);
+  border-bottom: 1px solid rgb(211, 224, 233);
+  height: 20em;
+  overflow: scroll;
+}
+
+.new-note {
+  width: 100%;
+  height: 10em;
+}
+
+// .interview-list {
+//   margin: 1.7em 0;
+// }
+
+// .application-tabs {
+//   margin: 1.7em 0;
+// }
+
+.application-section {
+  margin-bottom: 1.5em;
+}
