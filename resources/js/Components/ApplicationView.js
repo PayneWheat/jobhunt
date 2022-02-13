@@ -1,27 +1,24 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import InputCompany from './InputCompany';
-import InputLocation from './InputLocation';
-import ApplicationStatus from './ApplicationStatus';
-import { Link } from 'react-router-dom';
-import InterviewsList from './InterviewsList';
-import ApplicationInfo from './ApplicationInfo';
-import NewNote from './NewNote';
+import { Link } from '@inertiajs/inertia-react';
+import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { LinkContainer } from 'react-router-bootstrap'
-import NewInterview from './NewInterview';
-import ContactsList from './ContactsList';
-import NewContact from './NewContact';
-import Container from 'react-bootstrap/Container';
+import ApplicationStatus from '../components/ApplicationStatus';
+import InterviewsList from './InterviewsList';
+import ApplicationInfo from '../components/ApplicationInfo';
+import NewNote from '../components/NewNote';
+import NewInterview from '../components/NewInterview';
+import ContactsList from '../components/ContactsList';
+import NewContact from '../components/NewContact';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
-class Application extends Component {
-    constructor() {
-        super();
-
+class ApplicationView extends Component {
+    constructor(props) {
+        super(props);
+        
         this.state = {
-            app_id: null,
+            app_id: props.applicationId,
             application: null,
             company: null,
             is_loading: true,
@@ -57,14 +54,14 @@ class Application extends Component {
     }
 
     componentDidMount() {
-        const app_id = this.props.match.params.id;
+        // const app_id = this.props.match.params.id;
         
         this.setState({
-            app_id: app_id,
+            // app_id: app_id,
             refresh_key: Math.random()
         });
 
-        axios.get('/api/applications/' + app_id).then(response => {
+        axios.get('/api/applications/' + this.state.app_id).then(response => {
             console.log('Application response', response.data);
             let appAge = this.getApplicationAge(response.data.created_at);
 
@@ -123,7 +120,7 @@ class Application extends Component {
             });
         });
 
-        axios.get('/api/applications/' + app_id +'/interviews').then(response => {
+        axios.get('/api/applications/' + this.state.app_id +'/interviews').then(response => {
             this.setState({
                 interviews: response.data,
                 is_loading: false
@@ -300,9 +297,12 @@ class Application extends Component {
             {!is_loading ? (
                 <div>
                     <div className='edit-row'>
-                        <LinkContainer to={'/application/edit/' + application.id}>
-                            <Button className="app-button"><i className="fas fa-edit"></i>Edit</Button>
-                        </LinkContainer>
+                        <Link 
+                            href={'/application/edit/' + application.id} 
+                            as="button" 
+                            type="button" 
+                            className="app-button"
+                        ><i className="fas fa-edit"></i>Edit</Link>
                         
                         <Button className="app-button" onClick={this.showContactModal}><i className="fas fa-user-plus"></i> Add Contact</Button>
                         <Button className="app-button" onClick={this.showCommentModal}><i className="fas fa-sticky-note"></i> Add Note</Button>
@@ -488,4 +488,4 @@ class Application extends Component {
     }
 }
 
-export default Application;
+export default ApplicationView;

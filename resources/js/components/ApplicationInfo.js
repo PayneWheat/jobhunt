@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ApplicationsList from './ApplicationsList';
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 
@@ -12,9 +11,11 @@ class ApplicationInfo extends Component {
             coverletter_text: props.coverLetterText || "No Cover Letter Submitted"
         }
     }
+
     componentWillMount() {
 
     }
+    
     render() {
         return (
             <section className="application-tabs">
