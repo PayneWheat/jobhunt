@@ -52,4 +52,8 @@ Route::get('/interviews', function() {
     return Inertia::render('Interviews');
 })->middleware(['auth', 'verified'])->name('interviews');
 
+Route::get('/contacts', function() {
+    return Inertia::render('Contacts');
+})->middleware(['auth', 'verified'])->name('contacts');
+
 require __DIR__.'/auth.php';

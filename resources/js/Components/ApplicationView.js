@@ -9,7 +9,7 @@ import InterviewsList from './InterviewsList';
 import ApplicationInfo from '../components/ApplicationInfo';
 import NewNote from '../components/NewNote';
 import NewInterview from '../components/NewInterview';
-import ContactsList from '../components/ContactsList';
+import ContactsList from '@/Components/ContactsList';
 import NewContact from '../components/NewContact';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
