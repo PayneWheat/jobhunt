@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Head } from '@inertiajs/inertia-react';
 import Authenticated from '@/Layouts/Authenticated';
 import ApplicationsList from '../Components/ApplicationsList';
-// import InterviewsList from '../components/InterviewsList';
-// import { Link } from 'react-router-dom';
+import InterviewsList from '../Components/InterviewsList';
 
-// class Home extends Component {
-//     render() {
 export default function Home(props) {
     return (
         <Authenticated
@@ -18,8 +15,8 @@ export default function Home(props) {
             <div className='container'>
                 <ApplicationsList />
                 
-                {/* <h2 className='jh-heading'>Interviews</h2>
-                <InterviewsList /> */}
+                <h2 className='jh-heading'>Interviews</h2>
+                <InterviewsList />
             </div>
         </Authenticated>
     );
