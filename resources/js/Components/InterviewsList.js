@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/inertia-react'
 
 class InterviewsList extends Component {
     constructor(props) {
@@ -90,7 +90,7 @@ class InterviewsList extends Component {
                                 <Link 
                                     className='list-row' 
                                     key={interview.id}
-                                    to={`/application/${interview.application_id}`}
+                                    href={`/application/${interview.application_id}`}
                                 >
                                     <div className='interviewlist-date'>
                                         {this.convertDatetime(interview.at_time)}
