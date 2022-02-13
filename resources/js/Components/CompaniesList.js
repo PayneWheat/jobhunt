@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/inertia-react'
 
 class CompaniesList extends Component {
     constructor() {
@@ -11,6 +11,7 @@ class CompaniesList extends Component {
         };
 
     }
+
     componentDidMount() {
         axios.get('/api/companies').then(response => {
             console.log(response);
@@ -21,20 +22,20 @@ class CompaniesList extends Component {
             });
         });
     }
+    
     render() {
         const { companies, is_loading } = this.state;
         return (
-            
             <div className='container'>
             {!is_loading ? (
                 <div className='list-container'>
                     {companies.map(company=>(
                         <Link
-                            to={`/company/${company.id}`}
+                            href={`/company/${company.id}`}
                             className='list-row'
                             key={company.id}
                         >
-                        {company.name}
+                            {company.name}
                         </Link>
                     ))}
                 </div>

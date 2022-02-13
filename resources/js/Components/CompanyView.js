@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/inertia-react';
 
 class Company extends Component {
     constructor(props) {
@@ -12,9 +12,9 @@ class Company extends Component {
         };
 
     }
+
     componentDidMount() {
-        const co_id = this.props.match.params.id;
-        axios.get('/api/companies/' + co_id).then(response => {
+        axios.get('/api/companies/' + this.props.companyId).then(response => {
             console.log(response);
             this.setState({
                 company: response.data,
@@ -22,6 +22,7 @@ class Company extends Component {
             });
         });
     }
+
     render() {
         const { company, is_loading } = this.state;
         return (
@@ -34,7 +35,7 @@ class Company extends Component {
                     <div>{company.website}</div>
                     <div>
                         <Link 
-                            to={'/company/edit/' + company.id}
+                            href={'/company/edit/' + company.id}
                             className='btn btn-sm btn-info'
                         >
                             Edit

@@ -38,4 +38,14 @@ Route::get('/applications', function() {
     return Inertia::render('Applications');
 })->middleware(['auth', 'verified'])->name('applications');
 
+Route::get('/companies', function() {
+    return Inertia::render('Companies');
+})->middleware(['auth', 'verified'])->name('companies');
+
+Route::get('/company/{id}', function($id) {
+    return Inertia::render('Company', [
+        'company_id' => $id
+    ]);
+})->middleware(['auth', 'verified'])->name('company');
+
 require __DIR__.'/auth.php';
