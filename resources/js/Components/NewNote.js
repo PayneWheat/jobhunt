@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import InputCompany from './InputCompany';
+// import InputCompany from '@/Components/InputCompany';
 
 class NewNote extends Component {
     constructor(props) {

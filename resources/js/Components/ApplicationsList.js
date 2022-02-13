@@ -126,7 +126,7 @@ class ApplicationsList extends Component {
                 <div className='list-header'>
                     <div className='jh-heading'>
                         Applications
-                        <Link href='/create'>
+                        <Link href='/application/create'>
                             <i className="fas fa-plus-circle"></i>
                         </Link>
                     </div>

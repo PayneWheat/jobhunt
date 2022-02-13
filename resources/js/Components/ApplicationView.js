@@ -4,13 +4,13 @@ import { Link } from '@inertiajs/inertia-react';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import ApplicationStatus from '../components/ApplicationStatus';
+import ApplicationStatus from '@/Components/ApplicationStatus';
 import InterviewsList from './InterviewsList';
-import ApplicationInfo from '../components/ApplicationInfo';
-import NewNote from '../components/NewNote';
-import NewInterview from '../components/NewInterview';
+import ApplicationInfo from '@/Components/ApplicationInfo';
+import NewNote from '@/Components/NewNote';
+import NewInterview from '@/Components/NewInterview';
 import ContactsList from '@/Components/ContactsList';
-import NewContact from '../components/NewContact';
+import NewContact from '@/Components/NewContact';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class ApplicationView extends Component {

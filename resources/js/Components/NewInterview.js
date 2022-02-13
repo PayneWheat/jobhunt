@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { Component } from 'react';
 //import Select from 'react-select';
 //import Autosuggest from 'react-autosuggest';
-import InputCompany from './InputCompany';
-import InputLocation from './InputLocation';
+import InputCompany from '@/Components/InputCompany';
+import InputLocation from '@/Components/InputLocation';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class NewInterview extends Component {
