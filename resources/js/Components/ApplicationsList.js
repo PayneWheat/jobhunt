@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/inertia-react'
 import Pagination from 'react-bootstrap/Pagination';
 import Container from 'react-bootstrap/Container';
 
@@ -126,10 +126,7 @@ class ApplicationsList extends Component {
                 <div className='list-header'>
                     <div className='jh-heading'>
                         Applications
-                        <Link 
-                            to='/create'
-                            className='heading-button'
-                        >
+                        <Link href='/create'>
                             <i className="fas fa-plus-circle"></i>
                         </Link>
                     </div>
@@ -150,7 +147,7 @@ class ApplicationsList extends Component {
                                         <Link
                                             className='list-row'
                                             key={application.id}
-                                            to={`/application/${application.id}`}
+                                            href={`/application/${application.id}`}
                                         >
                                             <div className='applist-date'>{application.created_at ? this.convertDatetime(application.created_at) : "---"}</div>
                                             <div className='applist-company'>{application.company.name}</div>
