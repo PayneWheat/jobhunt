@@ -48,4 +48,8 @@ Route::get('/company/{id}', function($id) {
     ]);
 })->middleware(['auth', 'verified'])->name('company');
 
+Route::get('/interviews', function() {
+    return Inertia::render('Interviews');
+})->middleware(['auth', 'verified'])->name('interviews');
+
 require __DIR__.'/auth.php';
