@@ -6,11 +6,11 @@ import ContactsList from '@/Components/ContactsList';
 
 export default function Contacts(props) {
     return (
-            <Authenticated
-                auth={props.auth}
-                errors={props.errors}
-                header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Contacts</h2>}
-            >
+        <Authenticated
+            auth={props.auth}
+            errors={props.errors}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Contacts</h2>}
+        >
             <Head title="Contacts" />
             
             <div className="container">

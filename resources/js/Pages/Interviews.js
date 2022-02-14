@@ -12,7 +12,9 @@ export default function Interviews(props) {
         >
             <Head title="Interviews" />
 
-            <InterviewsList />
+            <div className="container">
+                <InterviewsList />
+            </div>
         </Authenticated>
     );
 }

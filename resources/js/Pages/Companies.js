@@ -8,12 +8,11 @@ export default function Companies(props) {
         <Authenticated
             auth={props.auth}
             errors={props.errors}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Applications</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Companies</h2>}
         >
             <Head title="Companies" />
             
             <div className='container'>
-                <h2 className='jh-heading'>Companies</h2>
                 <CompaniesList />
             </div>
         </Authenticated>
