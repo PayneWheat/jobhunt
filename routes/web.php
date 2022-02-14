@@ -28,6 +28,16 @@ Route::get('/home', function () {
     return Inertia::render('Home');
 })->middleware(['auth', 'verified'])->name('home');
 
+Route::get('/application/create', function() {
+    return Inertia::render('CreateApplication');
+})->middleware(['auth', 'verified'])->name('createApplication');
+
+Route::get('/application/edit/{id}', function($id) {
+    return Inertia::render('EditApplication', [
+        'application_id' => $id
+    ]);
+})->middleware(['auth', 'verified'])->name('editApplication');
+
 Route::get('/application/{id}', function($id) {
     return Inertia::render('Application', [
         'application_id' => $id

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { Inertia } from '@inertiajs/inertia'
 import InputCompany from '@/Components/InputCompany';
 import InputLocation from '@/Components/InputLocation';
 import Container from 'react-bootstrap/Container';
@@ -17,7 +18,7 @@ class NewApplication extends Component {
         this.state = {
             edit: props.edit || false,
             position: '',
-            company_id: '',
+            company_id: props.companyId || '',
             company_name: '',
             location_id: '',
             location_name: '',
@@ -40,7 +41,7 @@ class NewApplication extends Component {
         }
 
         this.handleFieldChange = this.handleFieldChange.bind(this);
-        this.handleCreateNewApplication = this.handleCreateNewApplication.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.hasErrorFor = this.hasErrorFor.bind(this);
         this.renderErrorFor = this.renderErrorFor.bind(this);
         this.setCompanyId = this.setCompanyId.bind(this);
@@ -96,7 +97,8 @@ class NewApplication extends Component {
         });
     }
 
-    handleCreateNewApplication(event) {
+    handleSubmit(event) {
+        console.log('NewApplication::handleSubmit');
         event.preventDefault();
         const { history } = this.props;
 
@@ -112,15 +114,26 @@ class NewApplication extends Component {
             requested_salary: this.state.requested_salary,
             post_age: this.state.post_age
         }
-        
-        axios.post('/api/applications', application).then(response => {
-            history.push('/application/' + response.data.id);
-        }).catch(error => {
-            console.log(error);
-            this.setState({
-                errors: error.response.data.errors
+
+        if (!this.state.edit) {
+            axios.post('/api/applications', application).then(response => {
+                Inertia.visit(route('applications'));
+            }).catch(error => {
+                //@TODO handle when error.response.data.errors does not exist
+                this.setState({
+                    errors: error.response.data.errors
+                });
             });
-        });
+        } else {
+            axios.put('/api/applications/' + this.state.app_id, application).then(response => {
+                Inertia.visit(route('applications'));
+            }).catch(error => {
+                //@TODO handle when error.response.data.errors does not exist
+                this.setState({
+                    errors: error.response.data.errors
+                });
+            });
+        }
     }
 
     hasErrorFor(field) {
@@ -138,6 +151,7 @@ class NewApplication extends Component {
     }
 
     setCompanyId(id) {
+        console.log('NewApplication::setCompanyId', id);
         this.setState({
             company_id: id
         });
@@ -151,12 +165,11 @@ class NewApplication extends Component {
 
     render() {
         const { applications, is_loading, company } = this.state;
-        console.log("Render:", company, is_loading);
+        console.log("NewApplication::render:", company, is_loading);
         return (
             <Container>
             {!is_loading ? (
-                    <Form onSubmit={this.handleCreateNewApplication}>
-                        <div>Create new application</div>
+                    <Form onSubmit={this.handleSubmit}>
                         <Row>
                             <Col md={6}>
                                 <Form.Group>
@@ -194,7 +207,7 @@ class NewApplication extends Component {
                             <Col md={12}>
                                 <InputCompany 
                                     action={this.setCompanyId}
-                                    companyId={company ? (company.id) : null}
+                                    companyId={(company || this.state.company_id) ? (company.id || this.state.company_id) : null}
                                     companyName={company ? (company.name) : null}
                                     companyWebsite={company ? (company.website) : null}
                                     companyPhone={company ? (company.phone) : null}

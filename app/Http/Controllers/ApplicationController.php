@@ -61,6 +61,7 @@ class ApplicationController extends Controller
             'coverletter_text' => 'nullable',
             'applied_at' => 'nullable'
         ]);
+
         $application = Application::find($id);
         // add file uploading for resume pdfs
         $application->position = $validatedData['position'];
@@ -69,7 +70,7 @@ class ApplicationController extends Controller
         $application->job_description = $validatedData['job_description'];
         $application->resume_text = $validatedData['resume_text'];
         $application->coverletter_text = $validatedData['coverletter_text'];
-        $application->applied_at = $validatedData['applied_at'];
+        $application->applied_at = $validatedData['applied_at'] ?? null;
         $application->update();
         
         return response()->json('Application updated');

@@ -27,9 +27,10 @@ const renderSuggestion = suggestion => (
 
 class InputCompany extends React.Component {
     constructor(props) {
-        super();
+        super(props);
         console.log("InputCompany props", props);
         this.state = {
+            company_id: props.companyId || null,
             value: props.companyName || '',
             suggestions: [],
             selected: '',
@@ -39,10 +40,14 @@ class InputCompany extends React.Component {
             phone: props.companyPhone || '',
             /*company_name: props.companyName || '',*/
             show_add_button: false,
-            show_check: false,
+            show_check: !!props.companyId,
             readonly_addtl_fields: false,
             override_readonly: props.readOnlyFields || false,
-            is_loading: true
+            is_loading: true,
+        }
+
+        if(props.companyId) {
+            props.action(props.companyId);
         }
 
         // do something about enter key? it's posting instead of selecting
@@ -54,6 +59,7 @@ class InputCompany extends React.Component {
         this.handleFieldChange = this.handleFieldChange.bind(this);
         this.addCompany = this.addCompany.bind(this);
     }
+
     onChange(event, newValue) {
         this.setState({
             value: newValue.newValue
@@ -66,6 +72,7 @@ class InputCompany extends React.Component {
         }
 
     }
+
     onChangeName(event, newValue) {
         if(this.state.readonly_addtl_fields && !this.state.override_readonly) {
             this.setState({
@@ -79,6 +86,7 @@ class InputCompany extends React.Component {
             show_add_button: true
         });
     }
+
     componentDidMount() {
         console.log("InputCompany mount:", this.state)
         axios.get('/api/companies').then(response => {
@@ -136,7 +144,7 @@ class InputCompany extends React.Component {
             website: suggestion.website,
             phone: suggestion.phone,
             show_check: true
-        }, ()=>{this.props.action(suggestion.id);});
+        }, () => this.props.action(suggestion.id));
 
     }
 
