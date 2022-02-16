@@ -13,7 +13,8 @@ class Interview extends Model
         'street_address1', 
         'street_address2', 
         'location_id',
-        'zip_code'
+        'zip_code',
+        'user_id'
     ];
 
     public function application() 
