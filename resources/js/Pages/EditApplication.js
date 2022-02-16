@@ -11,7 +11,12 @@ export default function EditApplication(props) {
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Edit Application</h2>}
         >
             <Head title="Edit Application" />
-            <NewApplication edit={true} app_id={props.application_id || undefined} companyId={props.company_id} />
+            <NewApplication 
+                userId={props.auth.user.id}
+                edit={true} 
+                app_id={props.application_id || undefined} 
+                companyId={props.company_id} 
+            />
         </Authenticated>
     );
 }

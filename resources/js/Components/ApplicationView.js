@@ -18,6 +18,7 @@ class ApplicationView extends Component {
         super(props);
         
         this.state = {
+            user_id: props.userId,
             app_id: props.applicationId,
             application: null,
             company: null,
@@ -239,6 +240,7 @@ class ApplicationView extends Component {
     createInterview(event) {
         if(this.state.new_interview) {
             const interview = {
+                user_id: this.state.user_id,
                 at_time: this.state.new_interview.at_time,
                 interview_type_id: this.state.new_interview.interview_type_id,
                 application_id: this.state.application.id,
@@ -334,6 +336,7 @@ class ApplicationView extends Component {
                             </Modal.Header>
                             <Modal.Body>
                                 <NewInterview 
+                                    userId={this.state.user_id}
                                     application={application} 
                                     action={this.interviewChanged}
                                 />

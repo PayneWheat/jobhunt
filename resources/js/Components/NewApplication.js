@@ -12,10 +12,10 @@ import Button from 'react-bootstrap/Button';
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class NewApplication extends Component {
     constructor(props) {
-        console.log("NewApp constructor", props.app_id);
-        super();
+        super(props);
 
         this.state = {
+            user_id: props.userId,
             edit: props.edit || false,
             position: '',
             company_id: props.companyId || '',
@@ -68,6 +68,7 @@ class NewApplication extends Component {
                 let dt = new Date(response.data.created_at).toISOString();
                 dt = dt.substring(0, dt.length - 1);
                 this.setState({
+                    user_id: response.data.user_id,
                     position: response.data.position,
                     company: response.data.company,
                     location_id: response.data.location_id,
@@ -98,9 +99,7 @@ class NewApplication extends Component {
     }
 
     handleSubmit(event) {
-        console.log('NewApplication::handleSubmit');
         event.preventDefault();
-        const { history } = this.props;
 
         const application = {
             position: this.state.position,
@@ -112,12 +111,13 @@ class NewApplication extends Component {
             posted_salary_min: this.state.posted_salary_min,
             posted_salary_max: this.state.posted_salary_max,
             requested_salary: this.state.requested_salary,
-            post_age: this.state.post_age
+            post_age: this.state.post_age,
+            user_id: this.state.user_id
         }
 
         if (!this.state.edit) {
             axios.post('/api/applications', application).then(response => {
-                Inertia.visit(route('applications'));
+                Inertia.visit('/application/' + response.data.id);
             }).catch(error => {
                 //@TODO handle when error.response.data.errors does not exist
                 this.setState({
@@ -126,8 +126,9 @@ class NewApplication extends Component {
             });
         } else {
             axios.put('/api/applications/' + this.state.app_id, application).then(response => {
-                Inertia.visit(route('applications'));
+                Inertia.visit('/application/' + response.data.id);
             }).catch(error => {
+                console.log(error);
                 //@TODO handle when error.response.data.errors does not exist
                 this.setState({
                     errors: error.response.data.errors
@@ -161,6 +162,13 @@ class NewApplication extends Component {
         this.setState({
             location_id: id
         });
+    }
+
+    getCompanyId() {
+        if(this.state.company) {
+            return this.state.company.id;
+        }
+        return this.state.company_id || null;
     }
 
     render() {
@@ -207,7 +215,7 @@ class NewApplication extends Component {
                             <Col md={12}>
                                 <InputCompany 
                                     action={this.setCompanyId}
-                                    companyId={(company || this.state.company_id) ? (company.id || this.state.company_id) : null}
+                                    companyId={this.getCompanyId()}
                                     companyName={company ? (company.name) : null}
                                     companyWebsite={company ? (company.website) : null}
                                     companyPhone={company ? (company.phone) : null}

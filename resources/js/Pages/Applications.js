@@ -12,7 +12,7 @@ export default function Applications(props) {
         >
             <Head title="Applications" />
 
-            <ApplicationsList />
+            <ApplicationsList userId={props.auth.user.id} />
         </Authenticated>
     );
 }

@@ -13,10 +13,10 @@ export default function Home(props) {
         >
             <Head title="Home" />
             <div className='container'>
-                <ApplicationsList />
+                <ApplicationsList userId={props.auth.user.id} />
                 
                 <h2 className='jh-heading'>Interviews</h2>
-                <InterviewsList />
+                <InterviewsList userId={props.auth.user.id} />
             </div>
         </Authenticated>
     );

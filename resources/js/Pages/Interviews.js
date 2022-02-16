@@ -13,7 +13,7 @@ export default function Interviews(props) {
             <Head title="Interviews" />
 
             <div className="container">
-                <InterviewsList />
+                <InterviewsList userId={props.auth.user.id} />
             </div>
         </Authenticated>
     );

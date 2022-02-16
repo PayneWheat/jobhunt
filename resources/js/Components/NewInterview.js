@@ -6,11 +6,14 @@ import InputCompany from '@/Components/InputCompany';
 import InputLocation from '@/Components/InputLocation';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
+
 class NewInterview extends Component {
     constructor(props) {
-        super();
+        super(props);
+
         this.state = {
             is_loading: true,
+            user_id: props.user_id,
             application: props.application,
             types: [],
             interview_type: '',
@@ -18,14 +21,14 @@ class NewInterview extends Component {
             interview_datetime: null,
             location_id: null
         }
+
         this.onSubmit = this.onSubmit.bind(this);
         this.handleFieldChange = this.handleFieldChange.bind(this);
         this.setLocationId = this.setLocationId.bind(this);
     }
 
     componentDidMount() {
-        axios.get('/api/interviews/types').then(response=>{
-            console.log("RESPONSE (types):", response);
+        axios.get('/api/interviews/types').then(response => {
             this.setState({
                 is_loading: false,
                 types: response.data
@@ -35,16 +38,15 @@ class NewInterview extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        console.log('interiew type', this.state);
+
         let curType = this.state.types.filter(type => {
             return type.type == this.state.interview_type;
         })[0];
-        let typeId = curType.id;
-        console.log("curType", curType, typeId);
 
         const interview = {
+            user_id: this.state.user_id,
             at_time: this.state.interview_datetime,
-            interview_type_id: typeId,
+            interview_type_id: curType.id,
             application_id: this.state.application.id,
         }
         console.log("Form submitted", interview);

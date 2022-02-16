@@ -5,10 +5,12 @@ import Pagination from 'react-bootstrap/Pagination';
 import Container from 'react-bootstrap/Container';
 
 class ApplicationsList extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
+        console.log('ApplicationsList::constructor', props);
         this.state = {
+            user_id: props.userId,
             applications: [],
             is_loading: true,
             filtered_applications: [],
@@ -27,7 +29,8 @@ class ApplicationsList extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/applications')
+        console.log('ApplicationList::componentDidMount', this.state.user_id);
+        axios.get('/api/applications', {headers: {"x-user-id": this.state.user_id}})
         .then(response => {
             this.setState({
                 applications: response.data,

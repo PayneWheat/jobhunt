@@ -9,6 +9,7 @@ class InterviewsList extends Component {
         console.log('InterviewsList::construct', props);
         this.state = {
             is_loading: true,
+            user_id: props.userId,
             application_id: props.applicationId || null,
             mode: 'list',
             application_key: props.applicationKey || Math.random(),
@@ -47,7 +48,9 @@ class InterviewsList extends Component {
         //     is_loading: false
         // });
         if(this.state.application_id) {
-            axios.get('/api/applications/' + this.state.application_id +'/interviews').then(response => {
+            axios.get('/api/applications/' + this.state.application_id + '/interviews', {
+                headers: { 'x-user-id': this.state.user_id }
+            }).then(response => {
                 this.setState({
                     interviews: response.data,
                     is_loading: false
@@ -56,7 +59,9 @@ class InterviewsList extends Component {
                 });
             });
         } else {
-            axios.get('/api/interviews').then(response => {
+            axios.get('/api/interviews', {
+                headers: { 'x-user-id': this.state.user_id }
+            }).then(response => {
                 this.setState({
                     interviews: response.data,
                     is_loading: false

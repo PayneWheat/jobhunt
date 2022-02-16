@@ -4,6 +4,7 @@ import Authenticated from '@/Layouts/Authenticated';
 import NewApplication from '@/Components/NewApplication';
 
 export default function CreateApplication(props) {
+    console.log('CreateApplication', props);
     return (
         <Authenticated
             auth={props.auth}
@@ -12,7 +13,7 @@ export default function CreateApplication(props) {
         >
             <Head title="Create an Application" />
 
-            <NewApplication />
+            <NewApplication userId={props.auth.user.id} />
         </Authenticated>
     );
 }
