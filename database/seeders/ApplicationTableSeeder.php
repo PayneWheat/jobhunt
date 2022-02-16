@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Application;
+use App\Models\User;
 
 class ApplicationTableSeeder extends Seeder
 {
@@ -14,6 +15,7 @@ class ApplicationTableSeeder extends Seeder
      */
     public function run()
     {
+        $user = User::firstOrFail();
         $sampleJobDesc = "This is a sample job description for a fictional company. Example Co is looking for an experienced software developer to join our team.
 
         The right applicant's day to day would include meeting with stakeholders, turning ideas into code, and engineering solutions. You will be a part of a pool of talented individuals who will bolster your growth.
@@ -78,7 +80,8 @@ class ApplicationTableSeeder extends Seeder
             'post_age' => 3,
             'applied_at'=> date("Y-m-d", strtotime("-10 days")),
             'created_at' => date("Y-m-d", strtotime("-10 days")),
-            'updated_at' => date("Y-m-d H:i:s")
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
         ]);
 
         Application::create([
@@ -95,7 +98,8 @@ class ApplicationTableSeeder extends Seeder
             'post_age' => 5,
             'applied_at'=> date("Y-m-d", strtotime("-9 days")),
             'created_at' => date("Y-m-d", strtotime("-9 days")),
-            'updated_at' => date("Y-m-d H:i:s")
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
         ]);
 
         Application::create([
@@ -112,7 +116,8 @@ class ApplicationTableSeeder extends Seeder
             'post_age' => 21,
             'applied_at'=> date("Y-m-d", strtotime("-8 days")),
             'created_at' => date("Y-m-d", strtotime("-8 days")),
-            'updated_at' => date("Y-m-d H:i:s")
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
         ]);
 
         Application::create([
@@ -129,7 +134,8 @@ class ApplicationTableSeeder extends Seeder
             'post_age' => 2,
             'applied_at'=> date("Y-m-d", strtotime("-7 days")),
             'created_at' => date("Y-m-d", strtotime("-7 days")),
-            'updated_at' => date("Y-m-d H:i:s")
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
         ]);
 
         Application::create([
@@ -146,7 +152,8 @@ class ApplicationTableSeeder extends Seeder
             'post_age' => 4,
             'applied_at'=> date("Y-m-d", strtotime("-6 days")),
             'created_at' => date("Y-m-d", strtotime("-6 days")),
-            'updated_at' => date("Y-m-d H:i:s")
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
         ]);
 
         Application::create([
@@ -162,7 +169,8 @@ class ApplicationTableSeeder extends Seeder
             'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
             'post_age' => 31,
             'created_at' => date("Y-m-d", strtotime("-5 days")),
-            'updated_at' => date("Y-m-d H:i:s")
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
         ]);
 
         Application::create([
@@ -179,7 +187,8 @@ class ApplicationTableSeeder extends Seeder
             'post_age' => 6,
             'applied_at'=> date("Y-m-d", strtotime("-4 days")),
             'created_at' => date("Y-m-d", strtotime("-4 days")),
-            'updated_at' => date("Y-m-d H:i:s")
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
         ]);
 
         Application::create([
@@ -196,7 +205,8 @@ class ApplicationTableSeeder extends Seeder
             'post_age' => 9,
             'applied_at'=> date("Y-m-d", strtotime("-3 days")),
             'created_at' => date("Y-m-d", strtotime("-3 days")),
-            'updated_at' => date("Y-m-d H:i:s")
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
         ]);
 
         Application::create([
@@ -212,7 +222,8 @@ class ApplicationTableSeeder extends Seeder
             'post_age' => 9,
             'applied_at'=> date("Y-m-d", strtotime("-2 days")),
             'created_at' => date("Y-m-d", strtotime("-2 days")),
-            'updated_at' => date("Y-m-d H:i:s")
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
         ]);
     }
 }
