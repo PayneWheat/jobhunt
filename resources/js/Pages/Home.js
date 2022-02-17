@@ -12,6 +12,7 @@ export default function Home(props) {
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
         >
             <Head title="Home" />
+            
             <div className='container'>
                 <ApplicationsList userId={props.auth.user.id} />
                 

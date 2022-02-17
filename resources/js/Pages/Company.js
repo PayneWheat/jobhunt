@@ -11,6 +11,7 @@ export default function Company(props) {
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Company</h2>}
         >
             <Head title="Company" />
+            
             <CompanyView companyId={props.company_id} />
         </Authenticated>
     );

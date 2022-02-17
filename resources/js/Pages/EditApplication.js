@@ -11,6 +11,7 @@ export default function EditApplication(props) {
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Edit Application</h2>}
         >
             <Head title="Edit Application" />
+            
             <NewApplication 
                 userId={props.auth.user.id}
                 edit={true} 
