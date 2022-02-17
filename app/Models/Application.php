@@ -21,31 +21,31 @@ class Application extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     public function location()
     {
-        return $this->belongsTo('App\Models\Location');
+        return $this->belongsTo(Location::class);
     }
 
     public function status()
     {
-        return $this->belongsTo('App\Models\ApplicationStatus');
+        return $this->belongsTo(ApplicationStatus::class);
     }
 
     public function company()
     {
-        return $this->belongsTo('App\Models\Company');
+        return $this->belongsTo(Company::class);
     }
 
     public function interviews()
     {
-        return $this->hasMany('App\Models\Interview');
+        return $this->hasMany(Interview::class);
     }
     
     public function notes()
     {
-        return $this->hasMany('App\Models\Note');
+        return $this->hasMany(Note::class);
     }
 }

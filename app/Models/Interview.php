@@ -19,16 +19,16 @@ class Interview extends Model
 
     public function application() 
     {
-        return $this->belongsTo('App\Models\Application');
+        return $this->belongsTo(Application::class);
     }
 
     public function notes()
     {
-        return $this->morphOne('App\Models\Note', 'notable');
+        return $this->morphOne(Note::class, 'notable');
     }
 
     public function interview_type()
     {
-        return $this->belongsTo('App\Models\InterviewType');
+        return $this->belongsTo(InterviewType::class);
     }
 }
