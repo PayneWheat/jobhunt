@@ -152,7 +152,6 @@ class NewApplication extends Component {
     }
 
     setCompanyId(id) {
-        console.log('NewApplication::setCompanyId', id);
         this.setState({
             company_id: id
         });
@@ -173,7 +172,6 @@ class NewApplication extends Component {
 
     render() {
         const { applications, is_loading, company } = this.state;
-        console.log("NewApplication::render:", company, is_loading);
         return (
             <Container>
             {!is_loading ? (

@@ -4,8 +4,6 @@ import Authenticated from '@/Layouts/Authenticated';
 import ApplicationView from '@/Components/ApplicationView';
 
 export default function Application(props) {
-    console.log('Application page. Props:', props);
-
     return (
         <Authenticated
             auth={props.auth}

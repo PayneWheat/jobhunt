@@ -8,7 +8,6 @@ class ApplicationsList extends Component {
     constructor(props) {
         super(props);
 
-        console.log('ApplicationsList::constructor', props);
         this.state = {
             user_id: props.userId,
             applications: [],
@@ -29,7 +28,6 @@ class ApplicationsList extends Component {
     }
 
     componentDidMount() {
-        console.log('ApplicationList::componentDidMount', this.state.user_id);
         axios.get('/api/applications', {headers: {"x-user-id": this.state.user_id}})
         .then(response => {
             this.setState({
