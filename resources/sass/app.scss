@@ -141,6 +141,10 @@ i.floater {
   line-height: 1em;
 }
 
+.app-button {
+  background-color: #007bff !important;
+}
+
 .app-info {
   display: flex;
   justify-content: space-around;
@@ -153,6 +157,7 @@ i.floater {
 }
 .edit-row {
   display: flex;
+  justify-content: center;
   margin-bottom: 1em;
 }
 

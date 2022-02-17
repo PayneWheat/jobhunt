@@ -19,6 +19,7 @@ class CreateInterviewsTable extends Migration
             $table->unsignedInteger('application_id');
             $table->unsignedInteger('interview_type_id')->nullable();
             $table->unsignedInteger('location_id')->nullable();
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +15,55 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('home');
-// });
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
 
-Route::any('{query}', function() {
-    return view('home');
-})->where('query', '.*');
+Route::get('/home', function () {
+    return Inertia::render('Home');
+})->middleware(['auth', 'verified'])->name('home');
+
+Route::get('/application/create', function() {
+    return Inertia::render('CreateApplication');
+})->middleware(['auth', 'verified'])->name('createApplication');
+
+Route::get('/application/edit/{id}', function($id) {
+    return Inertia::render('EditApplication', [
+        'application_id' => $id
+    ]);
+})->middleware(['auth', 'verified'])->name('editApplication');
+
+Route::get('/application/{id}', function($id) {
+    return Inertia::render('Application', [
+        'application_id' => $id
+    ]);
+})->middleware(['auth', 'verified'])->name('application');
+
+Route::get('/applications', function() {
+    return Inertia::render('Applications');
+})->middleware(['auth', 'verified'])->name('applications');
+
+Route::get('/companies', function() {
+    return Inertia::render('Companies');
+})->middleware(['auth', 'verified'])->name('companies');
+
+Route::get('/company/{id}', function($id) {
+    return Inertia::render('Company', [
+        'company_id' => $id
+    ]);
+})->middleware(['auth', 'verified'])->name('company');
+
+Route::get('/interviews', function() {
+    return Inertia::render('Interviews');
+})->middleware(['auth', 'verified'])->name('interviews');
+
+Route::get('/contacts', function() {
+    return Inertia::render('Contacts');
+})->middleware(['auth', 'verified'])->name('contacts');
+
+require __DIR__.'/auth.php';

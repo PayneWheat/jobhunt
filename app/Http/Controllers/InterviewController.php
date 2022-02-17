@@ -3,21 +3,22 @@
 namespace App\Http\Controllers;
 use App\Models\Interview;
 use Illuminate\Http\Request;
-use Log;
 
 class InterviewController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $interviews = Interview::all();
+        $userId = $request->header('x-user-id');
+        $interviews = Interview::where('user_id', $userId)->get();
         $interviews->load('application', 'application.company', 'interview_type');
+
         return $interviews->toJson();
     }
 
     public function store(Request $request)
     {
-        Log::alert(print_r($request, true));
         $validatedData = $request->validate([
+            'user_id'           => 'required',
             'at_time'           => 'required|date',
             'application_id'    => 'required',
             'interview_type_id' => 'required',
@@ -25,6 +26,7 @@ class InterviewController extends Controller
         ]);
 
         $interview = Interview::create([
+            'user_id'           => $validatedData['user_id'],
             'at_time'           => $validatedData['at_time'],
             'application_id'    => $validatedData['application_id'],
             'interview_type_id' => $validatedData['interview_type_id'],
@@ -49,10 +51,12 @@ class InterviewController extends Controller
             'interview_type_id' => 'required|integer',
             'location_id'       => 'sometimes|integer'
         ]);
+
         $interview->at_time = $validatedData['at_time'];
         $interview->company_id = $validatedData['application_id'];
         $interview->interview_type_id = $validatedData['interview_type_id'];
         $interview->update();
+
         return response()->json($interview);
     }
 

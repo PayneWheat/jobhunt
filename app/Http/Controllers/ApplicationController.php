@@ -8,9 +8,14 @@ use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $applications = Application::orderBy('created_at', 'desc')->get();
+        if(!($userId = $request->header('x-user-id'))) {
+            return response()->json(['errors' => 'Missing user ID'], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        \Log::alert("ApplicationController::index\n" . print_r($request->headers, true));
+        $applications = Application::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+        // $applications = Application::orderBy('created_at', 'desc')->get();
         $applications->load('company', 'location', 'status');
         return $applications->toJson();
     }
@@ -18,25 +23,27 @@ class ApplicationController extends Controller
     public function store(Request $request) 
     {
         $validatedData = $request->validate([
-            'position' => 'required',
-            'company_id' => 'required',
-            'location_id' => 'required',
-            'job_description' => 'nullable',
-            'resume_text' => 'nullable',
+            'user_id'          => 'required',
+            'position'         => 'required',
+            'company_id'       => 'required',
+            'location_id'      => 'required',
+            'job_description'  => 'nullable',
+            'resume_text'      => 'nullable',
             'coverletter_text' => 'nullable',
-            'post_age' => 'nullable'
+            'post_age'         => 'nullable'
         ]);
 
         // add file uploading for resume pdfs
         $application = Application::create([
-            'position' => $validatedData['position'],
-            'company_id' => $validatedData['company_id'],
-            'location_id' => $validatedData['location_id'],
-            'job_description' => $validatedData['job_description'],
-            'resume_text' => $validatedData['resume_text'],
+            'user_id'          => $validatedData['user_id'],
+            'position'         => $validatedData['position'],
+            'company_id'       => $validatedData['company_id'],
+            'location_id'      => $validatedData['location_id'],
+            'job_description'  => $validatedData['job_description'],
+            'resume_text'      => $validatedData['resume_text'],
             'coverletter_text' => $validatedData['coverletter_text'],
-            'post_age' => $validatedData['post_age'],
-            'status_id' => 1
+            'post_age'         => $validatedData['post_age'],
+            'status_id'        => 1
         ]);
         return response()->json($application);
     }
@@ -53,6 +60,7 @@ class ApplicationController extends Controller
     {
         // update application
         $validatedData = $request->validate([
+            'user_id' => 'required',
             'position' => 'required',
             'company_id' => 'required',
             'location_id' => 'required',
@@ -61,6 +69,7 @@ class ApplicationController extends Controller
             'coverletter_text' => 'nullable',
             'applied_at' => 'nullable'
         ]);
+
         $application = Application::find($id);
         // add file uploading for resume pdfs
         $application->position = $validatedData['position'];
@@ -69,10 +78,15 @@ class ApplicationController extends Controller
         $application->job_description = $validatedData['job_description'];
         $application->resume_text = $validatedData['resume_text'];
         $application->coverletter_text = $validatedData['coverletter_text'];
-        $application->applied_at = $validatedData['applied_at'];
+        
+        //@TODO clean this up. not sure why it's necessary. applied_at shouldn't be edited in the form.
+        if (isset($validatedData['applied_at'])) {
+            $application->applied_at = $validatedData['applied_at'];
+        }
+
         $application->update();
         
-        return response()->json('Application updated');
+        return response()->json($application);
         
     }
 
