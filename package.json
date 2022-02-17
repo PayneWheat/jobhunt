@@ -374,7 +374,7 @@
         "is-resolvable": "^1.1.0",
         "is-stream": "^2.0.0",
         "is-string": "^1.0.5",
-        "is-svg": "^3.0.0",
+        "is-svg": "^4.3.0",
         "is-symbol": "^1.0.3",
         "is-typed-array": "^1.1.5",
         "is-windows": "^1.0.2",
