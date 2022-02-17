@@ -286,7 +286,7 @@
         "get-stream": "^6.0.0",
         "get-value": "^2.0.6",
         "glob": "^7.1.6",
-        "glob-parent": "^3.1.0",
+        "glob-parent": "^5.1.2",
         "glob-to-regexp": "^0.4.1",
         "globals": "^11.12.0",
         "globby": "^10.0.2",
