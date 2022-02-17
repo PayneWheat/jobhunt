@@ -43,6 +43,6 @@ class User extends Authenticatable
 
     public function applications()
     {
-        return $this->hasMany('App\Models\Application');
+        return $this->hasMany(Application::class);
     }
 }
