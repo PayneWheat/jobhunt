@@ -58,6 +58,13 @@ Route::get('/company/{id}', function($id) {
     ]);
 })->middleware(['auth', 'verified'])->name('company');
 
+
+Route::get('/company/edit/{id}', function($id) {
+    return Inertia::render('EditCompany', [
+        'company_id' => $id
+    ]);
+})->middleware(['auth', 'verified'])->name('editCompany');
+
 Route::get('/interviews', function() {
     return Inertia::render('Interviews');
 })->middleware(['auth', 'verified'])->name('interviews');
