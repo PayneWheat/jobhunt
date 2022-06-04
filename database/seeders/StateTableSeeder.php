@@ -13,12 +13,8 @@ class StateTableSeeder extends Seeder
      */
     public function run()
     {
-        if(($handle = fopen(public_path() . '/imports/states.csv', 'r')) !== false) {
+        if(($handle = fopen(base_path('/database/fixtures/states.csv'), 'r')) !== false) {
             while(($data = fgetcsv($handle, 1000, ',')) !== false) {
-                // $state = new State();
-                // $state->name = $data[0];
-                // $state->abbreviation = $data[1];
-                // $state->save(); 
                 State::firstOrCreate([
                     'name'         => $data[0],
                     'abbreviation' => $data[1],
