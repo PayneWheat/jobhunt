@@ -16,7 +16,16 @@ class Application extends Model
         'post_age', 
         'company_id', 
         'location_id',
-        'user_id'
+        'user_id',
+        'posted_salary_max',
+        'posted_salary_min',
+        'requested_salary'
+    ];
+
+    protected $casts = [
+        'posted_salary_max' => 'integer',
+        'posted_salary_min' => 'integer',
+        'requested_salary'  => 'integer'
     ];
 
     public function user()
