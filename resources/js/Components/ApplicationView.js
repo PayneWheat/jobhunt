@@ -301,14 +301,27 @@ class ApplicationView extends Component {
                     <div className='edit-row'>
                         <Link 
                             href={'/application/edit/' + application.id} 
-                            as="button" 
-                            type="button" 
-                            className="app-button"
-                        ><i className="fas fa-edit"></i>Edit</Link>
+                            as='button' 
+                            type='button'
+                            className='py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg'
+                        >
+                            <i className='fas fa-edit mr-2'></i> Edit
+                        </Link>
                         
-                        <Button className="app-button" onClick={this.showContactModal}><i className="fas fa-user-plus"></i> Add Contact</Button>
-                        <Button className="app-button" onClick={this.showCommentModal}><i className="fas fa-sticky-note"></i> Add Note</Button>
-                        <Button className="app-button" onClick={this.showInterviewModal}><i className="fas fa-calendar"></i> Add Interview</Button>
+                        <Button onClick={this.showContactModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
+                            <i className="fas fa-user-plus mr-2"></i> Add Contact
+                        </Button>
+                        <Button onClick={this.showCommentModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
+                            <i className="fas fa-sticky-note mr-2"></i> Add Note
+                        </Button>
+                        <Button onClick={this.showInterviewModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
+                            <i className="fas fa-calendar mr-2"></i> Add Interview
+                        </Button>
+
+                        <ApplicationStatus 
+                            appId={ app_id }
+                            status={ application.status }
+                        />
                         
                         <Modal show={show_comment_modal} onHide={this.hideCommentModal}>
                             <Modal.Header closeButton>
@@ -320,14 +333,14 @@ class ApplicationView extends Component {
                                     action={this.noteChanged}
                                 />
                             </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={this.hideCommentModal}>
+                            <div class='flex flex-row justify-end content-around mb-4'>
+                                <button type="button" onClick={this.hideCommentModal} class="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
                                     Close
-                                </Button>
-                                <Button variant="primary" onClick={this.createNote}>
+                                </button>
+                                <button type="button" onClick={this.createNote} class="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
                                     Create Note
-                                </Button>
-                            </Modal.Footer>
+                                </button>
+                            </div>
                         </Modal>
 
                         <Modal show={show_interview_modal} onHide={this.hideInterviewModal}>
@@ -341,14 +354,14 @@ class ApplicationView extends Component {
                                     action={this.interviewChanged}
                                 />
                             </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={this.hideInterviewModal}>
+                            <div class='flex flex-row justify-end content-around mb-4'>
+                                <button type="button" onClick={this.hideInterviewModal} class="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                     Close
-                                </Button>
-                                <Button variant="primary" onClick={this.createInterview}>
+                                </button>
+                                <button type="button" onClick={this.createInterview} class="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                     Create Interview
-                                </Button>
-                            </Modal.Footer>
+                                </button>
+                            </div>
                         </Modal>
 
                         <Modal show={show_contact_modal} onHide={this.hideContactModal}>
@@ -362,73 +375,87 @@ class ApplicationView extends Component {
                                     action={this.contactChanged} 
                                 />
                             </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={this.hideContactModal}>
+                            <div class='flex flex-row justify-end content-around mb-4'>
+                                <button type="button" onClick={this.hideContactModal} class="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                     Close
-                                </Button>
-                                <Button variant="primary" onClick={this.createContact}>
+                                </button>
+                                <button type="button" onClick={this.createContact} class="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                     Create Contact
-                                </Button>
-                            </Modal.Footer>
+                                </button>
+                            </div>
                         </Modal>
 
                     </div>
                     <section className='app-header'>
-                        <div className='app-position'>{ application.position }</div>
+                        <div className='flex flex-row'>
+                            {/* <div className='basis-7/8'> */}
+                                <h2 className='text-2xl'>{ application.position }</h2>
+                            {/* </div> */}
+                        </div>
                         
                         <div>
-                            <div className='app-company'>
+                            <h3 className='text-xl'>
                                 { application.company.name }
-                                <ApplicationStatus 
-                                    appId={ app_id }
-                                    status={ application.status }
-                                />
+                            </h3>
+                            <div className='flex flex-row text-lg'>
+                                <div className='basis-1/2'>{application.location.city}, {application.location.state}</div>
+                                {application.applied_at ? (
+                                    <div className='basis-1/2 text-right'>Date applied: { application.applied_at }</div>
+                                ) : null}
                             </div>
-                            <div className='app-location'>{application.location.city}, {application.location.state}</div>
-                            {application.applied_at ? (
-                                <div className='app-date'>Date applied: { application.applied_at }</div>
-                            ) : null}
                         </div>
 
                         <div className='app-info'>
                             <div className='app-matches'>
-                                <svg width="20" height="20">
-                                    <circle r="10" cx="10" cy="10" fill="lightgrey" />
-                                    <circle r="5" cx="10" cy="10" stroke="darkorange" 
-                                        strokeWidth="10"
-                                        fill="transparent"
-                                        strokeDasharray={`calc(${this.state.keyword_matches.length} * 31.4 / ${this.state.jd_keywords.length}), 31.4`} />
-                                </svg>
-                                {this.percentageRound(this.state.keyword_matches.length / this.state.jd_keywords.length * 100, 1)}% match. <br/>
-                                {this.state.keyword_matches.length} keywords hit.
+                                <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800">
+                                    <div className="flex items-center text-center">
+                                        <p className="text-lg w-full text-gray-700 dark:text-gray-50 ml-2">
+                                            {this.state.keyword_matches.length} Keywords
+                                        </p>
+                                    </div>
+                                    <div className="flex flex-col justify-start">
+                                        <p className="text-gray-800 text-3xl text-center dark:text-white font-bold my-4">
+                                            {this.percentageRound(this.state.keyword_matches.length / this.state.jd_keywords.length * 100, 1)}%
+                                        </p>
+                                        <div className="relative h-2 bg-gray-200 rounded">
+                                            <div className='absolute top-0 h-2  left-0 rounded bg-green-500' style={{ width: this.percentageRound(this.state.keyword_matches.length / this.state.jd_keywords.length * 100, 0) + '%' }}></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div className='app-post-age'>
-                                <div className='app-sandwich'>Job post age: {application.post_age} days</div>
-                                <div className='app-sandwich'>Created {this.state.application_age} days ago</div>
+                                <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800">
+                                    <div className='app-sandwich'>Job post age: {application.post_age} days</div>
+                                    <div className='app-sandwich'>Created {this.state.application_age} days ago</div>
+                                </div>
                             </div>
                             
-                            {(application.posted_salary_min != undefined || application.posted_salary_max != undefined || application.requested_salary != undefined) ? (
                             <div className='app-salary'>
-                                {(application.posted_salary_min != undefined || application.posted_salary_max != undefined) &&
-                                    <div>Salary Range:&nbsp;
-                                    {application.posted_salary_min &&
-                                        <span>${application.posted_salary_min}</span>
-                                    }
-                                    {application.posted_salary_min && application.posted_salary_max &&
-                                        <span>&nbsp;-&nbsp;</span>
-                                    }
-                                    {application.posted_salary_max &&
-                                        <span>${application.posted_salary_max}</span>
-                                    }</div>
-                                }
-                                {application.requested_salary &&
-                                <div>Requested Salary: ${application.requested_salary}</div>
-                                }
+                                <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800">
+                                    {(application.posted_salary_min != undefined || application.posted_salary_max != undefined || application.requested_salary != undefined) ? (
+                                    <div>
+                                        {(application.posted_salary_min != undefined || application.posted_salary_max != undefined) &&
+                                            <div>Salary Range:&nbsp;
+                                            {application.posted_salary_min &&
+                                                <span>${application.posted_salary_min}</span>
+                                            }
+                                            {application.posted_salary_min && application.posted_salary_max &&
+                                                <span>&nbsp;-&nbsp;</span>
+                                            }
+                                            {application.posted_salary_max &&
+                                                <span>${application.posted_salary_max}</span>
+                                            }</div>
+                                        }
+                                        {application.requested_salary &&
+                                        <div>Requested Salary: ${application.requested_salary}</div>
+                                        }
+                                    </div>
+                                    ) : (
+                                        <div><em>No salary information</em></div>
+                                    )}
+                                </div>
                             </div>
-                            ) : (
-                                <div className='app-salary'><em>No salary information</em></div>
-                            )}
                         </div>
                     </section>
                     
@@ -437,10 +464,7 @@ class ApplicationView extends Component {
                             Interviews
                             <Button variant='link' onClick={this.showInterviewModal}><i className="fas fa-plus-circle"></i></Button>
                         </div>
-                        <InterviewsList
-                            applicationId={app_id}
-                            // interviews={interviews}
-                        />
+                        <InterviewsList applicationId={app_id} />
                     </Container>
 
                     <Container className='application-section'>

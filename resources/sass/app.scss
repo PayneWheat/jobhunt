@@ -95,54 +95,25 @@ i {
   top: 30px;
   right: 14px;
 }
+
 i.floater {
   margin: 3px 10px;
 }
-/*
-.applist-date {
-  
-}
-.applist-company {
-  margin-left: 1em;
-  font-weight: 650;
-}
-.applist-position {
-  margin-left: 1em;
 
-}
-*/
 .applist-status {
   text-transform: uppercase;
   vertical-align: text-bottom;
   cursor: pointer;
 }
+
 .app-status {
   text-transform: uppercase;
   margin-left: .5em;
   vertical-align: bottom;
 }
-.app-status-drop {
-  font-size: 14px;
-  padding: .15em;
-  border-radius: 10px;
-}
+
 .app-resume article, .app-job-description article {
   white-space: pre-line;
-}
-
-.app-position {
-  font-size: 2em;
-  line-height: 1em;
-}
-
-.app-company {
-  font-size: 1.5em;
-  font-weight: 800;
-  line-height: 1em;
-}
-
-.app-button {
-  background-color: #007bff !important;
 }
 
 .app-info {

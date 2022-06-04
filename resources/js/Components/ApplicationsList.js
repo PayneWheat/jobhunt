@@ -139,6 +139,7 @@ class ApplicationsList extends Component {
                         />
                     </div>
                 </div>
+
                 <div className='list-container'>
                     {!is_loading ?
                         (displayed_applications.length > 0 ? 

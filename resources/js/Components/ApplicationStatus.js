@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 
 
 class ApplicationStatus extends Component {
@@ -57,11 +56,11 @@ class ApplicationStatus extends Component {
     render() {
         const { is_loading, dropdown_mode, status, statuses } = this.state;
         return (
-            <span>
+            <div>
             {!is_loading ? (
                 dropdown_mode ? (
                 <select 
-                    className='app-status-drop pull-right'
+                    className='block text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500'
                     onChange={this.onChange}
                     defaultValue={status.status}
                 >
@@ -70,17 +69,19 @@ class ApplicationStatus extends Component {
                 ))}
                 </select>
                 ) : (
-                    <span 
-                        className='applist-status pull-right badge badge-pill badge-primary'
+                    <div 
+                        className='px-4 py-2 text-base rounded-full text-white  bg-indigo-500'
                         onClick={this.onClick}
                     >
                         {this.state.status.status}
-                    </span>
+                    </div>
                 )
             ) : (
-                <span className='app-status-drop pull-right'><em>loading</em></span>
+                <div className='px-4 py-2 text-base rounded-full text-white  bg-indigo-500'>
+                    loading
+                </div>
             )}
-            </span>
+            </div>
         );
     }
 }
