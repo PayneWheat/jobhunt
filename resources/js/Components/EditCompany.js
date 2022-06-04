@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import InputCompany from './InputCompany';
 
 class EditCompany extends Component {
@@ -13,8 +12,10 @@ class EditCompany extends Component {
         };
         this.setCompanyId = this.setCompanyId.bind(this);
     }
+
     componentDidMount() {
-        const co_id = this.props.match.params.id;
+        // const co_id = this.props.match.params.id;
+        const co_id = this.props.companyId;
         axios.get('/api/companies/' + co_id).then(response => {
             this.setState({
                 company: response.data,
@@ -22,11 +23,13 @@ class EditCompany extends Component {
             });
         });
     }
+
     setCompanyId(id) {
         this.setState({
             company_id: id
         });
     }
+    
     render() {
         const { company, is_loading } = this.state;
         return (
@@ -42,8 +45,7 @@ class EditCompany extends Component {
                         readOnlyFields="true"
                     />
                     <div>
-                        <button className='btn btn-primary'>Update Application</button>
-                        <button className='btn btn-danger'>Delete</button>
+                        <button type="submit" className='btn btn-primary'>Update Company</button>
                     </div>
                 </div>
             ) : (
