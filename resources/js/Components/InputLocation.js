@@ -124,7 +124,7 @@ class InputLocation extends React.Component {
         const inputProps = {
             value,
             onChange: this.onChange,
-            className: 'form-control',
+            className: this.props.className,
             placeholder: 'City, State',
             id: this.props.id
         };

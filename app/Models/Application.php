@@ -16,6 +16,7 @@ class Application extends Model
         'post_age', 
         'company_id', 
         'location_id',
+        'app_zip',
         'user_id',
         'posted_salary_max',
         'posted_salary_min',
