@@ -333,11 +333,11 @@ class ApplicationView extends Component {
                                     action={this.noteChanged}
                                 />
                             </Modal.Body>
-                            <div class='flex flex-row justify-end content-around mb-4'>
-                                <button type="button" onClick={this.hideCommentModal} class="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                            <div className='flex flex-row justify-end content-around mb-4'>
+                                <button type="button" onClick={this.hideCommentModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
                                     Close
                                 </button>
-                                <button type="button" onClick={this.createNote} class="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                                <button type="button" onClick={this.createNote} className="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
                                     Create Note
                                 </button>
                             </div>
@@ -354,11 +354,11 @@ class ApplicationView extends Component {
                                     action={this.interviewChanged}
                                 />
                             </Modal.Body>
-                            <div class='flex flex-row justify-end content-around mb-4'>
-                                <button type="button" onClick={this.hideInterviewModal} class="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                            <div className='flex flex-row justify-end content-around mb-4'>
+                                <button type="button" onClick={this.hideInterviewModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                     Close
                                 </button>
-                                <button type="button" onClick={this.createInterview} class="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                <button type="button" onClick={this.createInterview} className="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                     Create Interview
                                 </button>
                             </div>
@@ -375,22 +375,20 @@ class ApplicationView extends Component {
                                     action={this.contactChanged} 
                                 />
                             </Modal.Body>
-                            <div class='flex flex-row justify-end content-around mb-4'>
-                                <button type="button" onClick={this.hideContactModal} class="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                            <div className='flex flex-row justify-end content-around mb-4'>
+                                <button type="button" onClick={this.hideContactModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                     Close
                                 </button>
-                                <button type="button" onClick={this.createContact} class="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                <button type="button" onClick={this.createContact} className="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                     Create Contact
                                 </button>
                             </div>
                         </Modal>
-
                     </div>
+
                     <section className='app-header'>
                         <div className='flex flex-row'>
-                            {/* <div className='basis-7/8'> */}
-                                <h2 className='text-2xl'>{ application.position }</h2>
-                            {/* </div> */}
+                            <h2 className='text-2xl'>{ application.position }</h2>
                         </div>
                         
                         <div>
@@ -398,15 +396,15 @@ class ApplicationView extends Component {
                                 { application.company.name }
                             </h3>
                             <div className='flex flex-row text-lg'>
-                                <div className='basis-1/2'>{application.location.city}, {application.location.state}</div>
+                                <div className='basis-1/2'>{application.location.city}, {application.location.state}, {application.app_zip}</div>
                                 {application.applied_at ? (
-                                    <div className='basis-1/2 text-right'>Date applied: { application.applied_at }</div>
+                                    <div className='basis-1/2 text-right'></div>
                                 ) : null}
                             </div>
                         </div>
 
-                        <div className='app-info'>
-                            <div className='app-matches'>
+                        <div className="flex flex-row mt-6 space-x-4">
+                            <div className="basis-1/3 text-center">
                                 <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800">
                                     <div className="flex items-center text-center">
                                         <p className="text-lg w-full text-gray-700 dark:text-gray-50 ml-2">
@@ -424,14 +422,15 @@ class ApplicationView extends Component {
                                 </div>
                             </div>
 
-                            <div className='app-post-age'>
+                            <div className="basis-1/3 text-center">
                                 <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800">
                                     <div className='app-sandwich'>Job post age: {application.post_age} days</div>
                                     <div className='app-sandwich'>Created {this.state.application_age} days ago</div>
+                                    <div className='app-sandwich'>Applied: { application.applied_at }</div>
                                 </div>
                             </div>
                             
-                            <div className='app-salary'>
+                            <div className="basis-1/3 text-center">
                                 <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800">
                                     {(application.posted_salary_min != undefined || application.posted_salary_max != undefined || application.requested_salary != undefined) ? (
                                     <div>
