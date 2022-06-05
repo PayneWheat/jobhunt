@@ -21,6 +21,7 @@ class CreateApplicationsTable extends Migration
             $table->foreign('company_id')->references('id')->on('companies');
             $table->unsignedInteger('location_id');
             $table->foreign('location_id')->references('id')->on('locations');
+            $table->text('app_zip')->nullable();
             $table->unsignedInteger('status_id');
             //$table->foreign('status_id')->references('id')->on('application_statuses');
             $table->unsignedInteger('posted_salary_min')->nullable();

@@ -13,6 +13,7 @@ class ApplicationController extends Controller
         'position'          => 'required',
         'company_id'        => 'required',
         'location_id'       => 'required',
+        'app_zip'           => 'nullable',
         'job_description'   => 'nullable',
         'resume_text'       => 'nullable',
         'coverletter_text'  => 'nullable',
@@ -27,7 +28,7 @@ class ApplicationController extends Controller
         if(!($userId = $request->header('x-user-id'))) {
             return response()->json(['errors' => 'Missing user ID'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        \Log::alert("ApplicationController::index\n" . print_r($request->headers, true));
+
         $applications = Application::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
         $applications->load('company', 'location', 'status');
 
