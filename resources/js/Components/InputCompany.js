@@ -1,10 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
-//import InputLocation from './InputLocation';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col'
+import Input from './Input';
+import Label from './Label';
 
 let companies = [];
 const getSuggestions = value => {
@@ -38,7 +36,6 @@ class InputCompany extends React.Component {
             state: '',
             website: props.companyWebsite || '',
             phone: props.companyPhone || '',
-            /*company_name: props.companyName || '',*/
             show_add_button: false,
             show_check: !!props.companyId,
             readonly_addtl_fields: false,
@@ -167,15 +164,13 @@ class InputCompany extends React.Component {
             console.log(error);
         });
     }
-    handlePhoneFieldChange(event) {
-        
-    }
+
     render() {
         const { value, suggestions, is_loading } = this.state;
         const inputProps = {
             value: this.state.value,
             onChange: this.onChangeName,
-            className: 'form-control'
+            className: this.props.className
         };
 
         return (
@@ -184,7 +179,7 @@ class InputCompany extends React.Component {
             {!is_loading ? (
                 <div>
                     <div className='form-group rel-pos'>
-                        <label htmlFor='company'>Company</label>
+                        <Label htmlFor='company'>Company</Label>
                         <Autosuggest
                             suggestions={suggestions}
                             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -209,45 +204,36 @@ class InputCompany extends React.Component {
                             <i id='company_check' className={this.state.show_check ? 'fas fa-check floater' : 'fas fa-check floater hidden'}></i>
                         ) : null}
                     </div>
-                    <Row>
-                        <Col md={5}>
-                            <div className='form-group'>
-                                <label htmlFor='website'>Website</label>
-                                <input 
-                                    type='text'
-                                    className='form-control'
-                                    id='website'
-                                    name='website'
-                                    placeholder='company.co'
-                                    value={this.state.website}
-                                    readOnly={(!this.state.override_readonly && this.state.readonly_addtl_fields)}
-                                    onChange={this.handleFieldChange}
-                                />
-                            </div>
-                        </Col>
-                        <Col md={3}>
-                            <div className='form-group'>
-                                <label htmlFor='phone'>Phone Number</label>
-                                <input 
-                                    type='text'
-                                    className='form-control'
-                                    id='phone'
-                                    name='phone'
-                                    placeholder='123-456-7890'
-                                    value={this.state.phone}
-                                    readOnly={(!this.state.override_readonly && this.state.readonly_addtl_fields)}
-                                    onChange={this.handlePhoneFieldChange}
-                                />
-
-                            </div>
-                        </Col>
-                    </Row>
+                    <div className="flex flex-row space-x-4">
+                        <div className="basis-1/3">
+                            <Label htmlFor='website'>Website</Label>
+                            <Input
+                                type="text"
+                                name="website"
+                                placeholder="company.com"
+                                className="mt-1 block w-full"
+                                handleChange={this.handleFieldChange}
+                                value={this.state.website}
+                                readOnly={(!this.state.override_readonly && this.state.readonly_addtl_fields)}
+                            />
+                        </div>
+                        <div className="basis-1/5">
+                            <Label htmlFor="phone">Phone Number</Label>
+                            <Input 
+                                type="text"
+                                className="mt-1 block w-full"
+                                name="phone"
+                                placeholder="123-456-7890"
+                                value={this.state.phone}
+                                readOnly={(!this.state.override_readonly && this.state.readonly_addtl_fields)}
+                                onChange={this.handleFieldChange}
+                            />
+                        </div>
+                    </div>
                 </div>
             ) : (
                 <h3>loading</h3>
-            )}
-            
-                
+            )}  
             </div>
         )
     }
