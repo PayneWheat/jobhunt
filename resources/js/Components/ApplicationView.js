@@ -298,113 +298,103 @@ class ApplicationView extends Component {
             <div className='container'>
             {!is_loading ? (
                 <div>
-                    <div className='edit-row'>
-                        <Link 
-                            href={'/application/edit/' + application.id} 
-                            as='button' 
-                            type='button'
-                            className='py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg'
-                        >
-                            <i className='fas fa-edit mr-2'></i> Edit
-                        </Link>
-                        
-                        <Button onClick={this.showContactModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
-                            <i className="fas fa-user-plus mr-2"></i> Add Contact
-                        </Button>
-                        <Button onClick={this.showCommentModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
-                            <i className="fas fa-sticky-note mr-2"></i> Add Note
-                        </Button>
-                        <Button onClick={this.showInterviewModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
-                            <i className="fas fa-calendar mr-2"></i> Add Interview
-                        </Button>
+                    <Modal show={show_comment_modal} onHide={this.hideCommentModal}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>New Note</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <NewNote 
+                                application={application}
+                                action={this.noteChanged}
+                            />
+                        </Modal.Body>
+                        <div className='flex flex-row justify-end content-around mb-4'>
+                            <button type="button" onClick={this.hideCommentModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                                Close
+                            </button>
+                            <button type="button" onClick={this.createNote} className="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                                Create Note
+                            </button>
+                        </div>
+                    </Modal>
 
-                        <ApplicationStatus 
-                            appId={ app_id }
-                            status={ application.status }
-                        />
-                        
-                        <Modal show={show_comment_modal} onHide={this.hideCommentModal}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>New Note</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <NewNote 
-                                    application={application}
-                                    action={this.noteChanged}
-                                />
-                            </Modal.Body>
-                            <div className='flex flex-row justify-end content-around mb-4'>
-                                <button type="button" onClick={this.hideCommentModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
-                                    Close
-                                </button>
-                                <button type="button" onClick={this.createNote} className="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
-                                    Create Note
-                                </button>
+                    <Modal show={show_interview_modal} onHide={this.hideInterviewModal}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>New Interview</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <NewInterview 
+                                userId={this.state.user_id}
+                                application={application} 
+                                action={this.interviewChanged}
+                            />
+                        </Modal.Body>
+                        <div className='flex flex-row justify-end content-around mb-4'>
+                            <button type="button" onClick={this.hideInterviewModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                Close
+                            </button>
+                            <button type="button" onClick={this.createInterview} className="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                Create Interview
+                            </button>
+                        </div>
+                    </Modal>
+
+                    <Modal show={show_contact_modal} onHide={this.hideContactModal}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>New Contact</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <NewContact 
+                                company={application.company} 
+                                applicationId={application.id}
+                                action={this.contactChanged} 
+                            />
+                        </Modal.Body>
+                        <div className='flex flex-row justify-end content-around mb-4'>
+                            <button type="button" onClick={this.hideContactModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                Close
+                            </button>
+                            <button type="button" onClick={this.createContact} className="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                Create Contact
+                            </button>
+                        </div>
+                    </Modal>
+
+                    <section>
+                        <div className='flex flex-row flex-wrap mt-6'>
+                            <div className="basis-full md:basis-3/4 flex items-baseline">
+                                <span className='text-2xl mr-2'>
+                                    { application.position }
+                                </span>
+                                <Link href={'/application/edit/' + application.id}>
+                                    <i className='fas fa-edit mr-2'></i>
+                                </Link>
                             </div>
-                        </Modal>
-
-                        <Modal show={show_interview_modal} onHide={this.hideInterviewModal}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>New Interview</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <NewInterview 
-                                    userId={this.state.user_id}
-                                    application={application} 
-                                    action={this.interviewChanged}
-                                />
-                            </Modal.Body>
-                            <div className='flex flex-row justify-end content-around mb-4'>
-                                <button type="button" onClick={this.hideInterviewModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                                    Close
-                                </button>
-                                <button type="button" onClick={this.createInterview} className="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                                    Create Interview
-                                </button>
+                            <div className="basis-full md:basis-1/4 flex md:justify-end">
+                                <div className="text-center w-full">
+                                    <ApplicationStatus 
+                                        appId={ app_id }
+                                        status={ application.status }
+                                    />
+                                </div>
                             </div>
-                        </Modal>
-
-                        <Modal show={show_contact_modal} onHide={this.hideContactModal}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>New Contact</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <NewContact 
-                                    company={application.company} 
-                                    applicationId={application.id}
-                                    action={this.contactChanged} 
-                                />
-                            </Modal.Body>
-                            <div className='flex flex-row justify-end content-around mb-4'>
-                                <button type="button" onClick={this.hideContactModal} className="py-2 px-2 mx-2 basis-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                                    Close
-                                </button>
-                                <button type="button" onClick={this.createContact} className="py-2 px-2 mx-2 basis-1/2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                                    Create Contact
-                                </button>
-                            </div>
-                        </Modal>
-                    </div>
-
-                    <section className='app-header'>
-                        <div className='flex flex-row'>
-                            <h2 className='text-2xl'>{ application.position }</h2>
                         </div>
                         
-                        <div>
-                            <h3 className='text-xl'>
-                                { application.company.name }
-                            </h3>
-                            <div className='flex flex-row text-lg'>
-                                <div className='basis-1/2'>{application.location.city}, {application.location.state}, {application.app_zip}</div>
-                                {application.applied_at ? (
-                                    <div className='basis-1/2 text-right'></div>
-                                ) : null}
+                        <div className="flex flex-row flex-wrap">
+                            <div className="basis-full md:basis-1/2">
+                                <h3 className='text-xl'>
+                                    { application.company.name }
+                                </h3>
+                            </div>
+                            <div className="basis-full md:basis-1/2 md:text-right">
+                                <h3 className='text-xl'>
+                                    {application.location.city}, {application.location.state} {application.app_zip}
+                                </h3>
                             </div>
                         </div>
 
-                        <div className="flex flex-row mt-6 space-x-4">
-                            <div className="basis-1/3 text-center">
+                        <div className="flex flex-row flex-wrap">
+                            <div className="basis-full mt-6 md:pr-2 md:basis-1/3 text-center">
                                 <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800">
                                     <div className="flex items-center text-center">
                                         <p className="text-lg w-full text-gray-700 dark:text-gray-50 ml-2">
@@ -422,15 +412,15 @@ class ApplicationView extends Component {
                                 </div>
                             </div>
 
-                            <div className="basis-1/3 text-center">
+                            <div className="basis-full mt-6 md:px-2 md:basis-1/3 text-center">
                                 <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800">
                                     <div className='app-sandwich'>Job post age: {application.post_age} days</div>
                                     <div className='app-sandwich'>Created {this.state.application_age} days ago</div>
-                                    <div className='app-sandwich'>Applied: { application.applied_at }</div>
+                                    {application.applied_at ? (<div className='app-sandwich'>Applied: { application.applied_at }</div>) : null}
                                 </div>
                             </div>
                             
-                            <div className="basis-1/3 text-center">
+                            <div className="basis-full mt-6 md:pl-2 md:basis-1/3 text-center">
                                 <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800">
                                     {(application.posted_salary_min != undefined || application.posted_salary_max != undefined || application.requested_salary != undefined) ? (
                                     <div>
