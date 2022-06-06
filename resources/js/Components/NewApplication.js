@@ -179,8 +179,8 @@ class NewApplication extends Component {
             <Container>
             {!is_loading ? (
                     <form onSubmit={this.handleSubmit}>
-                        <div className="flex flex-row mt-4">
-                            <div className="basis-3/4">
+                        <div className="flex flex-row">
+                            <div className="basis-full md:basis-3/4 mt-4">
                                 <Label forInput="position" value="Job Title" />
                                 <Input
                                     type="text"
@@ -191,8 +191,8 @@ class NewApplication extends Component {
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-row space-x-4 mt-4">
-                            <div className="basis-1/2">
+                        <div className="flex flex-row flex-wrap">
+                            <div className="basis-full md:basis-1/2 mt-4 md:pr-2">
                                 <Label htmlFor="app_state" value="Job Location" />
                                 <InputLocation
                                     stateFieldId='app_state'
@@ -205,7 +205,7 @@ class NewApplication extends Component {
                                     locationValue={this.state.location_value}
                                 />
                             </div>
-                            <div className="basis-1/2">
+                            <div className="basis-full md:basis-1/2 mt-4 md:pl-2">
                                 <Label htmlFor="app_zip" value="Zip Code" />
                                 <Input
                                     type="text"
@@ -216,8 +216,8 @@ class NewApplication extends Component {
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-row space-x-4 mt-4">
-                            <div className="basis-1/3">
+                        <div className="flex flex-row flex-wrap">
+                            <div className="basis-full md:basis-1/3 mt-4 md:pr-2">
                                 <Label forInput="post_age" value="Age of Job Posting (days)" />
                                 <Input
                                     type="number"
@@ -227,7 +227,7 @@ class NewApplication extends Component {
                                     handleChange={this.handleFieldChange}
                                 />
                             </div>
-                            <div className="basis-1/3">
+                            <div className="basis-full md:basis-1/3 mt-4 md:px-2">
                                 <Label value="Posted Salary Range (optional)" />
                                 <Input
                                     type="number"
@@ -246,7 +246,7 @@ class NewApplication extends Component {
                                     handleChange={this.handleFieldChange}
                                 />
                             </div>
-                            <div className="basis-1/3">
+                            <div className="basis-full md:basis-1/3 mt-4 md:pl-2">
                                 <Label forHtml="requested_salary" value="Requested Salary (optional)" />
                                 <Input
                                     type="number"
@@ -257,8 +257,8 @@ class NewApplication extends Component {
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-row mt-4">
-                            <div className="basis-full">
+                        <div className="flex flex-row">
+                            <div className="basis-full mt-4">
                                 <InputCompany 
                                     action={this.setCompanyId}
                                     className="className='mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
@@ -269,8 +269,8 @@ class NewApplication extends Component {
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-row mt-4">
-                            <div className="basis-full">
+                        <div className="flex flex-row">
+                            <div className="basis-full mt-4">
                                 <Label htmlFor="job_description" value="Job Description" />
                                 <textarea 
                                     name="job_description"
@@ -280,8 +280,8 @@ class NewApplication extends Component {
                                 ></textarea>
                             </div>
                         </div>
-                        <div className="flex flex-row mt-4">
-                            <div className="basis-full">
+                        <div className="flex flex-row">
+                            <div className="basis-full mt-4">
                                 <Label htmlFor="resume_text" value="Resume" />
                                 <textarea 
                                     name="resume_text"
@@ -291,8 +291,8 @@ class NewApplication extends Component {
                                 ></textarea>
                             </div>
                         </div>
-                        <div className="flex flex-row mt-4">
-                            <div className="basis-full">
+                        <div className="flex flex-row">
+                            <div className="basis-full mt-4">
                                 <Label htmlFor="coverletter_text" value="Cover Letter" />
                                 <textarea 
                                     name="coverletter_text"
