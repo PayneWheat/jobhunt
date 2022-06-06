@@ -175,10 +175,10 @@ class InputCompany extends React.Component {
 
         return (
             
-            <div className='company-input'>
+            <div>
             {!is_loading ? (
                 <div>
-                    <div className='form-group rel-pos'>
+                    <div>
                         <Label htmlFor='company'>Company</Label>
                         <Autosuggest
                             suggestions={suggestions}
@@ -204,8 +204,8 @@ class InputCompany extends React.Component {
                             <i id='company_check' className={this.state.show_check ? 'fas fa-check floater' : 'fas fa-check floater hidden'}></i>
                         ) : null}
                     </div>
-                    <div className="flex flex-row space-x-4">
-                        <div className="basis-1/3">
+                    <div className="flex flex-row flex-wrap">
+                        <div className="basis-full mt-4 sm:mr-2 sm:basis-1/3">
                             <Label htmlFor='website'>Website</Label>
                             <Input
                                 type="text"
@@ -217,7 +217,7 @@ class InputCompany extends React.Component {
                                 readOnly={(!this.state.override_readonly && this.state.readonly_addtl_fields)}
                             />
                         </div>
-                        <div className="basis-1/5">
+                        <div className="basis mt-4 sm:ml-2 sm:basis-1/5">
                             <Label htmlFor="phone">Phone Number</Label>
                             <Input 
                                 type="text"
