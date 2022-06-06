@@ -56,32 +56,32 @@ class ApplicationStatus extends Component {
     render() {
         const { is_loading, dropdown_mode, status, statuses } = this.state;
         return (
-            <div>
-            {!is_loading ? (
-                dropdown_mode ? (
-                <select 
-                    className='block text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500'
-                    onChange={this.onChange}
-                    defaultValue={status.status}
-                >
-                {statuses.map(statusItem=>(
-                    <option key={statusItem.id}>{statusItem.status}</option>
-                ))}
-                </select>
-                ) : (
-                    <div 
-                        className='px-4 py-2 text-base rounded-full text-white  bg-indigo-500'
-                        onClick={this.onClick}
+            <span>
+                {!is_loading ? (
+                    dropdown_mode ? (
+                    <select 
+                        className='block text-gray-700 py-2 px-3 w-full text-center border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500'
+                        onChange={this.onChange}
+                        defaultValue={status.status}
                     >
-                        {this.state.status.status}
+                    {statuses.map(statusItem=>(
+                        <option key={statusItem.id}>{statusItem.status}</option>
+                    ))}
+                    </select>
+                    ) : (
+                        <div 
+                            className='px-4 py-2 text-base rounded-full text-white  bg-indigo-500'
+                            onClick={this.onClick}
+                        >
+                            {this.state.status.status}
+                        </div>
+                    )
+                ) : (
+                    <div className='px-4 py-2 text-base rounded-full text-white  bg-indigo-500'>
+                        loading
                     </div>
-                )
-            ) : (
-                <div className='px-4 py-2 text-base rounded-full text-white  bg-indigo-500'>
-                    loading
-                </div>
-            )}
-            </div>
+                )}
+            </span>
         );
     }
 }
