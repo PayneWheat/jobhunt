@@ -224,9 +224,9 @@ class InputCompany extends React.Component {
                                 className="mt-1 block w-full"
                                 name="phone"
                                 placeholder="123-456-7890"
+                                handleChange={this.handleFieldChange}
                                 value={this.state.phone}
                                 readOnly={(!this.state.override_readonly && this.state.readonly_addtl_fields)}
-                                onChange={this.handleFieldChange}
                             />
                         </div>
                     </div>
