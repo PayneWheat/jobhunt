@@ -78,8 +78,8 @@ class ApplicationTableSeeder extends Seeder
             'resume_text' => $sampleResume,
             'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
             'post_age' => 3,
-            'applied_at'=> date("Y-m-d", strtotime("-10 days")),
-            'created_at' => date("Y-m-d", strtotime("-10 days")),
+            'applied_at'=> date("Y-m-d", strtotime("-14 days")),
+            'created_at' => date("Y-m-d", strtotime("-14 days")),
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey()
         ]);
@@ -96,8 +96,8 @@ class ApplicationTableSeeder extends Seeder
             'resume_text' => $sampleResume,
             'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
             'post_age' => 5,
-            'applied_at'=> date("Y-m-d", strtotime("-9 days")),
-            'created_at' => date("Y-m-d", strtotime("-9 days")),
+            'applied_at'=> date("Y-m-d", strtotime("-13 days")),
+            'created_at' => date("Y-m-d", strtotime("-13 days")),
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey()
         ]);
@@ -107,15 +107,15 @@ class ApplicationTableSeeder extends Seeder
             'company_id' => 3,
             'location_id' => 2,
             'status_id' => 5,
-            'posted_salary_min' => 60000,
+            'posted_salary_min' => 69000,
             'posted_salary_max' => 70000,
             'requested_salary' => 70000,
             'job_description' => $sampleJobDesc,
             'resume_text' => $sampleResume,
             'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
             'post_age' => 21,
-            'applied_at'=> date("Y-m-d", strtotime("-8 days")),
-            'created_at' => date("Y-m-d", strtotime("-8 days")),
+            'applied_at'=> date("Y-m-d", strtotime("-12 days")),
+            'created_at' => date("Y-m-d", strtotime("-12 days")),
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey()
         ]);
@@ -132,8 +132,8 @@ class ApplicationTableSeeder extends Seeder
             'resume_text' => $sampleResume,
             'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
             'post_age' => 2,
-            'applied_at'=> date("Y-m-d", strtotime("-7 days")),
-            'created_at' => date("Y-m-d", strtotime("-7 days")),
+            'applied_at'=> date("Y-m-d", strtotime("-11 days")),
+            'created_at' => date("Y-m-d", strtotime("-11 days")),
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey()
         ]);
@@ -144,49 +144,47 @@ class ApplicationTableSeeder extends Seeder
             'location_id' => 5,
             'status_id' => 4,
             'posted_salary_min' => 60000,
-            'posted_salary_max' => 700000,
+            'posted_salary_max' => 70000,
             'requested_salary' => 70000,
             'job_description' => $sampleJobDesc,
             'resume_text' => $sampleResume,
             'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
             'post_age' => 4,
-            'applied_at'=> date("Y-m-d", strtotime("-6 days")),
-            'created_at' => date("Y-m-d", strtotime("-6 days")),
+            'applied_at'=> date("Y-m-d", strtotime("-10 days")),
+            'created_at' => date("Y-m-d", strtotime("-10 days")),
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey()
         ]);
 
         Application::create([
-            'position' => 'PHP Developer',
+            'position' => 'PHP Developer (no min salary)',
             'company_id' => 6,
             'location_id' => 6,
             'status_id' => 1,
-            'posted_salary_min' => 65000,
-            'posted_salary_max' => 750000,
+            'posted_salary_max' => 75000,
             'requested_salary' => 70000,
             'job_description' => $sampleJobDesc,
             'resume_text' => $sampleResume,
             'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
             'post_age' => 31,
-            'created_at' => date("Y-m-d", strtotime("-5 days")),
+            'created_at' => date("Y-m-d", strtotime("-9 days")),
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey()
         ]);
 
         Application::create([
-            'position' => 'JavaScript Developer',
+            'position' => 'JavaScript Developer (no max salary)',
             'company_id' => 7,
             'location_id' => 4,
             'status_id' => 2,
             'posted_salary_min' => 65000,
-            'posted_salary_max' => 750000,
             'requested_salary' => 70000,
             'job_description' => $sampleJobDesc,
             'resume_text' => $sampleResume,
             'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
             'post_age' => 6,
-            'applied_at'=> date("Y-m-d", strtotime("-4 days")),
-            'created_at' => date("Y-m-d", strtotime("-4 days")),
+            'applied_at'=> date("Y-m-d", strtotime("-8 days")),
+            'created_at' => date("Y-m-d", strtotime("-8 days")),
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey()
         ]);
@@ -198,7 +196,76 @@ class ApplicationTableSeeder extends Seeder
             'status_id' => 7,
             'posted_salary_min' => 80000,
             'posted_salary_max' => 100000,
-            'requested_salary' => 90000,
+            'requested_salary' => 82000,
+            'job_description' => $sampleJobDesc,
+            'resume_text' => $sampleResume,
+            'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
+            'post_age' => 9,
+            'applied_at'=> date("Y-m-d", strtotime("-7 days")),
+            'created_at' => date("Y-m-d", strtotime("-7 days")),
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
+        ]);
+
+        Application::create([
+            'position' => 'Senior Software Engineer (no requested salary)',
+            'company_id' => 9,
+            'location_id' => 2,
+            'status_id' => 8,
+            'posted_salary_min' => 100000,
+            'posted_salary_max' => 140000,
+            'job_description' => $sampleJobDesc,
+            'resume_text' => $sampleResume,
+            'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
+            'post_age' => 9,
+            'applied_at'=> date("Y-m-d", strtotime("-6 days")),
+            'created_at' => date("Y-m-d", strtotime("-6 days")),
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
+        ]);
+
+        Application::create([
+            'position' => 'DevOps Engineer (requested less than min)',
+            'company_id' => 10,
+            'location_id' => 2,
+            'status_id' => 3,
+            'posted_salary_min' => 100000,
+            'posted_salary_max' => 140000,
+            'requested_salary'  => 85000,
+            'job_description' => $sampleJobDesc,
+            'resume_text' => $sampleResume,
+            'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
+            'post_age' => 9,
+            'applied_at'=> date("Y-m-d", strtotime("-5 days")),
+            'created_at' => date("Y-m-d", strtotime("-5 days")),
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
+        ]);
+
+        Application::create([
+            'position' => 'QA Engineer (requested more than max)',
+            'company_id' => 11,
+            'location_id' => 2,
+            'status_id' => 3,
+            'posted_salary_min' => 45000,
+            'posted_salary_max' => 60000,
+            'requested_salary'  => 75000,
+            'job_description' => $sampleJobDesc,
+            'resume_text' => $sampleResume,
+            'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
+            'post_age' => 9,
+            'applied_at'=> date("Y-m-d", strtotime("-4 days")),
+            'created_at' => date("Y-m-d", strtotime("-4 days")),
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
+        ]);
+
+        Application::create([
+            'position' => 'Power Coder (only requested salary)',
+            'company_id' => 12,
+            'location_id' => 2,
+            'status_id' => 3,
+            'requested_salary'  => 75000,
             'job_description' => $sampleJobDesc,
             'resume_text' => $sampleResume,
             'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
@@ -210,18 +277,33 @@ class ApplicationTableSeeder extends Seeder
         ]);
 
         Application::create([
-            'position' => 'Senior Software Engineer',
-            'company_id' => 9,
+            'position' => 'ERP Dev (only maximum salary)',
+            'company_id' => 13,
             'location_id' => 2,
-            'status_id' => 8,
-            'posted_salary_min' => 100000,
-            'posted_salary_max' => 140000,
+            'status_id' => 3,
+            'posted_salary_max' => 70000,
             'job_description' => $sampleJobDesc,
             'resume_text' => $sampleResume,
             'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
             'post_age' => 9,
             'applied_at'=> date("Y-m-d", strtotime("-2 days")),
             'created_at' => date("Y-m-d", strtotime("-2 days")),
+            'updated_at' => date("Y-m-d H:i:s"),
+            'user_id' => $user->getKey()
+        ]);
+
+        Application::create([
+            'position' => 'Mid Level Full Stack Developer (only minimum salary)',
+            'company_id' => 14,
+            'location_id' => 2,
+            'status_id' => 3,
+            'posted_salary_min' => 80000,
+            'job_description' => $sampleJobDesc,
+            'resume_text' => $sampleResume,
+            'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
+            'post_age' => 9,
+            'applied_at'=> date("Y-m-d", strtotime("-1 days")),
+            'created_at' => date("Y-m-d", strtotime("-1 days")),
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey()
         ]);

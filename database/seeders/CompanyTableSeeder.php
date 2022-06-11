@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-//use Illuminate\Support\Facades\DB;
 use App\Models\Company;
 
 class CompanyTableSeeder extends Seeder
@@ -22,10 +21,27 @@ class CompanyTableSeeder extends Seeder
             'website' => 'www.fictionalco.com'
         ]);
         Company::create([
-            'name' => 'XYZ, Inc.',
-            'hq_location' => 'Houston, TX',
+            'name' => 'Vandelay Industries',
             'phone' => '713-123-4567',
-            'website' => 'www.xyzinc.com'
+            'website' => 'www.vandelay-latex.com'
+        ]);
+        Company::create([
+            'name' => 'Frank\'s Fluids',
+            'website' => 'www.franksfluids.com'
+        ]);
+        Company::create([
+            'name' => 'Initech',
+            'hq_location' => 'Houston, TX',
+            'website' => 'www.initech.com',
+        ]);
+        Company::create([
+            'name' => 'Hooli',
+            'website' => 'www.hooli.com'
+        ]);
+        Company::create([
+            'name' => 'Aviato',
+            'hq_location' => 'Palo Alto, California',
+            'website' => 'www.aviato.com',
         ]);
         Company::create([
             'name' => 'Dummy Data Co',
