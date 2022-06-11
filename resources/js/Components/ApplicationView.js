@@ -11,6 +11,7 @@ import NewNote from '@/Components/NewNote';
 import NewInterview from '@/Components/NewInterview';
 import ContactsList from '@/Components/ContactsList';
 import NewContact from '@/Components/NewContact';
+import SalaryPanel from '@/Components/SalaryPanel';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class ApplicationView extends Component {
@@ -55,10 +56,7 @@ class ApplicationView extends Component {
     }
 
     componentDidMount() {
-        // const app_id = this.props.match.params.id;
-        
         this.setState({
-            // app_id: app_id,
             refresh_key: Math.random()
         });
 
@@ -69,7 +67,6 @@ class ApplicationView extends Component {
             this.setState({
                 application: response.data,
                 contacts: response.data.company.contacts,
-                // interviews: response.data.interviews,
                 notes: response.data.notes,
                 application_age: appAge
             });
@@ -146,11 +143,6 @@ class ApplicationView extends Component {
 
         return appAge;
     }
-    /*
-    applicationHeader() {
-        return this.state.application.position;
-    }
-    */
 
     convertDatetime(datetime) {
         let t = datetime.split(/[- :]/);
@@ -406,7 +398,7 @@ class ApplicationView extends Component {
                                             {this.percentageRound(this.state.keyword_matches.length / this.state.jd_keywords.length * 100, 1)}%
                                         </p>
                                         <div className="relative h-2 bg-gray-200 rounded">
-                                            <div className='absolute top-0 h-2  left-0 rounded bg-green-500' style={{ width: this.percentageRound(this.state.keyword_matches.length / this.state.jd_keywords.length * 100, 0) + '%' }}></div>
+                                            <div className='absolute top-0 h-2 left-0 rounded bg-green-500' style={{ width: this.percentageRound(this.state.keyword_matches.length / this.state.jd_keywords.length * 100, 0) + '%' }}></div>
                                         </div>
                                     </div>
                                 </div>
@@ -422,27 +414,7 @@ class ApplicationView extends Component {
                             
                             <div className="basis-full mt-6 md:pl-2 md:basis-1/3 text-center">
                                 <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800">
-                                    {(application.posted_salary_min != undefined || application.posted_salary_max != undefined || application.requested_salary != undefined) ? (
-                                    <div>
-                                        {(application.posted_salary_min != undefined || application.posted_salary_max != undefined) &&
-                                            <div>Salary Range:&nbsp;
-                                            {application.posted_salary_min &&
-                                                <span>${application.posted_salary_min}</span>
-                                            }
-                                            {application.posted_salary_min && application.posted_salary_max &&
-                                                <span>&nbsp;-&nbsp;</span>
-                                            }
-                                            {application.posted_salary_max &&
-                                                <span>${application.posted_salary_max}</span>
-                                            }</div>
-                                        }
-                                        {application.requested_salary &&
-                                        <div>Requested Salary: ${application.requested_salary}</div>
-                                        }
-                                    </div>
-                                    ) : (
-                                        <div><em>No salary information</em></div>
-                                    )}
+                                    <SalaryPanel application={application} />
                                 </div>
                             </div>
                         </div>
