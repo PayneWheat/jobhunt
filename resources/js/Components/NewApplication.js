@@ -4,8 +4,8 @@ import { Inertia } from '@inertiajs/inertia'
 import InputCompany from '@/Components/InputCompany';
 import InputLocation from '@/Components/InputLocation';
 import Container from 'react-bootstrap/Container';
-import Label from './Label';
-import Input from './Input';
+import Label from '@/Components/Label';
+import Input from '@/Components/Input';
 
 const getCompanySuggestionValue = suggestion => suggestion.name;
 class NewApplication extends Component {
@@ -36,10 +36,13 @@ class NewApplication extends Component {
             requested_salary: '',
             post_age: '',
             app_id: props.app_id || null,
-            is_loading: true
+            is_loading: true,
+            workspace: '',
+            employment_classification: '',
         }
 
         this.handleFieldChange = this.handleFieldChange.bind(this);
+        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.hasErrorFor = this.hasErrorFor.bind(this);
         this.renderErrorFor = this.renderErrorFor.bind(this);
@@ -82,6 +85,8 @@ class NewApplication extends Component {
                     coverletter_text: response.data.coverletter_text,
                     created_at: response.data.created_at,
                     applied_at: response.data.applied_at,
+                    workspace: response.data.workspace,
+                    employment_classification: response.data.employment_classification,
                     is_loading: false
                 });
             });
@@ -96,6 +101,14 @@ class NewApplication extends Component {
         this.setState({
             [event.target.name]: event.target.value
         });
+    }
+
+    handleCheckboxChange(event) {
+        if(event.target) {
+            this.setState({
+                [event.target.name]: event.target.checked
+            });
+        }
     }
 
     handleSubmit(event) {
@@ -113,7 +126,10 @@ class NewApplication extends Component {
             posted_salary_max: this.state.posted_salary_max,
             requested_salary: this.state.requested_salary,
             post_age: this.state.post_age,
-            user_id: this.state.user_id
+            user_id: this.state.user_id,
+            workspace: this.state.workspace,
+            employment_classification: this.state.employment_classification,
+
         }
         console.log('NewApplication::handleSubmit', this.state, application);
 
@@ -217,7 +233,77 @@ class NewApplication extends Component {
                             </div>
                         </div>
                         <div className="flex flex-row flex-wrap">
-                            <div className="basis-full md:basis-1/3 mt-4 md:pr-2">
+                            <div className='flex flex-column basis-1/2 md:basis-1/3'>
+                                <label className="flex items-center mt-4">
+                                    <input
+                                        type="radio"
+                                        name="workspace"
+                                        className=""
+                                        value="Remote"
+                                        checked={this.state.workspace === "Remote"}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                    <span className="ml-2 text-sm text-gray-600">Remote</span>
+                                </label>
+                                <label className="flex items-center mt-2">
+                                    <input
+                                        type="radio"
+                                        name="workspace"
+                                        className=""
+                                        value="In-person"
+                                        checked={this.state.workspace === "In-person"}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                    <span className="ml-2 text-sm text-gray-600">In-person</span>
+                                </label>
+                                <label className="flex items-center mt-2">
+                                    <input
+                                        type="radio"
+                                        name="workspace"
+                                        className=""
+                                        value="Hybrid"
+                                        checked={this.state.workspace === "Hybrid"}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                    <span className="ml-2 text-sm text-gray-600">Hybrid</span>
+                                </label>
+                            </div>
+                            <div className='flex flex-column basis-1/2 md:basis-1/3'>
+                                <label className="flex items-center mt-4">
+                                    <input
+                                        type="radio"
+                                        name="employment_classification"
+                                        className=""
+                                        value="Full-time"
+                                        checked={this.state.employment_classification === "Full-time"}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                    <span className="ml-2 text-sm text-gray-600">Full-time</span>
+                                </label>
+                                <label className="flex items-center mt-2">
+                                    <input
+                                        type="radio"
+                                        name="employment_classification"
+                                        className=""
+                                        value="Part-time"
+                                        checked={this.state.employment_classification === "Part-time"}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                    <span className="ml-2 text-sm text-gray-600">Part-time</span>
+                                </label>
+                                <label className="flex items-center mt-2">
+                                    <input
+                                        type="radio"
+                                        name="employment_classification"
+                                        className=""
+                                        value="Contract"
+                                        checked={this.state.employment_classification === "Contract"}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                    <span className="ml-2 text-sm text-gray-600">Contract</span>
+                                </label>
+                            </div>
+                            <div className="basis-full md:basis-1/3 mt-4">
                                 <Label forInput="post_age" value="Age of Job Posting (days)" />
                                 <Input
                                     type="number"
@@ -227,7 +313,9 @@ class NewApplication extends Component {
                                     handleChange={this.handleFieldChange}
                                 />
                             </div>
-                            <div className="basis-full md:basis-1/3 mt-4 md:px-2">
+                        </div>
+                        <div className="flex flex-row flex-wrap">
+                            <div className="basis-full md:basis-1/3 mt-4 md:pr-2">
                                 <Label value="Posted Salary Range (optional)" />
                                 <Input
                                     type="number"
