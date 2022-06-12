@@ -9,18 +9,20 @@ use Illuminate\Http\Request;
 class ApplicationController extends Controller
 {
     private $rules = [
-        'user_id'           => 'required',
-        'position'          => 'required',
-        'company_id'        => 'required',
-        'location_id'       => 'required',
-        'app_zip'           => 'nullable',
-        'job_description'   => 'nullable',
-        'resume_text'       => 'nullable',
-        'coverletter_text'  => 'nullable',
-        'post_age'          => 'nullable',
-        'posted_salary_max' => 'nullable',
-        'posted_salary_min' => 'nullable',
-        'requested_salary'  => 'nullable'
+        'user_id'                   => 'required',
+        'position'                  => 'required',
+        'company_id'                => 'required',
+        'location_id'               => 'required',
+        'app_zip'                   => 'nullable',
+        'job_description'           => 'nullable',
+        'resume_text'               => 'nullable',
+        'coverletter_text'          => 'nullable',
+        'post_age'                  => 'nullable',
+        'posted_salary_max'         => 'nullable',
+        'posted_salary_min'         => 'nullable',
+        'requested_salary'          => 'nullable',
+        'workspace'                 => 'required',
+        'employment_classification' => 'nullable'
     ];
 
     public function index(Request $request)
@@ -56,7 +58,6 @@ class ApplicationController extends Controller
 
     public function update(Request $request, $id)
     {
-        // update application
         $validatedData = $request->validate($this->rules);
         Application::findOrFail($id)->update($validatedData);
 

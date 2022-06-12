@@ -20,7 +20,9 @@ class Application extends Model
         'user_id',
         'posted_salary_max',
         'posted_salary_min',
-        'requested_salary'
+        'requested_salary',
+        'workspace',
+        'employment_classification',
     ];
 
     protected $casts = [
