@@ -39,6 +39,7 @@ class NewApplication extends Component {
             is_loading: true,
             workspace: '',
             employment_classification: '',
+            pay_rate_type: '',
         }
 
         this.handleFieldChange = this.handleFieldChange.bind(this);
@@ -87,6 +88,7 @@ class NewApplication extends Component {
                     applied_at: response.data.applied_at,
                     workspace: response.data.workspace,
                     employment_classification: response.data.employment_classification,
+                    pay_rate_type: response.data.pay_rate_type,
                     is_loading: false
                 });
             });
@@ -129,7 +131,7 @@ class NewApplication extends Component {
             user_id: this.state.user_id,
             workspace: this.state.workspace,
             employment_classification: this.state.employment_classification,
-
+            pay_rate_type: this.state.pay_rate_type
         }
         console.log('NewApplication::handleSubmit', this.state, application);
 
@@ -250,11 +252,11 @@ class NewApplication extends Component {
                                         type="radio"
                                         name="workspace"
                                         className=""
-                                        value="In-person"
-                                        checked={this.state.workspace === "In-person"}
+                                        value="In-office"
+                                        checked={this.state.workspace === "In-office"}
                                         onChange={this.handleFieldChange}
                                     />
-                                    <span className="ml-2 text-sm text-gray-600">In-person</span>
+                                    <span className="ml-2 text-sm text-gray-600">In-office</span>
                                 </label>
                                 <label className="flex items-center mt-2">
                                     <input
@@ -316,34 +318,62 @@ class NewApplication extends Component {
                         </div>
                         <div className="flex flex-row flex-wrap">
                             <div className="basis-full md:basis-1/3 mt-4 md:pr-2">
-                                <Label value="Posted Salary Range (optional)" />
-                                <Input
-                                    type="number"
-                                    name="posted_salary_min"
-                                    placeholder="Minimum"
-                                    value={this.state.posted_salary_min}
-                                    className="mt-1 block w-full"
-                                    handleChange={this.handleFieldChange}
-                                />
-                                <Input
-                                    type="number"
-                                    name="posted_salary_max"
-                                    placeholder="Maximum"
-                                    value={this.state.posted_salary_max}
-                                    className="mt-1 block w-full"
-                                    handleChange={this.handleFieldChange}
-                                />
+                            <label className="flex items-center mt-2">
+                                    <input
+                                        type="radio"
+                                        name="pay_rate_type"
+                                        className=""
+                                        value="Salary"
+                                        checked={this.state.pay_rate_type === "Salary"}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                    <span className="ml-2 text-sm text-gray-600">Salary</span>
+                                </label>
+                                <label className="flex items-center mt-2">
+                                    <input
+                                        type="radio"
+                                        name="pay_rate_type"
+                                        className=""
+                                        value="Hourly"
+                                        checked={this.state.pay_rate_type === "Hourly"}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                    <span className="ml-2 text-sm text-gray-600">Hourly</span>
+                                </label>
                             </div>
-                            <div className="basis-full md:basis-1/3 mt-4 md:pl-2">
-                                <Label forHtml="requested_salary" value="Requested Salary (optional)" />
-                                <Input
-                                    type="number"
-                                    name="requested_salary"
-                                    value={this.state.requested_salary}
-                                    className="mt-1 block w-full"
-                                    handleChange={this.handleFieldChange}
-                                />
-                            </div>
+                            {this.state.pay_rate_type && (
+                                <div className="basis-full md:basis-1/3 mt-4 md:pr-2">
+                                    <Label>Posted {this.state.pay_rate_type} Range (optional)</Label>
+                                    <Input
+                                        type="number"
+                                        name="posted_salary_min"
+                                        placeholder="Minimum"
+                                        value={this.state.posted_salary_min}
+                                        className="mt-1 block w-full"
+                                        handleChange={this.handleFieldChange}
+                                    />
+                                    <Input
+                                        type="number"
+                                        name="posted_salary_max"
+                                        placeholder="Maximum"
+                                        value={this.state.posted_salary_max}
+                                        className="mt-1 block w-full"
+                                        handleChange={this.handleFieldChange}
+                                    />
+                                </div>
+                            )}
+                            {this.state.pay_rate_type && (
+                                <div className="basis-full md:basis-1/3 mt-4 md:pl-2">
+                                    <Label forHtml="requested_salary">Requested {this.state.pay_rate_type} (optional)</Label>
+                                    <Input
+                                        type="number"
+                                        name="requested_salary"
+                                        value={this.state.requested_salary}
+                                        className="mt-1 block w-full"
+                                        handleChange={this.handleFieldChange}
+                                    />
+                                </div>
+                            )}
                         </div>
                         <div className="flex flex-row">
                             <div className="basis-full mt-4">

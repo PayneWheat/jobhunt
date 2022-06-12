@@ -15,7 +15,6 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
-            //$table->string('resume');
             $table->string('position');
             $table->unsignedInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
@@ -23,7 +22,6 @@ class CreateApplicationsTable extends Migration
             $table->foreign('location_id')->references('id')->on('locations');
             $table->text('app_zip')->nullable();
             $table->unsignedInteger('status_id');
-            //$table->foreign('status_id')->references('id')->on('application_statuses');
             $table->unsignedInteger('posted_salary_min')->nullable();
             $table->unsignedInteger('posted_salary_max')->nullable();
             $table->unsignedInteger('requested_salary')->nullable();
@@ -34,14 +32,8 @@ class CreateApplicationsTable extends Migration
             $table->date('applied_at')->nullable();
             $table->text('workspace');
             $table->text('employment_classification')->nullable();
+            $table->text('pay_rate_type');
             $table->timestamps();
-            
-            
-            //$table->foreign('location_id')->references('id')->on('locations');
-            //$table->foreign('application_status_id')->references('id')->on('application_statuses');
-
-
-
         });
     }
 
