@@ -22,7 +22,8 @@ class ApplicationController extends Controller
         'posted_salary_min'         => 'nullable',
         'requested_salary'          => 'nullable',
         'workspace'                 => 'required',
-        'employment_classification' => 'nullable'
+        'employment_classification' => 'nullable',
+        'pay_rate_type'             => 'required'
     ];
 
     public function index(Request $request)
@@ -81,6 +82,7 @@ class ApplicationController extends Controller
     {
         $interviews = Interview::where('application_id', '=', $id)->get();
         $interviews->load('application', 'application.company', 'interview_type');
+        
         return $interviews->toJson();
     }
 }
