@@ -47,8 +47,8 @@ class SalaryPanel extends Component {
             (chartPositions && (application.posted_salary_min != undefined || application.posted_salary_max != undefined || application.requested_salary != undefined)) ? (
                 this.salaryFieldsCount(application) > 1 ? (
                 <div>
-                    <div className="text-lg text-center w-full mb-4 text-gray-700 dark:text-gray-50">
-                        Salary
+                    <div className="text-lg text-center font-bold w-full mb-4 text-gray-700 dark:text-gray-50">
+                        {application.pay_rate_type}
                     </div>
                     <div className="relative h-16 w-full">
                         <div className="relative top-8 z-10 h-2 bg-gray-200 rounded">
