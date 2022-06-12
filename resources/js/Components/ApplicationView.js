@@ -385,6 +385,19 @@ class ApplicationView extends Component {
                             </div>
                         </div>
 
+                        <div className="mt-4">
+                            {application.workspace && (
+                                <span class="px-4 py-2 mr-2 text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">
+                                    {application.workspace}
+                                </span>
+                            )}
+                            {application.employment_classification && (
+                                <span class="px-4 py-2 mr-2 text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">
+                                    {application.employment_classification}
+                                </span>
+                            )}
+                        </div>
+
                         <div className="flex flex-row flex-wrap">
                             <div className="basis-full mt-6 md:pr-2 md:basis-1/3 text-center">
                                 <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800">
