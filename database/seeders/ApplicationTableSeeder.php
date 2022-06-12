@@ -83,7 +83,8 @@ class ApplicationTableSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey(),
             'workspace' => 'Remote',
-            'employment_classification' => 'Full-time'
+            'employment_classification' => 'Full-time',
+            'pay_rate_type' => 'Salary'
         ]);
 
         Application::create([
@@ -103,7 +104,8 @@ class ApplicationTableSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey(),
             'workspace' => 'In-office',
-            'employment_classification' => 'Full-time'
+            'employment_classification' => 'Full-time',
+            'pay_rate_type' => 'Salary'
         ]);
 
         Application::create([
@@ -123,7 +125,8 @@ class ApplicationTableSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey(),
             'workspace' => 'Hybrid',
-            'employment_classification' => 'Full-time'
+            'employment_classification' => 'Full-time',
+            'pay_rate_type' => 'Salary'
         ]);
 
         Application::create([
@@ -143,7 +146,8 @@ class ApplicationTableSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey(),
             'workspace' => 'Hybrid',
-            'employment_classification' => 'Contract'
+            'employment_classification' => 'Contract',
+            'pay_rate_type' => 'Salary'
         ]);
 
         Application::create([
@@ -151,9 +155,9 @@ class ApplicationTableSeeder extends Seeder
             'company_id' => 5,
             'location_id' => 5,
             'status_id' => 4,
-            'posted_salary_min' => 60000,
-            'posted_salary_max' => 70000,
-            'requested_salary' => 70000,
+            'posted_salary_min' => 30,
+            'posted_salary_max' => 35,
+            'requested_salary' => 35,
             'job_description' => $sampleJobDesc,
             'resume_text' => $sampleResume,
             'coverletter_text' => 'Cover letter text should go here. Again, hopefully we can retain some formatting. Eventually implement file support for PDFs as well.',
@@ -163,7 +167,8 @@ class ApplicationTableSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey(),
             'workspace' => 'In-office',
-            'employment_classification' => 'Part-time'
+            'employment_classification' => 'Part-time',
+            'pay_rate_type' => 'Hourly'
         ]);
 
         Application::create([
@@ -181,7 +186,8 @@ class ApplicationTableSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey(),
             'workspace' => 'Remote',
-            'employment_classification' => 'Full-time'
+            'employment_classification' => 'Full-time',
+            'pay_rate_type' => 'Salary'
         ]);
 
         Application::create([
@@ -200,7 +206,8 @@ class ApplicationTableSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey(),
             'workspace' => 'Hybrid',
-            'employment_classification' => 'Full-time'
+            'employment_classification' => 'Full-time',
+            'pay_rate_type' => 'Salary'
         ]);
 
         Application::create([
@@ -220,7 +227,8 @@ class ApplicationTableSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey(),
             'workspace' => 'Hybrid',
-            'employment_classification' => 'Full-time'
+            'employment_classification' => 'Full-time',
+            'pay_rate_type' => 'Salary'
         ]);
 
         Application::create([
@@ -239,7 +247,8 @@ class ApplicationTableSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey(),
             'workspace' => 'In-office',
-            'employment_classification' => 'Full-time'
+            'employment_classification' => 'Full-time',
+            'pay_rate_type' => 'Salary'
         ]);
 
         Application::create([
@@ -259,7 +268,8 @@ class ApplicationTableSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey(),
             'workspace' => 'Remote',
-            'employment_classification' => 'Full-time'
+            'employment_classification' => 'Full-time',
+            'pay_rate_type' => 'Salary'
         ]);
 
         Application::create([
@@ -279,7 +289,8 @@ class ApplicationTableSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey(),
             'workspace' => 'In-office',
-            'employment_classification' => 'Full-time'
+            'employment_classification' => 'Full-time',
+            'pay_rate_type' => 'Salary'
         ]);
 
         Application::create([
@@ -297,7 +308,8 @@ class ApplicationTableSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey(),
             'workspace' => 'Remote',
-            'employment_classification' => 'Full-time'
+            'employment_classification' => 'Full-time',
+            'pay_rate_type' => 'Salary'
         ]);
 
         Application::create([
@@ -316,7 +328,8 @@ class ApplicationTableSeeder extends Seeder
             'user_id' => $user->getKey(),
             'workspace' => 'In-office',
             'workspace' => 'Remote',
-            'employment_classification' => 'Full-time'
+            'employment_classification' => 'Full-time',
+            'pay_rate_type' => 'Salary'
         ]);
 
         Application::create([
@@ -334,7 +347,8 @@ class ApplicationTableSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
             'user_id' => $user->getKey(),
             'workspace' => 'Hybrid',
-            'employment_classification' => 'Full-time'
+            'employment_classification' => 'Full-time',
+            'pay_rate_type' => 'Salary'
         ]);
     }
 }
