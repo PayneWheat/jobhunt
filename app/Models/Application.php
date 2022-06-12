@@ -23,6 +23,7 @@ class Application extends Model
         'requested_salary',
         'workspace',
         'employment_classification',
+        'pay_rate_type'
     ];
 
     protected $casts = [
