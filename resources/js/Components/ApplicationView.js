@@ -132,14 +132,11 @@ class ApplicationView extends Component {
         let appAge = Date.now();
         let t = timestring.split(/[- :T.]/);
         let d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
-        console.log('created at date', t, d, d.getTime(), appAge);
         appAge -= d.getTime();
-        console.log('ms diff', appAge);
         appAge /= 1000;
         appAge /= 60;
         appAge /= 60;
         appAge = Math.floor(appAge / 24);
-        console.log(appAge);
 
         return appAge;
     }
@@ -216,7 +213,6 @@ class ApplicationView extends Component {
                 address: this.state.new_contact.address,
                 company_id: this.state.application.company.id
             }
-            console.log(contact);
     
             axios.post('/api/contacts', contact).then(response => {
                 this.hideContactModal();
@@ -240,7 +236,6 @@ class ApplicationView extends Component {
             }
 
             axios.post('/api/interviews', interview).then(response => {
-                console.log(response);
                 this.hideInterviewModal();
                 // @TODO: figure something better than this out
                 window.location.reload();
