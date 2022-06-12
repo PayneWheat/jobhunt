@@ -81,7 +81,9 @@ class ApplicationTableSeeder extends Seeder
             'applied_at'=> date("Y-m-d", strtotime("-14 days")),
             'created_at' => date("Y-m-d", strtotime("-14 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'Remote',
+            'employment_classification' => 'Full-time'
         ]);
 
         Application::create([
@@ -99,7 +101,9 @@ class ApplicationTableSeeder extends Seeder
             'applied_at'=> date("Y-m-d", strtotime("-13 days")),
             'created_at' => date("Y-m-d", strtotime("-13 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'In-office',
+            'employment_classification' => 'Full-time'
         ]);
 
         Application::create([
@@ -117,7 +121,9 @@ class ApplicationTableSeeder extends Seeder
             'applied_at'=> date("Y-m-d", strtotime("-12 days")),
             'created_at' => date("Y-m-d", strtotime("-12 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'Hybrid',
+            'employment_classification' => 'Full-time'
         ]);
 
         Application::create([
@@ -135,7 +141,9 @@ class ApplicationTableSeeder extends Seeder
             'applied_at'=> date("Y-m-d", strtotime("-11 days")),
             'created_at' => date("Y-m-d", strtotime("-11 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'Hybrid',
+            'employment_classification' => 'Contract'
         ]);
 
         Application::create([
@@ -153,7 +161,9 @@ class ApplicationTableSeeder extends Seeder
             'applied_at'=> date("Y-m-d", strtotime("-10 days")),
             'created_at' => date("Y-m-d", strtotime("-10 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'In-office',
+            'employment_classification' => 'Part-time'
         ]);
 
         Application::create([
@@ -169,7 +179,9 @@ class ApplicationTableSeeder extends Seeder
             'post_age' => 31,
             'created_at' => date("Y-m-d", strtotime("-9 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'Remote',
+            'employment_classification' => 'Full-time'
         ]);
 
         Application::create([
@@ -186,7 +198,9 @@ class ApplicationTableSeeder extends Seeder
             'applied_at'=> date("Y-m-d", strtotime("-8 days")),
             'created_at' => date("Y-m-d", strtotime("-8 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'Hybrid',
+            'employment_classification' => 'Full-time'
         ]);
 
         Application::create([
@@ -204,7 +218,9 @@ class ApplicationTableSeeder extends Seeder
             'applied_at'=> date("Y-m-d", strtotime("-7 days")),
             'created_at' => date("Y-m-d", strtotime("-7 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'Hybrid',
+            'employment_classification' => 'Full-time'
         ]);
 
         Application::create([
@@ -221,7 +237,9 @@ class ApplicationTableSeeder extends Seeder
             'applied_at'=> date("Y-m-d", strtotime("-6 days")),
             'created_at' => date("Y-m-d", strtotime("-6 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'In-office',
+            'employment_classification' => 'Full-time'
         ]);
 
         Application::create([
@@ -239,7 +257,9 @@ class ApplicationTableSeeder extends Seeder
             'applied_at'=> date("Y-m-d", strtotime("-5 days")),
             'created_at' => date("Y-m-d", strtotime("-5 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'Remote',
+            'employment_classification' => 'Full-time'
         ]);
 
         Application::create([
@@ -257,7 +277,9 @@ class ApplicationTableSeeder extends Seeder
             'applied_at'=> date("Y-m-d", strtotime("-4 days")),
             'created_at' => date("Y-m-d", strtotime("-4 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'In-office',
+            'employment_classification' => 'Full-time'
         ]);
 
         Application::create([
@@ -273,7 +295,9 @@ class ApplicationTableSeeder extends Seeder
             'applied_at'=> date("Y-m-d", strtotime("-3 days")),
             'created_at' => date("Y-m-d", strtotime("-3 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'Remote',
+            'employment_classification' => 'Full-time'
         ]);
 
         Application::create([
@@ -289,7 +313,10 @@ class ApplicationTableSeeder extends Seeder
             'applied_at'=> date("Y-m-d", strtotime("-2 days")),
             'created_at' => date("Y-m-d", strtotime("-2 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'In-office',
+            'workspace' => 'Remote',
+            'employment_classification' => 'Full-time'
         ]);
 
         Application::create([
@@ -305,7 +332,9 @@ class ApplicationTableSeeder extends Seeder
             'applied_at'=> date("Y-m-d", strtotime("-1 days")),
             'created_at' => date("Y-m-d", strtotime("-1 days")),
             'updated_at' => date("Y-m-d H:i:s"),
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'workspace' => 'Hybrid',
+            'employment_classification' => 'Full-time'
         ]);
     }
 }
