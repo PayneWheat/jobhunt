@@ -262,7 +262,7 @@
         "faye-websocket": "^0.11.3",
         "figures": "^3.2.0",
         "file-loader": "^6.2.0",
-        "file-type": "^12.4.2",
+        "file-type": "^16.5.4",
         "fill-range": "^4.0.0",
         "finalhandler": "^1.1.2",
         "find-cache-dir": "^3.3.1",
