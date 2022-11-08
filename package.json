@@ -398,7 +398,7 @@
         "klona": "^2.0.4",
         "lines-and-columns": "^1.1.6",
         "loader-runner": "^4.2.0",
-        "loader-utils": "^1.4.0",
+        "loader-utils": "^1.4.1",
         "locate-path": "^5.0.0",
         "lodash-es": "^4.17.21",
         "lodash.debounce": "^4.0.8",
