@@ -192,7 +192,7 @@
         "csstype": "^3.0.7",
         "d": "^1.0.1",
         "debug": "^4.3.1",
-        "decode-uri-component": "^0.2.0",
+        "decode-uri-component": "^0.2.1",
         "deep-equal": "^1.1.1",
         "deepmerge": "^2.2.1",
         "default-gateway": "^6.0.3",
