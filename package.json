@@ -250,7 +250,7 @@
         "evp_bytestokey": "^1.0.3",
         "execa": "^5.0.0",
         "expand-brackets": "^2.1.4",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "ext": "^1.4.0",
         "extend-shallow": "^3.0.2",
         "extglob": "^2.0.4",
